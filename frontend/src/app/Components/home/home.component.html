@@ -1,0 +1,20 @@
+<h1> Bienvenid@ a TECAir! </h1>
+<h5>Su aerolínea en línea</h5>
+<h4> Seleccione la zona de origen </h4>
+<div class="container mt-5">
+    <ng-select class="desplegable" [items]="origen" [(ngModel)]="selectedOption">
+    </ng-select>
+    
+</div>
+
+<h4> Seleccione la zona de destino </h4>
+<div class="container mt-5">
+    <ng-select class="desplegable" [items]="destino" [(ngModel)]="selectedOption">
+    </ng-select>
+    
+</div>
+  
+
+<button class="btn btn-primary button">Volver</button>
+
+<button class="btn btn-primary button">Continuar</button>
