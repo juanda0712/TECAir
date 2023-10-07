@@ -37,6 +37,12 @@ h1{
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
 }
 
+h2{
+  position: relative;
+  top: 10px;
+  left: 15px;
+}
+
 h5{
   color: #1746a2;
   position: relative;
