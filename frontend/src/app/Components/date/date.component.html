@@ -1,0 +1,41 @@
+<h4> Seleccione la fecha de partida </h4>
+
+<form>
+    <!-- Selector para el día -->
+    <select name="day" class="selectDate">
+      <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+    </select>
+    
+    <!-- Selector para el mes -->
+    <select name="month" class="selectDate">
+      <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+    </select>
+    
+    <!-- Selector para el año -->
+    <select name="year" class="selectDate">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+  </form>
+  
+<h4> Seleccione la fecha de regreso </h4>
+
+<form>
+    <!-- Selector para el día -->
+    <select name="day" class="selectDate">
+      <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+    </select>
+    
+    <!-- Selector para el mes -->
+    <select name="month" class="selectDate">
+      <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+    </select>
+    
+    <!-- Selector para el año -->
+    <select name="year" class="selectDate">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+  </form>
+
+<button class="btn btn-primary button" (click)="goBack()">Volver</button>
+
+<button class="btn btn-primary button" (click)="seeFlights()">Ver vuelos</button>

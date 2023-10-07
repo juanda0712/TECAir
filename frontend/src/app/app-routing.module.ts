@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './Components/home/home.component';
+import { DateComponent } from './Components/date/date.component';
 
 export const routes: Routes = [
   {
@@ -8,6 +9,11 @@ export const routes: Routes = [
     component: HomeComponent,
     title: 'Home',
   },
+  {
+    path: 'date',
+    component: DateComponent,
+    title: 'Fechas'
+  }
 
 ];
 
