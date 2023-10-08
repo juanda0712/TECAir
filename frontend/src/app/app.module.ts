@@ -7,12 +7,18 @@ import { AppComponent } from './app.component';
 import { TestComponent } from './Components/test/test.component';
 import { NavBarComponent } from './Components/Reusables/nav-bar/nav-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './Components/login/login.component';
+import { ContactComponent } from './Components/contact/contact.component';
+import { PromotionsComponent } from './Components/promotions/promotions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoginComponent,
+    ContactComponent,
+    PromotionsComponent
   ],
   imports: [
     BrowserModule,

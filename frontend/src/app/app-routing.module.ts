@@ -4,6 +4,9 @@ import { HomeComponent } from './Components/home/home.component';
 import { DateComponent } from './Components/date/date.component';
 import { FlightComponent } from './Components/flight/flight.component';
 import { BookingComponent } from './Components/booking/booking.component';
+import { LoginComponent } from './Components/login/login.component';
+import { PromotionsComponent } from './Components/promotions/promotions.component';
+import { ContactComponent } from './Components/contact/contact.component';
 
 export const routes: Routes = [
   {
@@ -22,10 +25,27 @@ export const routes: Routes = [
     title: 'Vuelos'
   },
   {
+    path: 'app-contact',
+    component: ContactComponent,
+    title: 'Contacto'
+  },
+  {
     path: 'booking',
     component: BookingComponent,
     title: 'Reservar'
-  }
+  },
+  {
+    path: 'app-promotions',
+    component: PromotionsComponent,
+    title: 'Promos'
+  },
+  {
+    path: 'app-login',
+    component: LoginComponent,
+    title: 'Sesion',
+  },
+
+
 
 ];
 
