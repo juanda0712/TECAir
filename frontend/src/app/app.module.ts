@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './Components/login/login.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { PromotionsComponent } from './Components/promotions/promotions.component';
+import { NewAccountComponent } from './Components/new-account/new-account.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PromotionsComponent } from './Components/promotions/promotions.componen
     NavBarComponent,
     LoginComponent,
     ContactComponent,
-    PromotionsComponent
+    PromotionsComponent,
+    NewAccountComponent
   ],
   imports: [
     BrowserModule,

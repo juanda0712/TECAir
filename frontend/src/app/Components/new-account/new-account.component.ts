@@ -4,20 +4,14 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-new-account',
+  templateUrl: './new-account.component.html',
+  styleUrls: ['./new-account.component.css']
 })
-export class LoginComponent {
+export class NewAccountComponent {
   constructor(private router: Router) { }
-
-  newAccount() {
-    this.router.navigate(['/app-new-account']);
-  }
-
-  goBack() {
+  submit() {
     this.router.navigate(['/']);
   }
-
 
 }

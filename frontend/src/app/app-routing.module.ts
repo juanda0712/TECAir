@@ -7,6 +7,8 @@ import { BookingComponent } from './Components/booking/booking.component';
 import { LoginComponent } from './Components/login/login.component';
 import { PromotionsComponent } from './Components/promotions/promotions.component';
 import { ContactComponent } from './Components/contact/contact.component';
+import { NewAccountComponent } from './Components/new-account/new-account.component';
+
 
 export const routes: Routes = [
   {
@@ -44,6 +46,12 @@ export const routes: Routes = [
     component: LoginComponent,
     title: 'Sesion',
   },
+  {
+    path: 'app-new-account',
+    component: NewAccountComponent,
+    title: 'Cuenta',
+  },
+
 
 
 
