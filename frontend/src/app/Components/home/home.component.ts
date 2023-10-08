@@ -3,12 +3,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms'; 
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   standalone: true,
-  imports: [NgSelectModule, FormsModule, RouterOutlet, RouterLink],
+  imports: [NgSelectModule, FormsModule, RouterOutlet, RouterLink, CarouselModule],
   styleUrls: ['../../../../src/styles.css']
 })
 export class HomeComponent {

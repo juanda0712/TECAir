@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './Components/home/home.component';
 import { DateComponent } from './Components/date/date.component';
 import { FlightComponent } from './Components/flight/flight.component';
+import { BookingComponent } from './Components/booking/booking.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    title: 'Home',
+    title: 'Inicio',
   },
   {
     path: 'date',
@@ -19,6 +20,11 @@ export const routes: Routes = [
     path: 'flights',
     component: FlightComponent,
     title: 'Vuelos'
+  },
+  {
+    path: 'booking',
+    component: BookingComponent,
+    title: 'Reservar'
   }
 
 ];

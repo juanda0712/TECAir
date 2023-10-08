@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestComponent } from './Components/test/test.component';
 import { NavBarComponent } from './Components/Reusables/nav-bar/nav-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavBarComponent } from './Components/Reusables/nav-bar/nav-bar.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

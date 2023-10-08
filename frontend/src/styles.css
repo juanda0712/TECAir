@@ -26,14 +26,10 @@
 /* Cambia la posición del encabezado a absoluta y ajusta las coordenadas */
 h4{
     position: relative;
-    top: 20px; /* Ajusta la distancia desde la parte superior */
-    left: 30px; /* Ajusta la distancia desde la izquierda */
   }
 
 h1{
   position: relative;
-  top: 10px;
-  left: 10px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
 }
 
@@ -60,6 +56,13 @@ h5{
   color:#1746a2;
   font-weight: bold;
 }
+
+/* Cambia el tamaño del contenedor del carousel */
+.carousel.slide {
+  width: 80%; /* Ancho deseado */
+  height: 80%; /* Altura deseada */
+}
+
   
 
   

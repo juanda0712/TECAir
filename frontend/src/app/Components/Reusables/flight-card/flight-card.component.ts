@@ -12,5 +12,9 @@ import { RouterOutlet, RouterLink } from '@angular/router';
   styleUrls: ['./flight-card.component.css']
 })
 export class FlightCardComponent {
+  constructor(private router: Router) { }
 
+  booking() {
+    this.router.navigate(['/booking']);
+  }
 }
