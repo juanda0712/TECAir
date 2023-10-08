@@ -19,10 +19,10 @@ import { NewAccountComponent } from './Components/new-account/new-account.compon
     NavBarComponent,
     LoginComponent,
     ContactComponent,
-    PromotionsComponent,
     NewAccountComponent
   ],
   imports: [
+    //PromotionsComponent
     BrowserModule,
     AppRoutingModule,
     NgbModule,
