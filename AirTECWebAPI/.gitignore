@@ -1,0 +1,72 @@
+# Carpeta .vs de Visual Studio
+.vs/
+
+
+
+# Carpeta bin generada al compilar
+bin/
+
+
+# Carpeta obj generada al compilar
+obj/
+
+
+# Carpeta de resultados de pruebas
+TestResults/
+
+# Carpetas de usuario y caché de Visual Studio
+[Dd]ebug/
+[Rr]elease/
+[Ii]nfo/
+[Bb]in/
+[Oo]bj/
+[Tt]est[Rr]esults/
+
+# Archivos temporales de compilación
+*.[Oo][Bb][Jj]
+*.[Ll][Oo][Gg]
+*.[Bb][Ii][Nn]
+*.[Dd][Ll][Ll]
+
+# Carpeta de caché de NuGet
+packages/
+
+# Archivos y carpetas de Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Carpeta de usuario de JetBrains Rider
+.idea/
+
+# Archivos de configuración de usuario de Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Carpeta de caché de IntelliSense de Visual Studio
+ipch/
+
+# Carpeta de respaldo de Visual Studio
+[Bb]ackup/
+
+# Carpeta de historial de Visual Studio
+[Hh]istory/
+
+# Carpeta de capturas de pantalla de Visual Studio
+*.psess
+
+# Archivos de solución de Visual Studio
+*.sln
+
+# Carpeta de datos de usuario de Visual Studio CodeLens
+.vscode-codelens/
+
+# Carpeta de datos de usuario de Visual Studio Test Explorer
+TestResults/
+
+# Carpeta de configuración de CodeRush
+_CodeRush/
+
+# Carpeta de proyectos locales de Visual Studio (obsoleta en VS2019 y versiones posteriores)
+[VisualS]*.suo
