@@ -1,11 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Login" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.TECAir" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Login" parent="Base.Theme.Login" />
+    <style name="Theme.TECAir" parent="Base.Theme.TECAir" />
 
     <style name="custom_card_view_style" parent="Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/custom_card_view</item>
@@ -21,6 +21,4 @@
         <item name="cornerSizeBottomLeft">0dp</item>>
 
     </style>
-
 </resources>
-
