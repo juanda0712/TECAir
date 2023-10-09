@@ -26,7 +26,7 @@
 .btn-group {
     display: flex;
     justify-content: center ;
-    color: #ff731d;
+    color: #5f9cf7;
 
 }
 
@@ -40,6 +40,9 @@
 .btn-outline-blue:hover {
     background-color: #5f9cf7; /* Color de fondo al pasar el cursor en naranja */
     color: #fff; /* Color del texto al pasar el cursor en blanco */
+}
+.btn-outline-blue:checked {
+    background-color: #5f9cf7;
 }
 
 .input-group.flex-nowrap {
