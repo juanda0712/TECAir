@@ -12,6 +12,7 @@ import { AirLoginComponent } from './Airport-view/air-login/air-login.component'
 import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-account.component';
 import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
 import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
+import { AirHomeComponent } from './Airport-view/air-home/air-home.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +54,11 @@ export const routes: Routes = [
     path: 'app-new-account',
     component: NewAccountComponent,
     title: 'Cuenta',
+  },
+  {
+    path: 'air-home',
+    component: AirHomeComponent,
+    title: 'AirHome'
   },
   {
     path: 'app-air-login',
