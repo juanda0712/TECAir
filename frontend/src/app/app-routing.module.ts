@@ -8,6 +8,8 @@ import { LoginComponent } from './Components/login/login.component';
 import { PromotionsComponent } from './Components/promotions/promotions.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { NewAccountComponent } from './Components/new-account/new-account.component';
+import { AirLoginComponent } from './Airport-view/air-login/air-login.component';
+import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-account.component';
 
 
 export const routes: Routes = [
@@ -50,6 +52,16 @@ export const routes: Routes = [
     path: 'app-new-account',
     component: NewAccountComponent,
     title: 'Cuenta',
+  },
+  {
+    path: 'app-air-login',
+    component: AirLoginComponent,
+    title: 'AirSesion',
+  },
+  {
+    path: 'app-air-new-account',
+    component: AirNewAccountComponent,
+    title: 'AirCuenta',
   },
 
 
