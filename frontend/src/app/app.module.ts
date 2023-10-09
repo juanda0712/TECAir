@@ -13,6 +13,7 @@ import { PromotionsComponent } from './Components/promotions/promotions.componen
 import { NewAccountComponent } from './Components/new-account/new-account.component';
 import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-account.component';
 import { AirLoginComponent } from './Airport-view/air-login/air-login.component';
+import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,11 @@ import { AirLoginComponent } from './Airport-view/air-login/air-login.component'
     ContactComponent,
     NewAccountComponent,
     AirNewAccountComponent,
-    AirLoginComponent
+    AirLoginComponent,
+
   ],
   imports: [
+    //AirFlightComponent
     //PromotionsComponent
     BrowserModule,
     AppRoutingModule,
