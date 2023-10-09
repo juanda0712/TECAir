@@ -11,6 +11,7 @@ import { NewAccountComponent } from './Components/new-account/new-account.compon
 import { AirLoginComponent } from './Airport-view/air-login/air-login.component';
 import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-account.component';
 import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
+import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
 
 export const routes: Routes = [
   {
@@ -67,6 +68,11 @@ export const routes: Routes = [
     path: 'app-air-flight',
     component: AirFlightComponent,
     title: 'AirVuelos',
+  },
+  {
+    path: 'app-air-booking',
+    component: AirBookingComponent,
+    title: 'AirReservas',
   },
 
 

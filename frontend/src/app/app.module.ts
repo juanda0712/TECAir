@@ -14,6 +14,7 @@ import { NewAccountComponent } from './Components/new-account/new-account.compon
 import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-account.component';
 import { AirLoginComponent } from './Airport-view/air-login/air-login.component';
 import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
+import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AirFlightComponent } from './Airport-view/air-flight/air-flight.compone
     NewAccountComponent,
     AirNewAccountComponent,
     AirLoginComponent,
+    AirBookingComponent,
 
   ],
   imports: [

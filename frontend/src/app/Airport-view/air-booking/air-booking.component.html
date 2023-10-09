@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Personalización de vuelo</h5>
+
+        <p class="card-text">¿En que clase desea viajar?</p>
+        <div class="btn-group" role="group" aria-label="Opciones">
+            <input type="radio" class="btn-check" name="opcion" id="opcion1" autocomplete="off">
+            <label class="btn btn-outline-blue" for="opcion1">Economía</label>
+
+            <input type="radio" class="btn-check" name="opcion" id="opcion2" autocomplete="off">
+            <label class="btn btn-outline-blue" for="opcion2">Luxury</label>
+
+            <input type="radio" class="btn-check" name="opcion" id="opcion3" autocomplete="off">
+            <label class="btn btn-outline-blue" for="opcion3">Buisiness</label>
+        </div>
+
+        <p class="card-text">¿Desea adquirir una poliza de seguridad?</p>
+        <div class="btn-group" role="group" aria-label="Opciones">
+            <input type="radio" class="btn-check" name="opcion" id="opcion1" autocomplete="off">
+            <label class="btn btn-outline-blue" for="opcion1">Quiero la poliza</label>
+
+            <input type="radio" class="btn-check" name="opcion" id="opcion2" autocomplete="off">
+            <label class="btn btn-outline-blue" for="opcion2">No, asumo el riesgo</label>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Información de pago (Tarjeta) </h5>
+
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Propietari@</span>
+            <input type="text" class="form-control" placeholder="Nombre Apellido" aria-label="Name"
+                aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Número de tarjeta</span>
+            <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX" aria-label="CardNum"
+                aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">CVV</span>
+            <input type="text" class="form-control" placeholder="000" aria-label="cvv"
+                aria-describedby="addon-wrapping">
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center">
+    <button class="btn btn-primary button" (click)="goBack()">Volver</button>
+    <button class="btn btn-primary button">Comprar</button>
+
+</div>
