@@ -13,6 +13,7 @@ import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-a
 import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
 import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
 import { AirHomeComponent } from './Airport-view/air-home/air-home.component';
+import { CheckInComponent } from './Airport-view/check-in/check-in.component';
 
 export const routes: Routes = [
   {
@@ -80,6 +81,11 @@ export const routes: Routes = [
     component: AirBookingComponent,
     title: 'AirReservas',
   },
+  {
+    path: 'check-in',
+    component: CheckInComponent,
+    title: 'ChequeoPasajeros'
+  }
 
 
 

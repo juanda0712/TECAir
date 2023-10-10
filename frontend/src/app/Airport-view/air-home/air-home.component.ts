@@ -20,4 +20,8 @@ export class AirHomeComponent {
       this.router.navigate(['/']);
     }
 
+    checkIn(){
+      this.router.navigate(['/check-in']);
+    }
+
 }
