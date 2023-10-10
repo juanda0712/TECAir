@@ -24,4 +24,8 @@ export class AirHomeComponent {
       this.router.navigate(['/check-in']);
     }
 
+    luggage(){
+      this.router.navigate(['/luggage'])
+    }
+
 }

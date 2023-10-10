@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h3 style="position: relative; top: 20px; margin: 20px; margin-bottom: 3%;">Chequeo de maletas</h3>
+  
+        <form (submit)="addLuggage()">
+          <div class="mb-3">
+            <label for="dueno" class="form-label">Dueño de la Maleta</label>
+            <input type="text" id="dueno" class="form-control" placeholder="Nombre Apellido" [(ngModel)]="nuevaMaleta.dueno" required>
+          </div>
+          <div class="mb-3">
+            <label for="numeroMaleta" class="form-label">Número de Maleta</label>
+            <input type="number" id="numeroMaleta" class="form-control" placeholder="000" [(ngModel)]="nuevaMaleta.numeroMaleta" required>
+          </div>
+          <div class="mb-3">
+            <label for="peso" class="form-label">Peso de la Maleta (kg)</label>
+            <input type="number" id="peso" class="form-control" placeholder="0" [(ngModel)]="nuevaMaleta.peso" required>
+          </div>
+          <div class="mb-3">
+            <label for="color" class="form-label">Color de la Maleta</label>
+            <input type="text" id="color" class="form-control" placeholder="blue" [(ngModel)]="nuevaMaleta.color" required>
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Agregar Maleta</button>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h4 class="card-title">Información sobre el equipaje 🧳</h4>
+            <p class="card-text">Costo de las maletas por pasajer@</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"> <strong>1 maleta:</strong> 0$</li>
+                <li class="list-group-item"> <strong>2 maletas:</strong> 50$ adicionales</li>
+                <li class="list-group-item"><strong>3 o más maletas:</strong> 75$ adicionales por maleta</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

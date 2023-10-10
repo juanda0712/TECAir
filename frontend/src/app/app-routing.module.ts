@@ -14,6 +14,7 @@ import { AirFlightComponent } from './Airport-view/air-flight/air-flight.compone
 import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
 import { AirHomeComponent } from './Airport-view/air-home/air-home.component';
 import { CheckInComponent } from './Airport-view/check-in/check-in.component';
+import { LuggageComponent } from './Airport-view/luggage/luggage.component';
 
 export const routes: Routes = [
   {
@@ -85,6 +86,11 @@ export const routes: Routes = [
     path: 'check-in',
     component: CheckInComponent,
     title: 'ChequeoPasajeros'
+  },
+  {
+    path: 'luggage',
+    component: LuggageComponent,
+    title: 'ChequeoMaletas'
   }
 
 
