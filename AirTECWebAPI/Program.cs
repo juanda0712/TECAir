@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using AirTECWebAPI.Models;
 
 namespace AirTECWebAPI
 {
@@ -13,6 +15,8 @@ namespace AirTECWebAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<BdAirTecContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BdAirTecContext")));
 
             var app = builder.Build();
 

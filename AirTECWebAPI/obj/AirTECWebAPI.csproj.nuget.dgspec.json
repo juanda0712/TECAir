@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\AirTECWebAPI\\AirTECWebAPI.csproj": {}
+    "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\TECAir\\AirTECWebAPI\\AirTECWebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\AirTECWebAPI\\AirTECWebAPI.csproj": {
+    "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\TECAir\\AirTECWebAPI\\AirTECWebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\AirTECWebAPI\\AirTECWebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\TECAir\\AirTECWebAPI\\AirTECWebAPI.csproj",
         "projectName": "AirTECWebAPI",
-        "projectPath": "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\AirTECWebAPI\\AirTECWebAPI.csproj",
+        "projectPath": "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\TECAir\\AirTECWebAPI\\AirTECWebAPI.csproj",
         "packagesPath": "C:\\Users\\JuanDa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\AirTECWebAPI\\obj\\",
+        "outputPath": "C:\\Users\\JuanDa\\Documents\\SEMESTRES\\2023 IIS\\Bases de Datos\\proyecto1\\TECAir\\AirTECWebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JuanDa\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,6 +43,24 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[7.0.9, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.11, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
