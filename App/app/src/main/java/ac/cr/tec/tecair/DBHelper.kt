@@ -20,8 +20,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val Col_1 = DBContract.UserEntry.COLUMN_CEDULA
         val Col_2 = DBContract.UserEntry.COLUMN_NOMBRE
-        val Col_3 = DBContract.UserEntry.COLUMN_APELLIDO1
-        val Col_4 = DBContract.UserEntry.COLUMN_APELLIDO2
+        val Col_3 = DBContract.UserEntry.COLUMN_APELLIDO1//apellido[0]
+        val Col_4 = DBContract.UserEntry.COLUMN_APELLIDO2 //apellido[1]
         val Col_5 = DBContract.UserEntry.COLUMN_TEL
         val Col_6 = DBContract.UserEntry.COLUMN_CORREO
         val Col_7 = DBContract.UserEntry.COLUMN_TIPO

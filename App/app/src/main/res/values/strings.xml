@@ -21,6 +21,12 @@
     <string name="error_message_password">Enter Password</string>
     <string name="success_message">Registration Successful</string>
     <string name="error_email_exists">Email Already Exists</string>
+    <string name="hint_numpass">Numero de pasajeros</string>
+    <string name="hint_date">dd/mm/aaaa</string>
+    <string name="text_promos">Promociones</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

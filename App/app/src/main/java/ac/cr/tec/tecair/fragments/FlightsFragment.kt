@@ -6,55 +6,77 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ac.cr.tec.tecair.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import ac.cr.tec.tecair.DatabaseHelper
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FlightsFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class FlightsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var viewOfLayout: View
+    private lateinit var airports: MutableList<String>
+    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_flights, container, false)
+        viewOfLayout = inflater.inflate(R.layout.fragment_flights, container, false)
+        databaseHelper = DatabaseHelper(requireActivity())
+        airports = mutableListOf<String>()
+
+        val ap1 = Aeropuerto(3564, "AeroJachudo","Buenos Aires", "Argentina")
+        databaseHelper.addAP(ap1)
+        val ap2 = Aeropuerto(4985, "PaloRalo","Sydney", "Australia")
+        databaseHelper.addAP(ap2)
+
+        consultarAP()
+
+
+
+        val spinOrigen = viewOfLayout.findViewById<Spinner>(R.id.origen)
+        spinOrigen?.adapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, airports) as SpinnerAdapter
+        spinOrigen.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                Toast.makeText(context, "Origen es: " + airports[p2], Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        val spinDestino = viewOfLayout.findViewById<Spinner>(R.id.destino)
+        spinDestino?.adapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, airports) as SpinnerAdapter
+        spinDestino.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                Toast.makeText(context, "Destino es: " + airports[p2], Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+
+
+
+        return viewOfLayout
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FlightsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FlightsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    //Consulta Aeropuerto
+    private fun consultarAP() {
+
+
+        val db = databaseHelper.readableDatabase
+        val cursor = db.rawQuery("select * from " + DBContract.AeropuertoEntry.TABLE_NAME, null)
+
+        while (cursor.moveToNext()){
+            var ap = Aeropuerto(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3))
+
+            airports.add(ap.ciudad + ", " + ap.pais)
+        }
     }
+
+
 }
