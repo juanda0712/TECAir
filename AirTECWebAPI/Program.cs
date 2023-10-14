@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using AirTECWebAPI.Models;
 
 namespace AirTECWebAPI
 {
@@ -14,6 +16,8 @@ namespace AirTECWebAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<BdAirTecContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BdAirTecContext")));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -22,6 +26,14 @@ namespace AirTECWebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors(options =>
+            {
+                options
+              .AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+
+            });
 
             app.UseHttpsRedirection();
 
