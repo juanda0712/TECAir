@@ -1,5 +1,5 @@
-﻿using AirTECWebAPI.Models;
-using AirTECWebAPI.Models.DTO;
+﻿using AirTECWebAPI.DTOModels.Flight;
+using AirTECWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,14 +35,14 @@ namespace AirTECWebAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieves a specific flight by its unique identifier.
+        /// Retrieves a specific flight by its unique identifier (Number).
         /// </summary>
-        /// <param name="id">The unique identifier of the flight.</param>
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FlightDTO>> GetFlight(int id)
+        /// <param name="number">The unique identifier (Number) of the flight.</param>
+        [HttpGet("{number}")]
+        public async Task<ActionResult<FlightDTO>> GetFlight(int number)
         {
             var flight = await _bdAirTecContext.Flights
-                .Where(f => f.Number == id)
+                .Where(f => f.Number == number)
                 .Select(f => new FlightDTO
                 {
                     Number = f.Number,
@@ -82,23 +82,23 @@ namespace AirTECWebAPI.Controllers
                 Destination = flight.Destination
             };
 
-            return CreatedAtAction("GetFlight", new { id = flight.Number }, createdFlightDTO);
+            return CreatedAtAction("GetFlight", new { number = flight.Number }, createdFlightDTO);
         }
 
         /// <summary>
-        /// Updates an existing flight by its unique identifier.
+        /// Updates an existing flight by its unique identifier (Number).
         /// </summary>
-        /// <param name="id">The unique identifier of the flight to update.</param>
+        /// <param name="number">The unique identifier (Number) of the flight to update.</param>
         /// <param name="flightDTO">The FlightDTO containing updated flight details.</param>
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFlight(int id, FlightDTO flightDTO)
+        [HttpPut("{number}")]
+        public async Task<IActionResult> PutFlight(int number, FlightDTO flightDTO)
         {
-            if (id != flightDTO.Number)
+            if (number != flightDTO.Number)
             {
                 return BadRequest();
             }
 
-            var flight = await _bdAirTecContext.Flights.FindAsync(id);
+            var flight = await _bdAirTecContext.Flights.FindAsync(number);
 
             if (flight == null)
             {
@@ -117,7 +117,7 @@ namespace AirTECWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FlightExists(id))
+                if (!FlightExists(number))
                 {
                     return NotFound();
                 }
@@ -130,15 +130,14 @@ namespace AirTECWebAPI.Controllers
             return NoContent();
         }
 
-
         /// <summary>
-        /// Deletes a specific flight by its unique identifier.
+        /// Deletes a specific flight by its unique identifier (Number).
         /// </summary>
-        /// <param name="id">The unique identifier of the flight to delete.</param>
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFlight(int id)
+        /// <param name="number">The unique identifier (Number) of the flight to delete.</param>
+        [HttpDelete("{number}")]
+        public async Task<IActionResult> DeleteFlight(int number)
         {
-            var flight = await _bdAirTecContext.Flights.FindAsync(id);
+            var flight = await _bdAirTecContext.Flights.FindAsync(number);
 
             if (flight == null)
             {
@@ -151,9 +150,9 @@ namespace AirTECWebAPI.Controllers
             return NoContent();
         }
 
-        private bool FlightExists(int id)
+        private bool FlightExists(int number)
         {
-            return _bdAirTecContext.Flights.Any(e => e.Number == id);
+            return _bdAirTecContext.Flights.Any(e => e.Number == number);
         }
     }
 }

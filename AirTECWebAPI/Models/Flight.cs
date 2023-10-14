@@ -11,7 +11,11 @@ public partial class Flight
 
     public string? Destination { get; set; }
 
+    public virtual Airport? DestinationNavigation { get; set; }
+
     public virtual ICollection<Execution> Executions { get; set; } = new List<Execution>();
 
     public virtual ICollection<Layover> Layovers { get; set; } = new List<Layover>();
+
+    public virtual Airport? OriginNavigation { get; set; }
 }

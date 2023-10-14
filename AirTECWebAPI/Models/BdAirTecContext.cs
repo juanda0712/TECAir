@@ -15,7 +15,11 @@ public partial class BdAirTecContext : DbContext
     {
     }
 
+    public virtual DbSet<Airport> Airports { get; set; }
+
     public virtual DbSet<Execution> Executions { get; set; }
+
+    public virtual DbSet<ExecutionLayover> ExecutionLayovers { get; set; }
 
     public virtual DbSet<Flight> Flights { get; set; }
 
@@ -45,6 +49,16 @@ public partial class BdAirTecContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Airport>(entity =>
+        {
+            entity.HasKey(e => e.Name).HasName("AIRPORT_pkey");
+
+            entity.ToTable("AIRPORT");
+
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.City).HasMaxLength(60);
+        });
+
         modelBuilder.Entity<Execution>(entity =>
         {
             entity.HasKey(e => e.Idexecution).HasName("EXECUTION_pkey");
@@ -64,6 +78,16 @@ public partial class BdAirTecContext : DbContext
                 .HasConstraintName("fk_execution_plane");
         });
 
+        modelBuilder.Entity<ExecutionLayover>(entity =>
+        {
+            entity.HasKey(e => new { e.Idlayover, e.Idexecution }).HasName("EXECUTION_LAYOVER_pkey");
+
+            entity.ToTable("EXECUTION_LAYOVER");
+
+            entity.Property(e => e.Idlayover).HasColumnName("IDLayover");
+            entity.Property(e => e.Idexecution).HasColumnName("IDExecution");
+        });
+
         modelBuilder.Entity<Flight>(entity =>
         {
             entity.HasKey(e => e.Number).HasName("FLIGHT_pkey");
@@ -72,19 +96,40 @@ public partial class BdAirTecContext : DbContext
 
             entity.Property(e => e.Destination).HasMaxLength(50);
             entity.Property(e => e.Origin).HasMaxLength(50);
+
+            entity.HasOne(d => d.DestinationNavigation).WithMany(p => p.FlightDestinationNavigations)
+                .HasForeignKey(d => d.Destination)
+                .HasConstraintName("fk_flightdestination_airport");
+
+            entity.HasOne(d => d.OriginNavigation).WithMany(p => p.FlightOriginNavigations)
+                .HasForeignKey(d => d.Origin)
+                .HasConstraintName("fk_flightorigin_airport");
         });
 
         modelBuilder.Entity<Layover>(entity =>
         {
-            entity.HasKey(e => e.Name).HasName("LAYOVER_pkey");
+            entity.HasKey(e => e.Idlayover).HasName("LAYOVER_pkey");
 
             entity.ToTable("LAYOVER");
 
-            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Idlayover).HasColumnName("IDLayover");
+            entity.Property(e => e.Destination).HasMaxLength(50);
+            entity.Property(e => e.Origin).HasMaxLength(50);
+
+            entity.HasOne(d => d.DestinationNavigation).WithMany(p => p.LayoverDestinationNavigations)
+                .HasForeignKey(d => d.Destination)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_layoverdestination_airport");
 
             entity.HasOne(d => d.NumberFlightNavigation).WithMany(p => p.Layovers)
                 .HasForeignKey(d => d.NumberFlight)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_layover_flight");
+
+            entity.HasOne(d => d.OriginNavigation).WithMany(p => p.LayoverOriginNavigations)
+                .HasForeignKey(d => d.Origin)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_layoverorigin_airport");
         });
 
         modelBuilder.Entity<Passenger>(entity =>
@@ -136,7 +181,7 @@ public partial class BdAirTecContext : DbContext
 
             entity.HasOne(d => d.IduserNavigation).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.Iduser)
-                .HasConstraintName("fk_reservation_user");
+                .HasConstraintName("fk_reservation_passenger"); 
         });
 
         modelBuilder.Entity<Seat>(entity =>

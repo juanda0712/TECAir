@@ -5,9 +5,17 @@ namespace AirTECWebAPI.Models;
 
 public partial class Layover
 {
-    public string Name { get; set; } = null!;
+    public int Idlayover { get; set; }
 
-    public int? NumberFlight { get; set; }
+    public int NumberFlight { get; set; }
 
-    public virtual Flight? NumberFlightNavigation { get; set; }
+    public string Origin { get; set; } = null!;
+
+    public string Destination { get; set; } = null!;
+
+    public virtual Airport DestinationNavigation { get; set; } = null!;
+
+    public virtual Flight NumberFlightNavigation { get; set; } = null!;
+
+    public virtual Airport OriginNavigation { get; set; } = null!;
 }
