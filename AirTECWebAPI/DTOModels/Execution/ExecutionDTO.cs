@@ -9,6 +9,7 @@ namespace AirTECWebAPI.DTOModels.Execution
     {
         public int? Idexecution { get; set; }
         public int? NumberFlight { get; set; }
+        public string PlateNumber { get; set; }
         public DateOnly? Date { get; set; }
 
         //HH:mm:ss
@@ -24,3 +25,4 @@ namespace AirTECWebAPI.DTOModels.Execution
         
     }
 }
+

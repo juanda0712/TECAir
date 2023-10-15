@@ -50,6 +50,7 @@ namespace AirTECWebAPI.Controllers
             {
                 Idexecution = execution.Idexecution,
                 NumberFlight = execution.NumberFlight,
+                PlateNumber = execution.PlateNumber,
                 Date = execution.Date,
                 DepartureTime = execution.DepartureTime,
                 Price = execution.Price,
@@ -72,6 +73,7 @@ namespace AirTECWebAPI.Controllers
             var newExecution = new Execution
             {
                 NumberFlight = executionDTO.NumberFlight,
+                PlateNumber = executionDTO.PlateNumber,
                 Date = executionDTO.Date,
                 DepartureTime = executionDTO.DepartureTime,
                 Price = executionDTO.Price,
@@ -87,6 +89,7 @@ namespace AirTECWebAPI.Controllers
             {
                 Idexecution = newExecution.Idexecution,
                 NumberFlight = newExecution.NumberFlight,
+                PlateNumber = newExecution.PlateNumber,
                 Date = newExecution.Date,
                 DepartureTime = newExecution.DepartureTime,
                 Price = newExecution.Price,
@@ -113,6 +116,7 @@ namespace AirTECWebAPI.Controllers
 
             // Actualiza las propiedades del objeto Execution con los valores del DTO
             existingExecution.NumberFlight = executionDTO.NumberFlight;
+            existingExecution.PlateNumber = executionDTO.PlateNumber;
             existingExecution.Date = executionDTO.Date;
             existingExecution.DepartureTime = executionDTO.DepartureTime;
             existingExecution.Price = executionDTO.Price;
