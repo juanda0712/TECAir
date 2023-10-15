@@ -96,5 +96,71 @@ namespace AirTECWebAPI.Controllers
 
             return CreatedAtAction("GetExecutionByCriteria", new { date = newExecution.Date }, createdExecutionDTO);
         }
+
+        [HttpPut("UpdateExecution/{id}")]
+        public async Task<ActionResult<ExecutionDTO>> UpdateExecution(int id, ExecutionDTO executionDTO)
+        {
+            if (id != executionDTO.Idexecution)
+            {
+                return BadRequest("El ID de ejecución en el cuerpo de la solicitud no coincide con el ID de la URL.");
+            }
+
+            var existingExecution = await _bdAirTecContext.Executions.FindAsync(id);
+            if (existingExecution == null)
+            {
+                return NotFound("No se encontró la ejecución con el ID especificado.");
+            }
+
+            // Actualiza las propiedades del objeto Execution con los valores del DTO
+            existingExecution.NumberFlight = executionDTO.NumberFlight;
+            existingExecution.Date = executionDTO.Date;
+            existingExecution.DepartureTime = executionDTO.DepartureTime;
+            existingExecution.Price = executionDTO.Price;
+            existingExecution.Status = executionDTO.Status;
+            existingExecution.BoardingDoor = executionDTO.BoardingDoor;
+
+            _bdAirTecContext.Entry(existingExecution).State = EntityState.Modified;
+
+            try
+            {
+                await _bdAirTecContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ExecutionExists(id))
+                {
+                    return NotFound("La ejecución con el ID especificado ya no existe.");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool ExecutionExists(int id)
+        {
+            return _bdAirTecContext.Executions.Any(e => e.Idexecution == id );
+        }
+
+        [HttpDelete("DeleteExecution/{id}")]
+        public async Task<ActionResult<ExecutionDTO>> DeleteExecution(int id)
+        {
+            var execution = await _bdAirTecContext.Executions.FindAsync(id);
+            if (execution == null)
+            {
+                return NotFound("No se encontró la ejecución con el ID especificado.");
+            }
+
+            _bdAirTecContext.Executions.Remove(execution);
+            await _bdAirTecContext.SaveChangesAsync();
+
+            // Puedes devolver una confirmación o cualquier otra información necesaria
+            return Ok("La ejecución con el ID especificado ha sido eliminada.");
+        }
     }
+
+
 }
