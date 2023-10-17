@@ -2,27 +2,22 @@
 <h5>Su aerolínea en línea</h5>
 <h4 style="top: 20px; left: 30px"> Seleccione la zona de origen </h4>
 <div class="container mt-5">
-  <select class="form-select" aria-label="Seleccione una zona de origen" (change)="onOrigenChange($event)">
-    <option *ngFor="let city of branchList">
-      {{ city }}
-    </option>
-  </select>
+    <ng-select class="desplegable" [items]="origen" [(ngModel)]="selectedOption">
+    </ng-select>
 
 </div>
 
 <h4 style="top: 20px; left: 30px"> Seleccione la zona de destino </h4>
 <div class="container mt-5">
-  <select class="form-select" aria-label="Seleccione una zona de destino" (change)="onDestinoChange($event)">
-    <option *ngFor="let city of branchList">
-      {{ city }}
-    </option>
-  </select>
+    <ng-select class="desplegable" [items]="destino" [(ngModel)]="selectedOption">
+    </ng-select>
 
 </div>
 
 <div class="d-flex justify-content-center align-items-center">
-  <button class="btn btn-primary button" href="date">Continuar</button>
+    <button class="btn btn-primary button" (click)="selectDate()">Continuar</button>
 </div>
+
 <!--<div class="d-flex justify-content-center align-items-center">
     <div id="carouselExample" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
