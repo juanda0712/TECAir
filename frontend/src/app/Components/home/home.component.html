@@ -1,22 +1,50 @@
-<h1 style="top: 10px;left: 10px;"> Bienvenid@ a TECAir! </h1>
+<!-- <h1 style="top: 10px; left: 10px">Bienvenid@ a TECAir!</h1>
 <h5>Su aerolínea en línea</h5>
-<h4 style="top: 20px; left: 30px"> Seleccione la zona de origen </h4>
+<h4 style="top: 20px; left: 30px">Seleccione la zona de origen</h4>
 <div class="container mt-5">
-    <ng-select class="desplegable" [items]="origen" [(ngModel)]="selectedOption">
-    </ng-select>
-
+  <ng-select
+    class="desplegable"
+    [items]="locationsList"
+    [(ngModel)]="selectedOption"
+  >
+  </ng-select>
 </div>
-
-<h4 style="top: 20px; left: 30px"> Seleccione la zona de destino </h4>
 <div class="container mt-5">
-    <ng-select class="desplegable" [items]="destino" [(ngModel)]="selectedOption">
-    </ng-select>
+  <ng-select
+    class="desplegable"
+    [items]="locationsList"
+    [(ngModel)]="selectedOption"
+  >
+  </ng-select>
+</div> -->
 
-</div>
+<form [formGroup]="homeForm" (ngSubmit)="selectDate()">
+  <label for="nombreSucursal">Seleccionar Origen:</label>
+  <select id="origin" class="form-control" formControlName="origin">
+    <option value="" disabled selected>Seleccionar Origen</option>
+    <option *ngFor="let location of locationsList" [value]="location.name">
+      {{ location.name }} ({{ location.city }})
+    </option>
+  </select>
+  <label for="nombreSucursal">Seleccionar Destino:</label>
+  <select id="destination" class="form-control" formControlName="destination">
+    <option value="" disabled selected>Seleccionar Destino</option>
+    <option *ngFor="let location of locationsList" [value]="location.name">
+      {{ location.name }} ({{ location.city }})
+    </option>
+  </select>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" [disabled]="!homeForm.valid">
+      Continuar
+    </button>
+  </div>
+</form>
 
-<div class="d-flex justify-content-center align-items-center">
-    <button class="btn btn-primary button" (click)="selectDate()">Continuar</button>
-</div>
+<!-- <div class="d-flex justify-content-center align-items-center">
+  <button class="btn btn-primary button" (click)="selectDate()">
+    Continuar
+  </button>
+</div> -->
 
 <!--<div class="d-flex justify-content-center align-items-center">
     <div id="carouselExample" class="carousel slide" data-ride="carousel">

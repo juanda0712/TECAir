@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestComponent } from './Components/test/test.component';
 import { NavBarComponent } from './Components/Reusables/nav-bar/nav-bar.component';
@@ -15,9 +15,12 @@ import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-a
 import { AirLoginComponent } from './Airport-view/air-login/air-login.component';
 import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
 import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
+    routingComponents, //esta es la variable que se exporta de app-routing, por eso no hay que importar los componentes aca
     AppComponent,
     TestComponent,
     NavBarComponent,
@@ -27,18 +30,18 @@ import { AirBookingComponent } from './Airport-view/air-booking/air-booking.comp
     AirNewAccountComponent,
     AirLoginComponent,
     AirBookingComponent,
-
   ],
   imports: [
-    //AirFlightComponent
-    //PromotionsComponent
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgSelectModule,
     AppRoutingModule,
+    HttpClientModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
