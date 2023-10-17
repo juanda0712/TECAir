@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import ac.cr.tec.tecair.R
 import ac.cr.tec.tecair.DatabaseHelper
+import ac.cr.tec.tecair.models.Airport
 
 /**
  * A simple [Fragment] subclass.
@@ -25,9 +26,9 @@ class FlightsFragment : Fragment() {
         databaseHelper = DatabaseHelper(requireActivity())
         airports = mutableListOf<String>()
 
-        val ap1 = Aeropuerto(3564, "AeroJachudo","Buenos Aires", "Argentina")
+        val ap1 = Airport(3564, "AeroJachudo","Buenos Aires", "Argentina")
         databaseHelper.addAP(ap1)
-        val ap2 = Aeropuerto(4985, "PaloRalo","Sydney", "Australia")
+        val ap2 = Airport(4985, "PaloRalo","Sydney", "Australia")
         databaseHelper.addAP(ap2)
 
         consultarAP()
@@ -72,7 +73,7 @@ class FlightsFragment : Fragment() {
         val cursor = db.rawQuery("select * from " + DBContract.AeropuertoEntry.TABLE_NAME, null)
 
         while (cursor.moveToNext()){
-            var ap = Aeropuerto(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3))
+            var ap = Airport(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3))
 
             airports.add(ap.ciudad + ", " + ap.pais)
         }

@@ -63,7 +63,7 @@
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/edit_text_background"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
@@ -73,21 +73,21 @@
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <EditText
-                android:id="@+id/et_lname"
+                android:id="@+id/et_ID"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_background"
-                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawableLeft="@drawable/baseline_person_outline_24"
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/colorTema2"
                 android:ems="10"
-                android:hint="@string/hint_lname"
+                android:hint="@string/hint_ID"
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +109,7 @@
                 android:padding="8dp"
                 android:inputType="phone"
                 android:hint="@string/hint_phone"
-                app:layout_constraintTop_toBottomOf="@+id/et_lname"/>
+                app:layout_constraintTop_toBottomOf="@+id/et_ID"/>
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
@@ -154,7 +154,7 @@
                 android:ems="10"
                 android:padding="8dp"
                 android:inputType="number"
-                android:text="@string/hint_ID"
+                android:text="@string/hint_collegeID"
                 app:layout_constraintTop_toBottomOf="@+id/editTextText"
                 tools:layout_editor_absoluteX="74dp" />
 
