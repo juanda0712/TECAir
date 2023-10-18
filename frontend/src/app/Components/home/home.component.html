@@ -32,14 +32,14 @@
 
 <form [formGroup]="homeForm" (ngSubmit)="selectDate()">
   <label for="nombreSucursal">Seleccionar Origen:</label>
-  <select id="origin" class="form-control" formControlName="origin">
+  <select id="origin" class="form-control" formControlName="origin" [(ngModel)]="selectedOrigin">
     <option value="" disabled selected>Seleccionar Origen</option>
     <option *ngFor="let location of locationsList" [value]="location.name">
       {{ location.name }} ({{ location.city }})
     </option>
   </select>
   <label for="nombreSucursal">Seleccionar Destino:</label>
-  <select id="destination" class="form-control" formControlName="destination">
+  <select id="destination" class="form-control" formControlName="destination" [(ngModel)]="selectedDestination">
     <option value="" disabled selected>Seleccionar Destino</option>
     <option *ngFor="let location of locationsList" [value]="location.name">
       {{ location.name }} ({{ location.city }})

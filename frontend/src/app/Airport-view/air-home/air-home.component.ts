@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -14,18 +14,15 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 })
 export class AirHomeComponent {
 
-    constructor(private router: Router) { }
+  constructor(private router: Router) { }
 
-    search() {
-      this.router.navigate(['/']);
-    }
+  search() {
+    this.router.navigate(['/']);
+  }
 
-    checkIn(){
-      this.router.navigate(['/check-in']);
-    }
+  checkIn() {
+    this.router.navigate(['/check-in']);
+  }
 
-    luggage(){
-      this.router.navigate(['/luggage'])
-    }
 
 }

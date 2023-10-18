@@ -16,13 +16,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FlightComponent {
   flights: Flight[] = [];
+  selectedOrigin: any;
+  selectedDestination: any;
   selectedDate: any;
 
   constructor(private api: ApiService<Flight>, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.selectedDate = this.route.snapshot.params['selectedDate'];
-    this.api.getAll('Flight').subscribe( //Servicio para obtener los vuelos por fecha, origen y destino
+    this.route.params.subscribe(params => {
+      this.selectedDate = params['selectedDate'];
+      this.selectedOrigin = params['selectedOrigin'];
+      this.selectedDestination = params['selectedDestination'];
+    });
+    this.api.getByThreeIds('Flight', this.selectedDate, this.selectedOrigin, this.selectedDestination).subscribe( //Servicio para obtener los vuelos por fecha, origen y destino
       (flights: Flight[]) => {
         console.log(flights);
         this.flights = flights;

@@ -23,12 +23,12 @@ export const routes: Routes = [
     title: 'Inicio',
   },
   {
-    path: 'date',
+    path: 'date/:selectedOrigin/:selectedDestination',
     component: DateComponent,
     title: 'Fechas',
   },
   {
-    path: 'flights',
+    path: 'flights/:selectedDate/:selectedOrigin/:selectedDestination',
     component: FlightComponent,
     title: 'Vuelos',
   },
@@ -98,7 +98,7 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
 
 //en esta lista deben poner todos los componentes
 //de las rutas (solo puse HomeComponent) porque fue el unico que toque

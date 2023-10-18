@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   locationsList: Airport[] = [];
   selectedOption: any;
   homeForm: FormGroup;
+  selectedOrigin: any;
+  selectedDestination: any;
 
   constructor(
     private api: ApiService<Airport>,
@@ -40,6 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectDate() {
-    this.router.navigate(['/date']);
+    this.router.navigate(['/date', this.selectedOrigin, this.selectedDestination]);
   }
+
 }
