@@ -1,4 +1,4 @@
-﻿using AirTECWebAPI.DTOModels.Flight;
+﻿using AirTECWebAPI.DTOModels.Layover;
 using AirTECWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
