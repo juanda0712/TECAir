@@ -1,4 +1,4 @@
-﻿namespace AirTECWebAPI.DTOModels.Flight
+﻿namespace AirTECWebAPI.DTOModels.Layover
 {
     public class LayoverDTO
     {
