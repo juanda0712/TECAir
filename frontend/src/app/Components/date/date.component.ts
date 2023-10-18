@@ -50,7 +50,7 @@ export class DateComponent {
   }
 
   seeFlights() {
-    this.selectedDate = new Date(this.selectedYear, this.selectedMonth, this.selectedDay);
+    this.selectedDate = new Date(this.selectedDay, this.selectedMonth, this.selectedYear);
     this.router.navigate(['/flight', this.selectedDate, this.selectedOrigin, this.selectedDestination]);
     console.log(this.selectedDay, this.selectedMonth, this.selectedYear);
   }
