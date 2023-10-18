@@ -18,6 +18,27 @@ namespace AirTECWebAPI.Controllers
             _bdAirTecContext = bdAirTecContext;
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ExecutionDTO>>> GetExecutions()
+        {
+            var executions = await _bdAirTecContext.Executions
+                .Select(a => new ExecutionDTO
+            {
+                Idexecution = a.Idexecution,
+                NumberFlight = a.NumberFlight,
+                PlateNumber = a.PlateNumber,
+                Date = a.Date,
+                DepartureTime = a.DepartureTime,
+                Price = a.Price,
+                Status = a.Status,
+                BoardingDoor = a.BoardingDoor
+            })
+                .ToListAsync();
+
+            return executions;
+        }
+
         [HttpGet("GetExecutionByCriteria")]
         public async Task<ActionResult<ExecutionDTO>> GetExecutionByCriteria(string origin, string destination, DateOnly date)
         {
