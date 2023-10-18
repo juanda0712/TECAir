@@ -4,9 +4,14 @@ export class Airport {
 }
 
 export class Flight {
-  // Define las propiedades de la clase Flight si es necesario
+  number?: number;
+  origin?: string;
+  destination?: string;
 }
 
 export class Layover {
-  // Define las propiedades de la clase Layover si es necesario
+  idlayover?: number;
+  numberFlight?: number;
+  origin?: string;
+  destination?: string;
 }

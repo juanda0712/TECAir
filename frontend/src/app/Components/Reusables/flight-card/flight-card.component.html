@@ -2,17 +2,15 @@
     <div class="card" style="width: 100%;">
         <img src="../../../../assets/TAlogo.jpg" class="card-img-top">
         <div class="card-body">
-            <h5 class="card-title"> Vuelo : Numero del vuelo </h5>
-            <p class="card-text"> Origen: lugarOrigen -> Destino : lugarDestino </p>
+            <h5 class="card-title"> Vuelo : {{ flight.number }} </h5>
+            <p style="font-size: 30px;" class="card-text"> Origen: {{ flight.origin }} ➡️ Destino: {{
+                flight.destination}} </p>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Día de partida: dia/mes/año </li>
-            <li class="list-group-item">Día de regreso: dia/mes/año</li>
-        </ul>
+
         <div class="card-body">
-                <button class="btn btn-secondary me-md-2 button" type="button" (click)="booking()">
-                    Reservar
-                </button>
+            <button class="btn btn-secondary me-md-2 button" type="button" (click)="booking()">
+                Reservar
+            </button>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<h2 style="font-weight: bold;">Vuelos disponibles</h2>
+<h2 style="font-weight: bold;">Vuelos disponibles para la fecha {{ this.selectedDate }}</h2>
 <div class="d-flex flex-column gap-5">
-    <app-flight-card></app-flight-card>
+    <app-flight-card *ngFor="let flight of flights" [flight]="flight"></app-flight-card>
 </div>
