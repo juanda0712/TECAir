@@ -25,7 +25,7 @@ namespace AirTECWebAPI.Controllers
                 .Select(r => new ReservationDTO
                 {
                     Idreservation = r.Idreservation,
-                    Iduser = r.Iduser,
+                    Idpassenger = r.Idpassenger,
                     Idexecution = r.Idexecution
                 })
                 .ToListAsync();
@@ -42,7 +42,7 @@ namespace AirTECWebAPI.Controllers
             .Select(r => new ReservationDTO
             {
                 Idreservation = r.Idreservation,
-                Iduser = r.Iduser,
+                Idpassenger = r.Idpassenger,
                 Idexecution = r.Idexecution
             })
             .FirstOrDefaultAsync();
@@ -61,7 +61,7 @@ namespace AirTECWebAPI.Controllers
     {
         var reservation = new Reservation
         {
-            Iduser = reservationDTO.Iduser,
+            Idpassenger = reservationDTO.Idpassenger,
             Idexecution = reservationDTO.Idexecution
         };
 
@@ -88,7 +88,7 @@ namespace AirTECWebAPI.Controllers
             return NotFound();
         }
 
-        reservation.Iduser = reservationDTO.Iduser;
+        reservation.Idpassenger = reservationDTO.Idpassenger;
         reservation.Idexecution = reservationDTO.Idexecution;
 
         _bdAirTecContext.Entry(reservation).State = EntityState.Modified;
