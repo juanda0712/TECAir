@@ -13,12 +13,19 @@
         android:layout_height="550dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="0.39"
-        app:srcCompat="@drawable/extendido"
-        tools:layout_editor_absoluteY="-175dp" />
+        app:srcCompat="@drawable/extendido" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.50" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -39,7 +46,8 @@
         app:cornerRadius="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorTema2" />
+        app:tint="@color/colorTema2"
+        android:contentDescription="Go Back"/>
 
     <TextView
         android:id="@+id/textView"
@@ -76,6 +84,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_text_background"
                 android:drawableLeft="@drawable/baseline_email_24"
                 android:drawablePadding="8dp"
@@ -93,6 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_text_background"
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"

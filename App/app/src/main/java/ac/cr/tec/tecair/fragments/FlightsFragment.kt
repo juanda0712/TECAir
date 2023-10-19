@@ -7,7 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import ac.cr.tec.tecair.R
 import ac.cr.tec.tecair.DatabaseHelper
+import ac.cr.tec.tecair.DBContract
 import ac.cr.tec.tecair.models.Airport
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
+import android.widget.AdapterView
 
 /**
  * A simple [Fragment] subclass.
@@ -26,58 +31,46 @@ class FlightsFragment : Fragment() {
         databaseHelper = DatabaseHelper(requireActivity())
         airports = mutableListOf<String>()
 
-        val ap1 = Airport(3564, "AeroJachudo","Buenos Aires", "Argentina")
-        databaseHelper.addAP(ap1)
-        val ap2 = Airport(4985, "PaloRalo","Sydney", "Australia")
-        databaseHelper.addAP(ap2)
+        val ap1 = Airport("SJO", "San José")
+        databaseHelper.addAirport(ap1)
 
         consultarAP()
 
-
-
         val spinOrigen = viewOfLayout.findViewById<Spinner>(R.id.origen)
-        spinOrigen?.adapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, airports) as SpinnerAdapter
-        spinOrigen.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinOrigen?.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, airports)
+        spinOrigen.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 Toast.makeText(context, "Origen es: " + airports[p2], Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                // Implement this method if needed
             }
         }
 
         val spinDestino = viewOfLayout.findViewById<Spinner>(R.id.destino)
-        spinDestino?.adapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, airports) as SpinnerAdapter
-        spinDestino.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinDestino?.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, airports)
+        spinDestino.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 Toast.makeText(context, "Destino es: " + airports[p2], Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                // Implement this method if needed
             }
         }
-
-
-
 
         return viewOfLayout
     }
 
-    //Consulta Aeropuerto
+    // Consulta Aeropuerto
     private fun consultarAP() {
-
-
         val db = databaseHelper.readableDatabase
-        val cursor = db.rawQuery("select * from " + DBContract.AeropuertoEntry.TABLE_NAME, null)
+        val cursor = db.rawQuery("select * from " + DBContract.AirportEntry.TABLE_NAME, null)
 
-        while (cursor.moveToNext()){
-            var ap = Airport(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3))
-
-            airports.add(ap.ciudad + ", " + ap.pais)
+        while (cursor.moveToNext()) {
+            var ap = Airport(cursor.getString(0), cursor.getString(1))
+            airports.add(ap.name + ", " + ap.city)
         }
     }
-
-
 }

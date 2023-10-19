@@ -12,5 +12,6 @@
     <color name="colorFuente">#fff7e9</color>
     <color name="colorTema1">#5f9df7</color>
     <color name="colorTema2">#1746A2</color>
+    <color name="colorTextHint">#1746A2</color>
 
 </resources>

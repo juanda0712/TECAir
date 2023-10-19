@@ -173,8 +173,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val COL_TAXES = DBContract.TicketEntry.COLUMN_TAX
         val COL_TOTAL = DBContract.TicketEntry.COLUMN_TOTAL
 
-
-
         private val SQL_CREATE_TICKETTABLE =
             "CREATE TABLE $TICKETTABLE_NAME (" +
                     "$COL_TICKETID INTEGER PRIMARY KEY," +

@@ -26,8 +26,14 @@
     <string name="text_promos">Promociones</string>
 
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_flights">Vuelos</string>
+    <string name="hint_codigo">codigo(cambiar)\n</string>
+    <string name="hint_descuento">descuento(cambiar)\n</string>
+    <string name="hint_vencimiento">vencimiento(cambiar)\n</string>
+    <string name="hint_costo">costo(cambiar)\n</string>
+    <string name="hint_estado">estado(cambiar)</string>
+    <string name="hint_id">id(cambiar)\n</string>
 
 </resources>

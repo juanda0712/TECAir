@@ -8,6 +8,7 @@ import ac.cr.tec.tecair.databinding.ActivityMainBinding
 import android.widget.EditText
 import android.view.View
 import android.widget.Toast
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Thread.sleep(3000)
+        installSplashScreen()
+        setContentView(R.layout.activity_splash_screen)
+
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //init UI
