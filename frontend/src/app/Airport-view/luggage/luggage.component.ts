@@ -1,7 +1,4 @@
-import { NgModule } from '@angular/core';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/Services/api-service';
@@ -9,6 +6,7 @@ import { Flight } from 'src/app/Interfaces/airport';
 import { Component } from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Alignment } from 'pdfmake/interfaces';
 
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
@@ -16,22 +14,37 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 @Component({
   selector: 'luggage',
   templateUrl: './luggage.component.html',
-  styleUrls: ['../../../../src/styles.css'],
+  styleUrls: ['./luggage.component.css'],
 })
 
 export class LuggageComponent {
 
-  constructor(
-    private api: ApiService<Flight>, 
-    private router: Router,  
-    private route: ActivatedRoute) { }
-
   nuevaMaleta: any = {}; 
   maletas: any[] = [];
+  owner: any;
+  number: any;
+  weight: any;
+  color: any;
   flightID: any;
   flight: any;
   origin: any;
   destination: any;
+  luggageForm: FormGroup;
+
+  constructor(
+    private api: ApiService<Flight>, 
+    private router: Router,  
+    private route: ActivatedRoute,
+    private fb: FormBuilder) {
+      
+    this.luggageForm = this.fb.group({
+      owner: [''],
+      number: [''],
+      weight: [''],
+      color: ['']
+    });
+
+    }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -41,31 +54,43 @@ export class LuggageComponent {
     this.api.getById('Flight', this.flightID).subscribe(
       (flight: Flight[]) => {
         this.flight = flight;
+        this.origin = this.flight.origin;
+        this.destination = this.flight.destination;
       },
       (error: any) => {
         console.error('Error fetching locations:', error);
       }
     );
-
-    this.origin = this.flight.origin;
-    this.destination = this.flight.destination;
   }
 
   addLuggage() {
+
+    this.nuevaMaleta = {
+      owner: this.owner,
+      number: this.number,
+      weight: this.weight,
+      color: this.color
+    }
     this.maletas.push(this.nuevaMaleta);
-    this.nuevaMaleta = {};
+    console.log("Se agrego la maleta: ", this.nuevaMaleta)
+    this.nuevaMaleta = {}; 
+
+    console.log("maletas", this.maletas)
   }
 
   generatePDF() {
+    console.log(this.maletas);
+
     const docDefinition = {
       content: [
-        { text: 'Tickete de abordaje', style: 'titulo' },
-        { text: 'TECAir', style: 'subtitulo' },
-        'Numero de vuelo: ${this.flightID}',
-        'Origen: ${this.origin}',
-        'Destino: ${this.destination}'
-      ],
+        { text: 'Ticket de abordaje', style: 'titulo', bold: true, fontSize: 30, color: '#1746a2'},
+        { text: 'TECAir', style: 'subtitulo', bold: true, fontSize: 20, margins: 50 },
+        `Número de vuelo: ${this.flightID}`,
+        `Origen: ${this.origin}`,
+        `Destino: ${this.destination}`
+      ], 
     };
+  
 
     pdfMake.createPdf(docDefinition).open();
   }

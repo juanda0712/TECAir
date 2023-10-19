@@ -19,7 +19,11 @@
 
 .card {
     position: relative;
-    top: 50px;
-    left: 0px;
+}
 
+.page-title {
+    position: relative; 
+    top: 20px; 
+    margin-bottom: 30px;
+    margin-left: 15px;
 }
