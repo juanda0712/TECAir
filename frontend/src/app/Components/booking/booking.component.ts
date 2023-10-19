@@ -22,10 +22,6 @@ export class BookingComponent {
     this.router.navigate(['/flights']);
   }
 
-  buy() {
-    this.showDialog();
-  }
-
   showDialog() {
     this.visibleDialog = true;
   }
