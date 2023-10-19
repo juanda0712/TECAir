@@ -6,16 +6,17 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'air-home',
+  selector: 'check-in',
   templateUrl: './check-in.component.html',
   standalone: true,
   imports: [NgSelectModule, FormsModule, RouterOutlet, RouterLink, CommonModule],
   styleUrls: ['./check-in.component.css']
 })
 export class CheckInComponent {
-  selectedSeats: string[] = [];
 
+  selectedSeats: string[] = [];
   cellColors: { [key: string]: string } = {};
+  flightID: any;
 
   constructor(private router: Router) { }
 
@@ -26,32 +27,34 @@ export class CheckInComponent {
     this.cols = Array.from({ length: this.numCols }, (_, i) => i + 1);
   }
 
-  numRows: number = 20; // Número de filas predeterminado
-  numCols: number = 6; // Número de columnas predeterminado
+  numRows: number = 20; // Número de filas 
+  numCols: number = 6; // Número de columnas 
 
   rows: string[] = [];
   cols: number[] = [];
 
   cellClicked(row: string, col: number) {
-    console.log(`Celda clickeada: Fila ${row}, Columna ${col}`);
 
     const cellKey = row + col;
     this.cellColors[cellKey] = this.cellColors[cellKey] === '#5f9cf7' ? '' : '#5f9cf7';
 
+    console.log(`Asiento (${row}-${col}) tiene color: ${this.cellColors[cellKey]}`);
 
-    //Guardar los asientos seleccionados
     const asiento = `${row}-${col}`;
+    let isSelected = false; 
 
     // Verificar si el asiento ya ha sido seleccionado visualmente
-    const isSelected = this.cellColors[asiento] === '#5f9cf7';
+    if (this.cellColors[cellKey] == '#5f9cf7') {
+      isSelected = true;
+    }
 
     if (isSelected) {
-      // Si el asiento está seleccionado visualmente, guardarlo
+      console.log("se agrego:", asiento);     // Si el asiento está seleccionado visualmente, guardarlo
       if (!this.selectedSeats.includes(asiento)) {
         this.selectedSeats.push(asiento);
       }
-    } else {
-      // Si el asiento no está seleccionado visualmente, eliminarlo si existe
+    } else {     // Si el asiento no está seleccionado visualmente, eliminarlo si existe
+      console.log("se elimino:", asiento);
       const index = this.selectedSeats.indexOf(asiento);
       if (index !== -1) {
         this.selectedSeats.splice(index, 1);
@@ -60,6 +63,7 @@ export class CheckInComponent {
   }
 
   luggage() {
+    console.log(this.selectedSeats);
     this.router.navigate(['/luggage'])
   }
 }

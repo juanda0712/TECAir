@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExecutionComponent } from './Components/execution/execution.component';
 import { ExecutionCardComponent } from './Components/Reusables/execution-card/execution-card.component';
 import { FlightManagementComponent } from './Airport-view/flight-management/flight-management.component';
+import { LuggageComponent } from './Airport-view/luggage/luggage.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { FlightManagementComponent } from './Airport-view/flight-management/flig
     ExecutionComponent,
     ExecutionCardComponent,
     FlightManagementComponent,
+    LuggageComponent,
   ],
   imports: [
     BrowserModule,
