@@ -9,8 +9,6 @@
       [(ngModel)]="selectedOrigin"
     >
       <option value="" disabled selected>Seleccionar Origen</option>
-      <option value="opcion2">Opción 2</option>
-      <option value="opcion3">Opción 3</option>
       <option *ngFor="let location of locationsList" [value]="location.name">
         {{ location.name }} ({{ location.city }})
       </option>
@@ -24,12 +22,9 @@
     [(ngModel)]="selectedLayover"
   >
     <option value="" disabled selected>Seleccionar Escala</option>
-    <option value="opcion1">Opción 1</option>
-    <option value="opcion2">Opción 2</option>
-    <option value="opcion3">Opción 3</option>
-    <!--<option *ngFor="let location of locationsList" [value]="location.name">
+    <option *ngFor="let location of locationsList" [value]="location.name">
       {{ location.name }} ({{ location.city }})
-    </option>-->
+    </option>
   </select>
     <button class="btn btn-primary" (click)="addLayover()">Agregar Escala</button>
 
@@ -42,8 +37,6 @@
       [(ngModel)]="selectedDestination"
     >
       <option value="" disabled selected>Seleccionar Destino</option>
-      <option value="opcion2">Opción 2</option>
-      <option value="opcion3">Opción 3</option>
       <option *ngFor="let location of locationsList" [value]="location.name">
         {{ location.name }} ({{ location.city }})
       </option>

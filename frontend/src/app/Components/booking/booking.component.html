@@ -51,6 +51,15 @@
 
 <div class="d-flex justify-content-center align-items-center">
   <button class="btn btn-primary button" (click)="goBack()">Volver</button>
-  <button class="btn btn-primary button">Comprar</button>
+  <button class="btn btn-primary button" (click)="showDialog()"> Comprar</button>
 
+</div>
+
+<div class="dialog-overlay" (click)="closeDialog()">
+  <div class="dialog-box">
+    <span class="close-button" (click)="closeDialog()">&times;</span>
+    <h2>Identificador de vuelo</h2>
+    <p>El número identificador de su vuelo es: </p>
+    <button (click)="closeDialog()">Cerrar</button>
+  </div>
 </div>

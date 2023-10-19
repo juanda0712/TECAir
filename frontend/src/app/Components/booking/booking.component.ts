@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'booking',
   templateUrl: './booking.component.html',
@@ -15,7 +16,21 @@ import { Router } from '@angular/router';
 export class BookingComponent {
   constructor(private router: Router) { }
 
+  visibleDialog = false;
+
   goBack() {
     this.router.navigate(['/flights']);
+  }
+
+  buy() {
+    this.showDialog();
+  }
+
+  showDialog() {
+    this.visibleDialog = true;
+  }
+
+  closeDialog() {
+    this.visibleDialog = false;
   }
 }
