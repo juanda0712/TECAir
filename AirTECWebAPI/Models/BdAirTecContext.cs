@@ -86,6 +86,16 @@ public partial class BdAirTecContext : DbContext
 
             entity.Property(e => e.Idlayover).HasColumnName("IDLayover");
             entity.Property(e => e.Idexecution).HasColumnName("IDExecution");
+
+            entity.HasOne(el => el.LayoverNavigation)
+                .WithMany()
+                .HasForeignKey(el => el.Idlayover)
+                .HasConstraintName("fk_execution_layover_layover");
+
+            entity.HasOne(el => el.ExecutionNavigation)
+                .WithMany()
+                .HasForeignKey(el => el.Idexecution)
+                .HasConstraintName("fk_execution_layover_execution");
         });
 
         modelBuilder.Entity<Flight>(entity =>

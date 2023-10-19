@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AirTECWebAPI.Models;
+﻿namespace AirTECWebAPI.Models;
 
 public partial class ExecutionLayover
 {
@@ -10,4 +7,7 @@ public partial class ExecutionLayover
     public int Idexecution { get; set; }
 
     public int Price { get; set; }
+
+    public virtual Layover? LayoverNavigation { get; set; }
+    public virtual Execution? ExecutionNavigation { get; set; }
 }

@@ -121,7 +121,7 @@ namespace AirTECWebAPI.Controllers
             return CreatedAtAction("GetExecutionByCriteria", new { date = newExecution.Date }, createdExecutionDTO);
         }
 
-        [HttpPut("UpdateExecution/{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<ExecutionDTO>> UpdateExecution(int id, ExecutionDTO executionDTO)
         {
             if (id != executionDTO.Idexecution)
@@ -170,7 +170,7 @@ namespace AirTECWebAPI.Controllers
             return _bdAirTecContext.Executions.Any(e => e.Idexecution == id );
         }
 
-        [HttpDelete("DeleteExecution/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ExecutionDTO>> DeleteExecution(int id)
         {
             var execution = await _bdAirTecContext.Executions.FindAsync(id);
