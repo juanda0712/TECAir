@@ -17,6 +17,8 @@ import { AirFlightComponent } from './Airport-view/air-flight/air-flight.compone
 import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
+import { ExecutionComponent } from './Components/execution/execution.component';
+import { ExecutionCardComponent } from './Components/Reusables/execution-card/execution-card.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     AirNewAccountComponent,
     AirLoginComponent,
     AirBookingComponent,
+    ExecutionComponent,
+    ExecutionCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@ import { AirBookingComponent } from './Airport-view/air-booking/air-booking.comp
 import { AirHomeComponent } from './Airport-view/air-home/air-home.component';
 import { CheckInComponent } from './Airport-view/check-in/check-in.component';
 import { LuggageComponent } from './Airport-view/luggage/luggage.component';
+import { ExecutionComponent } from './Components/execution/execution.component';
 
 export const routes: Routes = [
   {
@@ -28,7 +29,7 @@ export const routes: Routes = [
     title: 'Fechas',
   },
   {
-    path: 'flights/:selectedDate/:selectedOrigin/:selectedDestination',
+    path: 'flights',
     component: FlightComponent,
     title: 'Vuelos',
   },
@@ -92,14 +93,23 @@ export const routes: Routes = [
     component: LuggageComponent,
     title: 'ChequeoMaletas',
   },
+  {
+    path: 'executions',
+    component: ExecutionComponent,
+    title: 'Ejecuciones',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
 
 //en esta lista deben poner todos los componentes
 //de las rutas (solo puse HomeComponent) porque fue el unico que toque
-export const routingComponents = [HomeComponent];
+export const routingComponents = [
+  HomeComponent,
+  DateComponent,
+  ExecutionComponent,
+];

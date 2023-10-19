@@ -6,8 +6,6 @@ import { ApiService } from 'src/app/Services/api-service';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  //standalone: true,
-  //imports: [NgSelectModule, FormsModule],
   styleUrls: ['../../../../src/styles.css'],
 })
 export class HomeComponent implements OnInit {
@@ -29,10 +27,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ENTRA AL OnInit');
     this.api.getAll('Airport').subscribe(
       (locationsList: Airport[]) => {
-        console.log(locationsList);
         this.locationsList = locationsList;
       },
       (error: any) => {
@@ -42,7 +38,10 @@ export class HomeComponent implements OnInit {
   }
 
   selectDate() {
-    this.router.navigate(['/date', this.selectedOrigin, this.selectedDestination]);
+    this.router.navigate([
+      '/date',
+      this.selectedOrigin,
+      this.selectedDestination,
+    ]);
   }
-
 }

@@ -1,4 +1,4 @@
-<h4> Seleccione la fecha de partida </h4>
+<h4>Seleccione la fecha de partida</h4>
 
 <form>
   <!-- Selector para el día -->
@@ -8,7 +8,9 @@
 
   <!-- Selector para el mes -->
   <select name="month" class="selectDate" [(ngModel)]="selectedMonth">
-    <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+    <option *ngFor="let month of months" [value]="month.value">
+      {{ month.name }}
+    </option>
   </select>
 
   <!-- Selector para el año -->
@@ -19,4 +21,6 @@
 
 <button class="btn btn-primary button" (click)="goBack()">Volver</button>
 
-<button class="btn btn-primary button" (click)="seeFlights()">Ver vuelos</button>
+<button class="btn btn-primary button" (click)="seeExecutions()">
+  Ver vuelos
+</button>
