@@ -19,6 +19,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { ExecutionComponent } from './Components/execution/execution.component';
 import { ExecutionCardComponent } from './Components/Reusables/execution-card/execution-card.component';
+import { FlightManagementComponent } from './Airport-view/flight-management/flight-management.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ExecutionCardComponent } from './Components/Reusables/execution-card/ex
     AirBookingComponent,
     ExecutionComponent,
     ExecutionCardComponent,
+    FlightManagementComponent,
   ],
   imports: [
     BrowserModule,

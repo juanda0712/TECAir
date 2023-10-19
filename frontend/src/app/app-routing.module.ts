@@ -16,6 +16,7 @@ import { AirHomeComponent } from './Airport-view/air-home/air-home.component';
 import { CheckInComponent } from './Airport-view/check-in/check-in.component';
 import { LuggageComponent } from './Airport-view/luggage/luggage.component';
 import { ExecutionComponent } from './Components/execution/execution.component';
+import { FlightManagementComponent } from './Airport-view/flight-management/flight-management.component';
 
 export const routes: Routes = [
   {
@@ -92,6 +93,11 @@ export const routes: Routes = [
     path: 'luggage',
     component: LuggageComponent,
     title: 'ChequeoMaletas',
+  },
+  {
+    path: 'flight-management',
+    component: FlightManagementComponent,
+    title: 'GestionVuelos'
   },
   {
     path: 'executions',

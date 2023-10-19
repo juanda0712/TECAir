@@ -24,5 +24,8 @@ export class AirHomeComponent {
     this.router.navigate(['/check-in']);
   }
 
+  manageFlights() {
+    this.router.navigate(['/flight-management']);
+  }
 
 }
