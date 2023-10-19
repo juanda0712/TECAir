@@ -63,7 +63,7 @@ export class CheckInComponent {
   }
 
   luggage() {
-    console.log(this.selectedSeats);
-    this.router.navigate(['/luggage'])
+    let seats = this.selectedSeats.join(', ');
+    this.router.navigate(['/luggage', this.flightID, seats]);
   }
 }

@@ -90,7 +90,7 @@ export const routes: Routes = [
     title: 'ChequeoPasajeros',
   },
   {
-    path: 'luggage',
+    path: 'luggage/:flightID/:seats',
     component: LuggageComponent,
     title: 'ChequeoMaletas',
   },

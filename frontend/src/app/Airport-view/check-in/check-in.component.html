@@ -21,5 +21,5 @@
 </div>
 
 <div class="d-flex justify-content-center align-items-center">
-  <a class="btn" (click)="luggage()"> Asignación de maletas 🧳 </a>
+  <button type="submit" (click)="luggage()" [disabled]="selectedSeats.length === 0 || flightID === undefined" class="btn btn-primary">Asignación de maletas 🧳</button>
 </div>

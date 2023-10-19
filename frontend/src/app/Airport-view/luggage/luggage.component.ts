@@ -6,7 +6,6 @@ import { Flight } from 'src/app/Interfaces/airport';
 import { Component } from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { Alignment } from 'pdfmake/interfaces';
 
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
@@ -30,6 +29,7 @@ export class LuggageComponent {
   origin: any;
   destination: any;
   luggageForm: FormGroup;
+  selectedSeats: any;
 
   constructor(
     private api: ApiService<Flight>, 
@@ -49,7 +49,10 @@ export class LuggageComponent {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.flightID = params['flightID'];
+      this.selectedSeats = params['seats'];
+      console.log(this.selectedSeats);
     });
+
 
     this.api.getById('Flight', this.flightID).subscribe(
       (flight: Flight[]) => {
@@ -87,7 +90,8 @@ export class LuggageComponent {
         { text: 'TECAir', style: 'subtitulo', bold: true, fontSize: 20, margins: 50 },
         `Número de vuelo: ${this.flightID}`,
         `Origen: ${this.origin}`,
-        `Destino: ${this.destination}`
+        `Destino: ${this.destination}`,
+        `Asiento seleccionado: ${this.selectedSeats}`
       ], 
     };
   
