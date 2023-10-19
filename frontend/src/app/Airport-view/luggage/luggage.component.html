@@ -21,7 +21,7 @@
           <label for="color" class="form-label">Color de la Maleta</label>
           <input type="text" id="color" class="form-control" placeholder="blue" formControlName="color" [(ngModel)]="color" required>
         </div>
-        <button type="submit" class="btn btn-primary">Agregar Maleta</button>
+        <button type="submit" [disabled]="!luggageForm.valid" class="btn btn-primary">Agregar Maleta</button>
       </form>
 
 

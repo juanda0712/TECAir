@@ -38,10 +38,10 @@ export class LuggageComponent {
     private fb: FormBuilder) {
       
     this.luggageForm = this.fb.group({
-      owner: [''],
-      number: [''],
-      weight: [''],
-      color: ['']
+      owner: ['', Validators.required],
+      number: ['', Validators.required],
+      weight: ['', Validators.required],
+      color: ['', Validators.required]
     });
 
     }
