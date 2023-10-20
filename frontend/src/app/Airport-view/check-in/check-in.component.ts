@@ -35,40 +35,36 @@ export class CheckInComponent {
 
   rows: string[] = [];
   cols: number[] = [];
-
   cellClicked(row: string, col: number) {
-
     const cellKey = row + col;
-    this.cellColors[cellKey] = this.cellColors[cellKey] === '#5f9cf7' ? '' : '#5f9cf7';
-
-    console.log(`Asiento (${row}-${col}) tiene color: ${this.cellColors[cellKey]}`);
-
-    const asiento = `${row}-${col}`;
-    let isSelected = false; 
-
-    // Verificar si el asiento ya ha sido seleccionado visualmente
-    if (this.cellColors[cellKey] == '#5f9cf7') {
-      isSelected = true;
-    }
-
-    if (isSelected) {
-      console.log("se agrego:", asiento);     // Si el asiento está seleccionado visualmente, guardarlo
-      if (!this.selectedSeats.includes(asiento)) {
-        this.selectedSeats.push(asiento);
-      }
-    } else {     // Si el asiento no está seleccionado visualmente, eliminarlo si existe
-      console.log("se elimino:", asiento);
-      const index = this.selectedSeats.indexOf(asiento);
+    const isAlreadySelected = this.selectedSeats.includes(cellKey);
+  
+    // Deseleccionar el asiento si ya estaba seleccionado
+    if (isAlreadySelected) {
+      this.cellColors[cellKey] = '';
+      const index = this.selectedSeats.indexOf(cellKey);
       if (index !== -1) {
         this.selectedSeats.splice(index, 1);
       }
+      console.log(`Asiento (${row}-${col}) ha sido deseleccionado`);
+    } else {
+      // Deseleccionar todos los asientos previamente seleccionados
+      this.selectedSeats.forEach((seat) => {
+        this.cellColors[seat] = '';
+      });
+      this.selectedSeats = []; // Limpiar la lista de asientos seleccionados
+  
+      // Marcar el asiento actual como seleccionado
+      this.cellColors[cellKey] = '#5f9cf7';
+      this.selectedSeats.push(cellKey);
+      console.log(`Asiento (${row}-${col}) ha sido seleccionado`);
     }
-
   }
+  
 
   luggage() {
 
-    this.api.getById('Flight', this.flightID).subscribe(
+    /**this.api.getById('Flight', this.flightID).subscribe(
       (flight: Flight[]) => {
         if (flight && flight.length > 0) {
           this.flight = flight;
@@ -82,8 +78,9 @@ export class CheckInComponent {
         console.error('Error fetching flight:', error);
       }
     );
-  }
+  }**/
 
-  //let seats = this.selectedSeats.join(', ');
-  //this.router.navigate(['/luggage', this.flightID, seats]);
+    let seats = this.selectedSeats.join(', ');
+    this.router.navigate(['/luggage', this.flightID, seats]);
+  }
 }
