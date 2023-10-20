@@ -4,6 +4,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/Services/api-service';
+import { Flight } from 'src/app/Interfaces/airport';
 
 @Component({
   selector: 'check-in',
@@ -17,8 +19,9 @@ export class CheckInComponent {
   selectedSeats: string[] = [];
   cellColors: { [key: string]: string } = {};
   flightID: any;
+  flight: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private api: ApiService<Flight>) { }
 
 
   ngOnInit(): void {
@@ -60,10 +63,27 @@ export class CheckInComponent {
         this.selectedSeats.splice(index, 1);
       }
     }
+
   }
 
   luggage() {
-    let seats = this.selectedSeats.join(', ');
-    this.router.navigate(['/luggage', this.flightID, seats]);
+
+    this.api.getById('Flight', this.flightID).subscribe(
+      (flight: Flight[]) => {
+        if (flight && flight.length > 0) {
+          this.flight = flight;
+          let seats = this.selectedSeats.join(', ');
+          this.router.navigate(['/luggage', this.flightID, seats]);
+        } else {
+
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching flight:', error);
+      }
+    );
   }
+
+  //let seats = this.selectedSeats.join(', ');
+  //this.router.navigate(['/luggage', this.flightID, seats]);
 }

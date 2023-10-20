@@ -1,5 +1,6 @@
 type TimeOnly = string;
 //revisar el tipo de TimeOnly
+
 export class Execution {
     idexecution?: number;
     numberFlight?: number;

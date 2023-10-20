@@ -61,7 +61,7 @@ export class LuggageComponent {
         this.destination = this.flight.destination;
       },
       (error: any) => {
-        console.error('Error fetching locations:', error);
+        console.error('Error fetching flight:', error);
       }
     );
   }
