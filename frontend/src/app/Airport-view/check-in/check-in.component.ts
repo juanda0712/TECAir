@@ -23,7 +23,6 @@ export class CheckInComponent {
   reservationID: any;
   flight: any;
   reservation: any;
-  executionID: any;
 
   constructor(
     private router: Router,
@@ -103,12 +102,13 @@ export class CheckInComponent {
           seatNumber: numeroAsiento,
           idexecution: this.reservation.idexecution
         };
-        // Luego, puedes realizar la creación del asiento
+
+        // Creación del asiento
         this.SeatApi.create('Seat', asiento).subscribe(
           (data) => {
             console.log('Nuevo asiento creado:', data);
             let seats = this.selectedSeats.join(', ');
-            this.router.navigate(['/luggage', this.reservationID, seats]);
+            this.router.navigate(['/luggage', this.reservationID, this.reservation.idexecution, seats, numeroAsiento]);
           },
           (error: any) => {
             console.error('Error al crear el nuevo asiento:', error);

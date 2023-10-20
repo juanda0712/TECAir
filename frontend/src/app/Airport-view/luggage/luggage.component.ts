@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/Services/api-service';
 import { Flight } from 'src/app/Interfaces/airport';
 import { Component } from '@angular/core';
+import { Suitcase } from 'src/app/Interfaces/passenger';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Ticket } from 'src/app/Interfaces/execution';
 
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
@@ -30,9 +32,13 @@ export class LuggageComponent {
   destination: any;
   luggageForm: FormGroup;
   selectedSeats: any;
+  seatNumber: any;
+  executionID: any;
 
   constructor(
     private api: ApiService<Flight>, 
+    private SuitcaseApi: ApiService<Suitcase>,
+    private TicketApi: ApiService<Ticket>,
     private router: Router,  
     private route: ActivatedRoute,
     private fb: FormBuilder) {
@@ -49,8 +55,9 @@ export class LuggageComponent {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.flightID = params['flightID'];
+      this.executionID = params['executionID'];
       this.selectedSeats = params['seats'];
-      console.log(this.selectedSeats);
+      this.seatNumber = params['numeroAsiento']
     });
 
 
@@ -76,13 +83,40 @@ export class LuggageComponent {
     }
     this.maletas.push(this.nuevaMaleta);
     console.log("Se agrego la maleta: ", this.nuevaMaleta)
-    this.nuevaMaleta = {}; 
 
-    console.log("maletas", this.maletas)
+    this.SuitcaseApi.create('Seat', this.nuevaMaleta).subscribe(
+      (data) => {
+        console.log('Nuevo asiento creado:', data);
+      },
+      (error: any) => {
+        console.error('Error al crear el nuevo asiento:', error);
+      }
+    );
+
+    this.nuevaMaleta = {};     
   }
 
-  generatePDF() {
+  generateTicket() {
     console.log(this.maletas);
+
+    const ticket: Ticket = {
+      idticket: 0,
+      taxes: 0,
+      totalAmount: 0,
+      seatNumber: this.seatNumber,
+      idexecution: this.executionID,
+      idpassenger: 0,
+      iduser: 0
+    };
+
+    this.TicketApi.create('Seat', ticket).subscribe(
+      (data) => {
+        console.log('Nuevo ticket creado:', data);
+      },
+      (error: any) => {
+        console.error('Error al crear el nuevo ticket:', error);
+      }
+    );
 
     const docDefinition = {
       content: [
