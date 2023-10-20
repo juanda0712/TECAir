@@ -16,7 +16,10 @@ import { AirHomeComponent } from './Airport-view/air-home/air-home.component';
 import { CheckInComponent } from './Airport-view/check-in/check-in.component';
 import { LuggageComponent } from './Airport-view/luggage/luggage.component';
 import { ExecutionComponent } from './Components/execution/execution.component';
+import { AirPromotionsComponent } from './Airport-view/air-promotions/air-promotions.component';
 import { FlightManagementComponent } from './Airport-view/flight-management/flight-management.component';
+import { OpeningFlightsComponent } from './Airport-view/opening-flights/opening-flights.component';
+import { CloseFlightsComponent } from './Airport-view/close-flights/close-flights.component';
 
 export const routes: Routes = [
   {
@@ -104,13 +107,30 @@ export const routes: Routes = [
     component: ExecutionComponent,
     title: 'Ejecuciones',
   },
+  {
+    path: 'app-opening-flights',
+    component: OpeningFlightsComponent,
+    title: 'Apertura',
+  },
+  {
+    path: 'app-air-promotions',
+    component: AirPromotionsComponent,
+    title: 'AirPromociones',
+  },
+  {
+    path: 'app-close-flights',
+    component: CloseFlightsComponent,
+    title: 'Cierre',
+  },
+
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
 
 //en esta lista deben poner todos los componentes
 //de las rutas (solo puse HomeComponent) porque fue el unico que toque
