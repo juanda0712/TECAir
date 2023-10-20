@@ -86,6 +86,16 @@ public partial class BdAirTecContext : DbContext
 
             entity.Property(e => e.Idlayover).HasColumnName("IDLayover");
             entity.Property(e => e.Idexecution).HasColumnName("IDExecution");
+
+            entity.HasOne(el => el.LayoverNavigation)
+                .WithMany()
+                .HasForeignKey(el => el.Idlayover)
+                .HasConstraintName("fk_execution_layover_layover");
+
+            entity.HasOne(el => el.ExecutionNavigation)
+                .WithMany()
+                .HasForeignKey(el => el.Idexecution)
+                .HasConstraintName("fk_execution_layover_execution");
         });
 
         modelBuilder.Entity<Flight>(entity =>
@@ -173,14 +183,14 @@ public partial class BdAirTecContext : DbContext
 
             entity.Property(e => e.Idreservation).HasColumnName("IDReservation");
             entity.Property(e => e.Idexecution).HasColumnName("IDExecution");
-            entity.Property(e => e.Iduser).HasColumnName("IDUser");
+            entity.Property(e => e.Idpassenger).HasColumnName("IDPassenger");
 
             entity.HasOne(d => d.IdexecutionNavigation).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.Idexecution)
                 .HasConstraintName("fk_reservation_execution");
 
             entity.HasOne(d => d.IduserNavigation).WithMany(p => p.Reservations)
-                .HasForeignKey(d => d.Iduser)
+                .HasForeignKey(d => d.Idpassenger)
                 .HasConstraintName("fk_reservation_passenger"); 
         });
 

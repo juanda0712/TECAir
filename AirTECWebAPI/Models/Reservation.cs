@@ -7,7 +7,7 @@ public partial class Reservation
 {
     public int Idreservation { get; set; }
 
-    public int? Iduser { get; set; }
+    public int? Idpassenger { get; set; }
 
     public int? Idexecution { get; set; }
 
