@@ -3,6 +3,7 @@ using AirTECWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace AirTECWebAPI.Controllers
 {
@@ -39,34 +40,17 @@ namespace AirTECWebAPI.Controllers
             return executions;
         }
 
-        [HttpGet("GetExecutionByCriteria")]
-        public async Task<ActionResult<ExecutionDTO>> GetExecutionByCriteria(string origin, string destination, DateOnly date)
+        [HttpGet("GetExecutionByID/{Idexecution}")]
+        public async Task<ActionResult<ExecutionDTO>> GetExecutionByID(int Idexecution)
         {
-            // Primero, busca el número de vuelo basado en el origen y destino
-            var flight = await _bdAirTecContext.Flights
-                .Where(f => f.Origin == origin && f.Destination == destination)
-                .FirstOrDefaultAsync();
-
-            if (flight == null)
-            {
-                // No se encontró un vuelo con el origen y destino proporcionados
-                return NotFound("No se encontró un vuelo para la ruta especificada.");
-            }
-
-            // Luego, busca la ejecución basada en el número de vuelo y la fecha
-            var execution = await _bdAirTecContext.Executions
-                .Include(e => e.NumberFlightNavigation)
-                .Where(e =>
-                    e.NumberFlight == flight.Number &&
-                    e.Date == date)
-                .FirstOrDefaultAsync();
+            var execution = await _bdAirTecContext.Executions.FindAsync(Idexecution);
 
             if (execution == null)
             {
-                return NotFound("No se encontró una ejecución para la ruta y fecha especificada.");
+                return NotFound("No se encontró la ejecución con el Idexecution especificado.");
             }
 
-            // Mapea los valores relevantes al DTO y devuélvelo
+            // Mapea los valores relevantes al DTO y devuélvelos
             var executionDTO = new ExecutionDTO
             {
                 Idexecution = execution.Idexecution,
@@ -81,6 +65,46 @@ namespace AirTECWebAPI.Controllers
 
             return executionDTO;
         }
+
+        [HttpGet("GetExecutionsByCriteria")]
+        public async Task<ActionResult<IEnumerable<ExecutionDTO>>> GetExecutionsByCriteria(string origin, string destination, DateOnly date)
+        {
+            var flight = await _bdAirTecContext.Flights
+                .Where(f => f.Origin == origin && f.Destination == destination)
+                .FirstOrDefaultAsync();
+
+            if (flight == null)
+            {
+                return NotFound("No se encontró un vuelo para la ruta especificada.");
+            }
+
+            var executions = await _bdAirTecContext.Executions
+                .Include(e => e.NumberFlightNavigation)
+                .Where(e =>
+                    e.NumberFlight == flight.Number &&
+                    e.Date == date)
+                .ToListAsync();
+
+            if (!executions.Any())
+            {
+                return NotFound("No se encontraron ejecuciones para la ruta y fecha especificada.");
+            }
+
+            var executionDTOs = executions.Select(execution => new ExecutionDTO
+            {
+                Idexecution = execution.Idexecution,
+                NumberFlight = execution.NumberFlight,
+                PlateNumber = execution.PlateNumber,
+                Date = execution.Date,
+                DepartureTime = execution.DepartureTime,
+                Price = execution.Price,
+                Status = execution.Status,
+                BoardingDoor = execution.BoardingDoor
+            });
+
+            return executionDTOs.ToList();
+        }
+
 
         [HttpPost("CreateExecution")]
         public async Task<ActionResult<ExecutionDTO>> CreateExecution([FromBody] ExecutionDTO executionDTO)
@@ -105,20 +129,9 @@ namespace AirTECWebAPI.Controllers
             _bdAirTecContext.Executions.Add(newExecution);
             await _bdAirTecContext.SaveChangesAsync();
 
-            // Puedes mapear los valores relevantes de la nueva ejecución a un DTO para devolverlos.
-            var createdExecutionDTO = new ExecutionDTO
-            {
-                Idexecution = newExecution.Idexecution,
-                NumberFlight = newExecution.NumberFlight,
-                PlateNumber = newExecution.PlateNumber,
-                Date = newExecution.Date,
-                DepartureTime = newExecution.DepartureTime,
-                Price = newExecution.Price,
-                Status = newExecution.Status,
-                BoardingDoor = newExecution.BoardingDoor
-            };
+            executionDTO.Idexecution = newExecution.Idexecution;
 
-            return CreatedAtAction("GetExecutionByCriteria", new { date = newExecution.Date }, createdExecutionDTO);
+            return CreatedAtAction("GetExecutionByID", new { Idexecution = newExecution.Idexecution }, executionDTO);
         }
 
         [HttpPut("{id}")]
