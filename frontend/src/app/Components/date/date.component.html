@@ -1,13 +1,15 @@
-<h4>Seleccione la fecha de partida</h4>
+<h4 style="position: relative; top: 20px; margin: 20px;">Seleccione la fecha de partida 📆</h4>
 
 <form>
   <!-- Selector para el día -->
   <select name="day" class="selectDate" [(ngModel)]="selectedDay">
+    <option value="" disabled selected> Día </option>
     <option *ngFor="let day of days" [value]="day">{{ day }}</option>
   </select>
 
   <!-- Selector para el mes -->
   <select name="month" class="selectDate" [(ngModel)]="selectedMonth">
+    <option value="" disabled selected> Mes </option>
     <option *ngFor="let month of months" [value]="month.value">
       {{ month.name }}
     </option>
@@ -15,6 +17,7 @@
 
   <!-- Selector para el año -->
   <select name="year" class="selectDate" [(ngModel)]="selectedYear">
+    <option value="" disabled selected> Año </option>
     <option *ngFor="let year of years" [value]="year">{{ year }}</option>
   </select>
 </form>

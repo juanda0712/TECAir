@@ -108,7 +108,7 @@ export class CheckInComponent {
           (data) => {
             console.log('Nuevo asiento creado:', data);
             let seats = this.selectedSeats.join(', ');
-            this.router.navigate(['/luggage', this.reservationID, this.reservation.idexecution, seats, numeroAsiento]);
+            this.router.navigate(['/luggage', this.reservationID, seats, numeroAsiento]);
           },
           (error: any) => {
             console.error('Error al crear el nuevo asiento:', error);
