@@ -94,10 +94,10 @@ export class CheckInComponent {
       (reservation: Reservation) => {
         this.reservation = reservation;
 
-        const [letra, numeroStr] = this.selectedSeats[0].split('-');
+        const [letra, numeroStr] = this.selectedSeats[0];
         const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
         const valorNumero = parseInt(numeroStr, 10);
-        const numeroAsiento = (valorLetra - 1) * (this.numCols * this.numRows) + valorNumero;
+        const numeroAsiento = (valorLetra - 1) * this.numCols + valorNumero;
 
         const asiento: Seat = {
           seatNumber: numeroAsiento,
@@ -107,6 +107,8 @@ export class CheckInComponent {
         this.SeatApi.create('Seat', asiento).subscribe(
           (data) => {
             console.log('Nuevo asiento creado:', data);
+            let seats = this.selectedSeats.join(', ');
+            this.router.navigate(['/luggage', this.reservationID, seats]);
           },
           (error: any) => {
             console.error('Error al crear el nuevo asiento:', error);
