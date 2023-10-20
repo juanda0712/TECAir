@@ -21,6 +21,9 @@ import { ExecutionComponent } from './Components/execution/execution.component';
 import { ExecutionCardComponent } from './Components/Reusables/execution-card/execution-card.component';
 import { FlightManagementComponent } from './Airport-view/flight-management/flight-management.component';
 import { LuggageComponent } from './Airport-view/luggage/luggage.component';
+import { OpeningFlightsComponent } from './Airport-view/opening-flights/opening-flights.component';
+import { CloseFlightsComponent } from './Airport-view/close-flights/close-flights.component';
+import { AirPromotionsComponent } from './Airport-view/air-promotions/air-promotions.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,10 @@ import { LuggageComponent } from './Airport-view/luggage/luggage.component';
     ExecutionCardComponent,
     FlightManagementComponent,
     LuggageComponent,
+    OpeningFlightsComponent,
+    CloseFlightsComponent,
+    OpeningFlightsComponent,
+    AirPromotionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,4 +59,4 @@ import { LuggageComponent } from './Airport-view/luggage/luggage.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

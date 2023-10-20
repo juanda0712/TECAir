@@ -21,7 +21,7 @@ export class Promotion {
 
 export class Reservation {
     idreservation?: number;
-    iduser?: number;
+    idpassenger?: number;
     idexecution?: number;
 }
 

@@ -6,6 +6,8 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/Services/api-service';
 import { Flight } from 'src/app/Interfaces/airport';
+import { Seat } from 'src/app/Interfaces/execution';
+import { Reservation } from 'src/app/Interfaces/execution';
 
 @Component({
   selector: 'check-in',
@@ -18,11 +20,17 @@ export class CheckInComponent {
 
   selectedSeats: string[] = [];
   cellColors: { [key: string]: string } = {};
-  flightID: any;
+  reservationID: any;
   flight: any;
+  reservation: any;
+  executionID: any;
 
-  constructor(private router: Router, private api: ApiService<Flight>) { }
-
+  constructor(
+    private router: Router,
+    private api: ApiService<Flight>,
+    private ReservationApi: ApiService<Reservation>,
+    private SeatApi: ApiService<Seat>,) {
+  }
 
   ngOnInit(): void {
 
@@ -35,10 +43,11 @@ export class CheckInComponent {
 
   rows: string[] = [];
   cols: number[] = [];
+
   cellClicked(row: string, col: number) {
     const cellKey = row + col;
     const isAlreadySelected = this.selectedSeats.includes(cellKey);
-  
+
     // Deseleccionar el asiento si ya estaba seleccionado
     if (isAlreadySelected) {
       this.cellColors[cellKey] = '';
@@ -53,20 +62,20 @@ export class CheckInComponent {
         this.cellColors[seat] = '';
       });
       this.selectedSeats = []; // Limpiar la lista de asientos seleccionados
-  
+
       // Marcar el asiento actual como seleccionado
       this.cellColors[cellKey] = '#5f9cf7';
       this.selectedSeats.push(cellKey);
       console.log(`Asiento (${row}-${col}) ha sido seleccionado`);
     }
   }
-  
+
 
   luggage() {
 
     /**this.api.getById('Flight', this.flightID).subscribe(
       (flight: Flight[]) => {
-        if (flight && flight.length > 0) {
+        if (flight) {
           this.flight = flight;
           let seats = this.selectedSeats.join(', ');
           this.router.navigate(['/luggage', this.flightID, seats]);
@@ -80,7 +89,37 @@ export class CheckInComponent {
     );
   }**/
 
-    let seats = this.selectedSeats.join(', ');
-    this.router.navigate(['/luggage', this.flightID, seats]);
+    //Obtener la ejecucion con el ID de la reservacion
+    this.ReservationApi.getSingleById('Reservation', this.reservationID).subscribe(
+      (reservation: Reservation) => {
+        this.reservation = reservation;
+        this.executionID = reservation.idexecution;
+      },
+      (error: any) => {
+        console.error('Error fetching reservation:', error);
+      }
+    );
+
+    const [letra, numeroStr] = this.selectedSeats[0].split('-');
+    const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
+    const valorNumero = parseInt(numeroStr, 10);
+    const numeroAsiento = (valorLetra - 1) * (this.numCols * this.numRows) + valorNumero;
+
+
+    const seat: Seat = {
+      seatNumber: numeroAsiento,
+      idexecution: this.executionID
+    };
+
+    this.SeatApi.create('Seat', seat).subscribe(
+      (data) => {
+        console.log('Nuevo asiento creada:', data);
+      },
+      (error: any) => {
+        console.error('Error al crear nueva asiento:', error);
+      }
+    );
+    this.router.navigate(['/luggage', this.reservationID, this.selectedSeats[0]]);
+
   }
 }
