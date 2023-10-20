@@ -1,10 +1,5 @@
-﻿using AirTECWebAPI.Models;
-using System.Drawing;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using AirTECWebAPI.Models;
-using System.Drawing;
-
-namespace AirTECWebAPI.DTOModels.Suitcase
+﻿
+namespace AirTECWebAPI.DTOModels.Ticket
 {
     public class TicketDTO
     {

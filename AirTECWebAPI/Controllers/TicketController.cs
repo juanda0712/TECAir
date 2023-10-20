@@ -1,5 +1,4 @@
-﻿using AirTECWebAPI.DTOModels.Passenger;
-using AirTECWebAPI.DTOModels.Suitcase;
+﻿using AirTECWebAPI.DTOModels.Ticket;
 using AirTECWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
