@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink } from '@angular/router';
@@ -13,16 +13,11 @@ import { Reservation } from 'src/app/Interfaces/execution';
   selector: 'check-in',
   templateUrl: './check-in.component.html',
   standalone: true,
-  imports: [
-    NgSelectModule,
-    FormsModule,
-    RouterOutlet,
-    RouterLink,
-    CommonModule,
-  ],
-  styleUrls: ['./check-in.component.css'],
+  imports: [NgSelectModule, FormsModule, RouterOutlet, RouterLink, CommonModule],
+  styleUrls: ['./check-in.component.css']
 })
 export class CheckInComponent {
+
   selectedSeats: string[] = [];
   cellColors: { [key: string]: string } = {};
   reservationID: any;
@@ -34,18 +29,17 @@ export class CheckInComponent {
     private router: Router,
     private api: ApiService<Flight>,
     private ReservationApi: ApiService<Reservation>,
-    private SeatApi: ApiService<Seat>
-  ) {}
+    private SeatApi: ApiService<Seat>,) {
+  }
 
   ngOnInit(): void {
-    this.rows = Array.from({ length: this.numRows }, (_, i) =>
-      String.fromCharCode(65 + i)
-    );
+
+    this.rows = Array.from({ length: this.numRows }, (_, i) => String.fromCharCode(65 + i));
     this.cols = Array.from({ length: this.numCols }, (_, i) => i + 1);
   }
 
-  numRows: number = 20; // Número de filas
-  numCols: number = 6; // Número de columnas
+  numRows: number = 20; // Número de filas 
+  numCols: number = 6; // Número de columnas 
 
   rows: string[] = [];
   cols: number[] = [];
@@ -76,7 +70,9 @@ export class CheckInComponent {
     }
   }
 
+
   luggage() {
+
     /**this.api.getById('Flight', this.flightID).subscribe(
       (flight: Flight[]) => {
         if (flight) {
@@ -92,45 +88,36 @@ export class CheckInComponent {
       }
     );
   }**/
+
     //Obtener la ejecucion con el ID de la reservacion
-    this.ReservationApi.getSingleById(
-      'Reservation',
-      this.reservationID
-    ).subscribe(
+    this.ReservationApi.getSingleById('Reservation', this.reservationID).subscribe(
       (reservation: Reservation) => {
         this.reservation = reservation;
-        this.executionID = reservation.idexecution;
+
+        const [letra, numeroStr] = this.selectedSeats[0];
+        const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
+        const valorNumero = parseInt(numeroStr, 10);
+        const numeroAsiento = (valorLetra - 1) * this.numCols + valorNumero;
+
+        const asiento: Seat = {
+          seatNumber: numeroAsiento,
+          idexecution: this.reservation.idexecution
+        };
+        // Luego, puedes realizar la creación del asiento
+        this.SeatApi.create('Seat', asiento).subscribe(
+          (data) => {
+            console.log('Nuevo asiento creado:', data);
+            let seats = this.selectedSeats.join(', ');
+            this.router.navigate(['/luggage', this.reservationID, seats]);
+          },
+          (error: any) => {
+            console.error('Error al crear el nuevo asiento:', error);
+          }
+        );
       },
       (error: any) => {
         console.error('Error fetching reservation:', error);
       }
     );
-
-    // Ejemplo this.selectedSeats = [B2]
-    const [letra, numeroStr] = this.selectedSeats[0];
-    const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
-    const valorNumero = parseInt(numeroStr, 10);
-    const numeroAsiento = (valorLetra - 1) * this.numCols + valorNumero;
-
-    const seat: Seat = {
-      seatNumber: numeroAsiento,
-      idexecution: this.executionID,
-    };
-
-    console.log(seat);
-
-    /* this.SeatApi.create('Seat', seat).subscribe(
-      (data) => {
-        console.log('Nuevo asiento creada:', data);
-      },
-      (error: any) => {
-        console.error('Error al crear nueva asiento:', error);
-      }
-    ); */
-    /* this.router.navigate([
-      '/luggage',
-      this.reservationID,
-      this.selectedSeats[0],
-    ]); */
   }
 }
