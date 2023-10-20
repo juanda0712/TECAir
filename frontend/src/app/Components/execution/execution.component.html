@@ -1,5 +1,11 @@
-<p>execution works!</p>
-<app-execution-card
-  *ngFor="let execution of executions"
-  [execution]="execution"
-></app-execution-card>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let execution of executions">
+      <app-execution-card
+        [execution]="execution"
+        [origin]="selectedOrigin"
+        [destination]="selectedDestination"
+      ></app-execution-card>
+    </div>
+  </div>
+</div>

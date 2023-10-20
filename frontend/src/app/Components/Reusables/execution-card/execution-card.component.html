@@ -1,1 +1,30 @@
-<p>execution-card works!</p>
+<div class="container-md">
+  <div class="card" style="width: 100%">
+    <div class="card-body text-center">
+      <img
+        src="../../../../assets/TAlogo.jpg"
+        class="card-img-top"
+        style="max-width: 100%"
+      />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title text-center">Vuelo: {{ execution.idexecution }}</h5>
+      <p style="font-size: 30px" class="card-text text-center">
+        {{ origin }} ➡️ {{ destination }}
+      </p>
+      <p class="card-text text-center">
+        Fecha: {{ execution.date | date : "MM/dd/yy" }}
+      </p>
+      <p class="card-text text-center">Precio: ${{ execution.price }}</p>
+    </div>
+    <div class="card-body text-center">
+      <button
+        class="btn btn-secondary me-md-2 button"
+        type="button"
+        (click)="booking()"
+      >
+        Reservar
+      </button>
+    </div>
+  </div>
+</div>
