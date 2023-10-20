@@ -1,7 +1,11 @@
-﻿using AirTECWebAPI.DTOModels.Ticket;
+﻿using AirTECWebAPI.DTOModels.Execution;
+using AirTECWebAPI.DTOModels.Suitcase;
+using AirTECWebAPI.DTOModels.Ticket;
+
 using AirTECWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace AirTECWebAPI.Controllers
 {
@@ -69,31 +73,63 @@ namespace AirTECWebAPI.Controllers
         /// </summary>
         /// <param name="ticketDTO">Datos del tiquete a crear.</param>
         /// <returns>Los datos del tiquete creado.</returns>
+        
         [HttpPost]
         public async Task<ActionResult<TicketDTO>> PostTicket(TicketDTO ticketDTO)
         {
             var ticket = new Ticket
             {
- 
                 Taxes = ticketDTO.Taxes,
-                TotalAmount = ticketDTO.TotalAmount,
                 SeatNumber = ticketDTO.SeatNumber,
                 Idexecution = ticketDTO.Idexecution,
                 Idpassenger = ticketDTO.Idpassenger,
                 Iduser = ticketDTO.Iduser
-
             };
+
+            // Calcular el costo adicional basado en la cantidad de maletas
+            var suitcaseCount = await _bdAirTecContext.Suitcases.CountAsync(s => s.Idpassenger == ticketDTO.Idpassenger);
+            var execution = await _bdAirTecContext.Executions.FindAsync(ticketDTO.Idexecution);
+           
+            System.Diagnostics.Debug.WriteLine(suitcaseCount);
+
+            int? additionalCost = execution.Price;
+
+            if (suitcaseCount >= 2)
+            {
+                additionalCost += 50;
+            }
+            if (suitcaseCount >= 3)
+            {
+                additionalCost += 75 * (suitcaseCount-2);
+            }
+
+
+            // Sumar el costo adicional al TotalAmount
+            ticket.TotalAmount = (int)additionalCost;
+            ticket.Taxes = (int)(ticket.TotalAmount * 0.12);
+
 
             _bdAirTecContext.Tickets.Add(ticket);
             await _bdAirTecContext.SaveChangesAsync();
 
+            var createdTicketDTO = new TicketDTO
+            {
+                Idticket = ticket.Idticket,
+                Taxes = ticket.Taxes,
+                TotalAmount = ticket.TotalAmount,
+                SeatNumber = ticket.SeatNumber,
+                Idexecution = ticket.Idexecution,
+                Idpassenger = ticket.Idpassenger,
+                Iduser = ticket.Iduser
+            };
 
             ticketDTO.Idticket = ticket.Idticket;
-            return CreatedAtAction("GetTicket", new { id = ticket.Idticket }, ticketDTO);
+            return CreatedAtAction("GetTicket", new { id = ticket.Idticket }, createdTicketDTO);
+
         }
 
-      
 
+        
         // PUT: api/Ticket/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTicket(int id, TicketDTO ticketDTO)
@@ -137,8 +173,9 @@ namespace AirTECWebAPI.Controllers
             }
 
             return NoContent();
-        }
+        } 
 
+       
         // DELETE: api/Ticket/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTicket(int id)
@@ -160,6 +197,9 @@ namespace AirTECWebAPI.Controllers
         {
             return _bdAirTecContext.Tickets.Any(s => s.Idticket == id);
         }
+        
     }
 }
+
+
 
