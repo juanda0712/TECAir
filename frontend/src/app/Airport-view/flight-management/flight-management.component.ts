@@ -5,6 +5,7 @@ import { Airport } from 'src/app/Interfaces/airport';
 import { Flight } from 'src/app/Interfaces/airport';
 import { Layover } from 'src/app/Interfaces/airport';
 import { ApiService } from 'src/app/Services/api-service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'flight-management',
@@ -21,6 +22,7 @@ export class FlightManagementComponent implements OnInit {
   layovers: any[] = [];
   flight: any;
   layoverOrigin: any;
+  flightID: any;
 
 
   constructor(
@@ -58,45 +60,57 @@ export class FlightManagementComponent implements OnInit {
       destination: this.selectedDestination
     };
 
-    this.FlightApi.create('Flight', this.flight).subscribe(
-      (data) => {
-        console.log('Nuevo vuelo creada:', data);
-      },
-      (error: any) => {
-        console.error('Error al crear nueva vuelo:', error);
-      }
-    );
+    this.FlightApi.create('Flight', this.flight)
+      .pipe(
+        switchMap((flightData) => {
+          console.log('Nuevo vuelo creado:', flightData);
+          this.flightID = flightData.number;
+          // Crear escalas después de crear el vuelo
+          const layoverPromises = this.layovers.map((element: Layover) => {
+            return this.LayoverApi.create('Layover', element).toPromise();
+          });
 
-    this.layovers.forEach((element: { origin: any; }) => {
+          return Promise.all(layoverPromises);
+        })
+      )
+      .subscribe(
+        (layoverResults) => {
+          console.log('Escalas creadas:', layoverResults);
+        },
+        (error: any) => {
+          console.error('Error al crear vuelo o escalas:', error);
+        }
+      );
+  }
 
-      console.log(element);
+  addLayover() {
+    if (this.selectedLayover.trim() !== '') {
 
-      this.LayoverApi.create('Layover', element).subscribe(
-        (data) => {
-          console.log('Nueva escala creada:', data);
+      console.log("FNum: ", this.flight.number);
+
+      const layover: Layover = {
+        idlayover: 0,
+        numberFlight: this.flightID,
+        origin: this.layoverOrigin,
+        destination: this.selectedLayover
+      };
+
+      console.log("Layover: ", layover);
+
+      // Realizar la solicitud POST para crear la escala
+      this.LayoverApi.create('Layover', layover).subscribe(
+        (layoverData) => {
+          console.log('Nueva escala creada:', layoverData);
         },
         (error: any) => {
           console.error('Error al crear nueva escala:', error);
         }
       );
 
-    });
-
-  }
-
-  addLayover() {
-    if (this.selectedLayover.trim() !== '') {
-
-      const layover: Layover = {
-        idlayover: 0,
-        numberFlight: this.flight.number,
-        origin: this.layoverOrigin,
-        destination: this.selectedLayover
-      };
-
-      this.layovers.push(layover);
       this.selectedLayover = '';
       this.layoverOrigin = '';
     }
   }
+
+
 }
