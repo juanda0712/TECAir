@@ -100,7 +100,7 @@ export const routes: Routes = [
   {
     path: 'flight-management',
     component: FlightManagementComponent,
-    title: 'GestionVuelos'
+    title: 'GestionVuelos',
   },
   {
     path: 'executions',
@@ -122,15 +122,13 @@ export const routes: Routes = [
     component: CloseFlightsComponent,
     title: 'Cierre',
   },
-
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
 
 //en esta lista deben poner todos los componentes
 //de las rutas (solo puse HomeComponent) porque fue el unico que toque
@@ -138,4 +136,5 @@ export const routingComponents = [
   HomeComponent,
   DateComponent,
   ExecutionComponent,
+  BookingComponent,
 ];
