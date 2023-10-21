@@ -8,7 +8,6 @@ import { Suitcase } from 'src/app/Interfaces/passenger';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Execution, Reservation, Ticket } from 'src/app/Interfaces/execution';
-import { forkJoin, switchMap } from 'rxjs';
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -18,25 +17,22 @@ import { forkJoin, switchMap } from 'rxjs';
   styleUrls: ['./luggage.component.css'],
 })
 export class LuggageComponent {
+  luggageForm: FormGroup;
+  selectedSeats: any; //Asiento seleccionado
+  seatNumber: number = 0; //Numero asignado al asiento seleccionado
   nuevaMaleta: any = {};
-  maletas: any[] = [];
   weight: any;
   color: any;
   reservationID: any; //ID de reservacion <- Pagina anterior (check-in)
+  passengerID: any;
   flight: any;
-  origin: any; //Origen del vuelo <- Flight
-  destination: any; //Destino del vuelo <-Flight
-  luggageForm: FormGroup;
-  selectedSeats: any; //Asiento seleccionado
-  seatNumber: any; //Numero asignado al asiento seleccionado
-  executionID: any; //ID de la ejecucion <- Reservacion
-  passengerID: any; //ID del pasajero <- Reservacion
+  flightInfo: any = {};
   reservation: any;
+  reservationInfo: any = {};
   executionInfo: any = {};
-  docDefinition: any;
 
   constructor(
-    private api: ApiService<Flight>,
+    private FlightApi: ApiService<Flight>,
     private SuitcaseApi: ApiService<Suitcase>,
     private ReservationApi: ApiService<Reservation>,
     private ExecutionApi: ApiService<Execution>,
@@ -52,23 +48,41 @@ export class LuggageComponent {
   }
 
   ngOnInit() {
-    // this.reservationID = this.route.params['flightID'];
+    
     this.route.params.subscribe((params) => {
       this.reservationID = params['idReservation'];
+      this.selectedSeats = params['seats'];
+      this.seatNumber = params['numeroAsiento'];
     });
+
     this.ReservationApi.getSingleById(
       'Reservation',
       this.reservationID
     ).subscribe((data: any) => {
-      this.executionID = data.executionID;
+      this.reservationInfo = {
+        idreservation: data.idreservation,
+        idpassenger: data.idpassenger 
+      }
       this.ExecutionApi.getSingleById(
         'Execution/GetExecutionByID',
         data.idexecution
       ).subscribe((data2: any) => {
+        this.executionInfo = {
+          idexecution: data2.idexecution,
+          numberFlight: data2.numberFlight,
+          departureTime: data2.departureTime,
+          price: data2.price,
+          boardingDoor: data2.boardingDoor,
+        }
         console.log(data2);
-        this.api
+        this.FlightApi
           .getById('Flight', data2.numberFlight)
           .subscribe((data3: any) => {
+            this.flightInfo = {
+              origin: data3.origin,
+              destination: data3.destination,
+              flightNumber: data3.numberFlight
+            }
             console.log(data3);
           });
       });
@@ -77,15 +91,15 @@ export class LuggageComponent {
 
   addLuggage() {
     this.nuevaMaleta = {
-      owner: this.passengerID,
+      owner: this.reservationInfo.idpassenger,
       number: 0,
       weight: this.weight,
       color: this.color,
     };
-    this.maletas.push(this.nuevaMaleta);
+
     console.log('Nueva maleta: ', this.nuevaMaleta);
 
-    this.SuitcaseApi.create('Seat', this.nuevaMaleta).subscribe(
+    this.SuitcaseApi.create('Suitcase', this.nuevaMaleta).subscribe(
       (data) => {
         console.log('Nueva maleta creada:', data);
       },
@@ -98,17 +112,17 @@ export class LuggageComponent {
   }
 
   generateTicket() {
-    console.log(this.maletas);
-
     const ticket: Ticket = {
       idticket: 0,
       taxes: 0,
       totalAmount: 0,
       seatNumber: this.seatNumber,
-      idexecution: this.executionID,
-      idpassenger: this.passengerID,
-      iduser: 0,
+      idexecution: this.executionInfo.idexecution,
+      idpassenger: this.reservationInfo.idpassenger,
+      iduser: undefined,
     };
+
+    console.log(ticket);
 
     this.TicketApi.create('Ticket', ticket).subscribe(
       (data) => {
@@ -119,6 +133,21 @@ export class LuggageComponent {
       }
     );
 
-    pdfMake.createPdf(this.docDefinition).open();
+    const docDefinition = {
+      content: [
+        { text: 'Ticket de abordaje', style: 'titulo', bold: true, fontSize: 30, color: '#1746a2'},
+        { text: 'TECAir', style: 'subtitulo', bold: true, fontSize: 20, margins: 50 },
+        `Número de reservacion: ${this.reservationID}`,
+        `Número de vuelo: ${this.executionInfo.numberFlight}`,
+        `Origen: ${this.flightInfo.origin}`,
+        `Destino: ${this.flightInfo.destination}`,
+        `Asiento seleccionado: ${this.selectedSeats}`,
+        `Hora de salida: ${this.executionInfo.departureTime}`,
+        `Puerta de abordaje: ${this.executionInfo.boardingDoor}`,
+        `Precio: ${this.executionInfo.price}`,
+      ],
+    };
+
+    pdfMake.createPdf(docDefinition).open();
   }
 }
