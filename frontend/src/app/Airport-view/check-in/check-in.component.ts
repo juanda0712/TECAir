@@ -96,7 +96,7 @@ export class CheckInComponent {
 
           console.log(asiento);
 
-          // Creación del asiento
+          //Creación del asiento
           this.SeatApi.create('Seat', asiento).subscribe(
             (data) => {
               console.log('Nuevo asiento creado:', data);
