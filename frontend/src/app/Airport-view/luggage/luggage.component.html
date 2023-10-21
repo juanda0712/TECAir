@@ -6,14 +6,6 @@
 
       <form [formGroup]="luggageForm" (submit)="addLuggage()">
         <div class="mb-3">
-          <label for="dueno" class="form-label">Dueño de la Maleta</label>
-          <input type="text" id="dueno" class="form-control" placeholder="Nombre Apellido" formControlName="owner" [(ngModel)]="owner" required>
-        </div>
-        <div class="mb-3">
-          <label for="numeroMaleta" class="form-label">Número de Maleta</label>
-          <input type="number" id="numeroMaleta" class="form-control" placeholder="000" formControlName="number" [(ngModel)]="number" required>
-        </div>
-        <div class="mb-3">
           <label for="peso" class="form-label">Peso de la Maleta (kg)</label>
           <input type="number" id="peso" class="form-control" placeholder="0" formControlName="weight" [(ngModel)]="weight"required>
         </div>

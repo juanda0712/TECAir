@@ -103,6 +103,8 @@ export class CheckInComponent {
           idexecution: this.reservation.idexecution
         };
 
+        console.log(asiento);
+
         // Creación del asiento
         this.SeatApi.create('Seat', asiento).subscribe(
           (data) => {
