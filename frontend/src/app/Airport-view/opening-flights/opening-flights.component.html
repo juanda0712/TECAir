@@ -1,20 +1,13 @@
-<h3 class="page-title"> Apertura de Vuelos </h3>
-<p>ID:</p>
-<form>
-    <label class="select-title" for="originName">Seleccionar el número de maletas:</label>
-    <select>
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-    </select>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-            Confimación de viaje de pasajeros
-        </label>
+<h3 class="page-title">Apertura de Vuelos</h3>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <input type="text" class="form-control" placeholder="ID del avion" [(ngModel)]="idexecution"
+            aria-label="Username" aria-describedby="addon-wrapping">
+
+        <button [disabled]="idexecution == undefined" type="button" class="btn btn-primary" (click)="update()">
+            Abrir vuelo
+        </button>
     </div>
+</div>
 
-    <button class="btn btn-primary" href="#">Abrir vuelo</button>
-
-</form>
+<!-- <h5 class="card-title">ID vuelo: {{ execution.idexecution }}</h5> -->

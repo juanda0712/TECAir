@@ -48,7 +48,7 @@ export class LuggageComponent {
   }
 
   ngOnInit() {
-    
+
     this.route.params.subscribe((params) => {
       this.reservationID = params['idReservation'];
       this.selectedSeats = params['seats'];
@@ -61,7 +61,7 @@ export class LuggageComponent {
     ).subscribe((data: any) => {
       this.reservationInfo = {
         idreservation: data.idreservation,
-        idpassenger: data.idpassenger 
+        idpassenger: data.idpassenger
       }
       this.ExecutionApi.getSingleById(
         'Execution/GetExecutionByID',
@@ -91,8 +91,8 @@ export class LuggageComponent {
 
   addLuggage() {
     this.nuevaMaleta = {
-      owner: this.reservationInfo.idpassenger,
-      number: 0,
+      idpassenger: this.reservationInfo.idpassenger,
+      idsuitCase: 0,
       weight: this.weight,
       color: this.color,
     };
@@ -135,7 +135,7 @@ export class LuggageComponent {
 
     const docDefinition = {
       content: [
-        { text: 'Ticket de abordaje', style: 'titulo', bold: true, fontSize: 30, color: '#1746a2'},
+        { text: 'Ticket de abordaje', style: 'titulo', bold: true, fontSize: 30, color: '#1746a2' },
         { text: 'TECAir', style: 'subtitulo', bold: true, fontSize: 20, margins: 50 },
         `Número de reservacion: ${this.reservationID}`,
         `Número de vuelo: ${this.executionInfo.numberFlight}`,
