@@ -5,27 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorTema1"
-    tools:context=".RegisterActivity">
+    tools:context=".MainActivity">
+
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="422dp"
-        android:layout_height="550dp"
+        android:layout_width="435dp"
+        android:layout_height="573dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/extendido" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_begin="450dp" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_begin="256dp" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_back"
         android:layout_width="wrap_content"
@@ -52,127 +55,88 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:layout_constraintVertical_bias="0.0">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/colorTema2">
+
             <EditText
                 android:id="@+id/et_college"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_text_background"
-                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawableLeft="@drawable/baseline_school_24"
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/colorTema2"
                 android:ems="10"
-                android:hint="@string/hint_name"
+                android:hint="@string/hint_college"
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/et_collegeID"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/edit_text_background"
                 android:drawableLeft="@drawable/baseline_person_outline_24"
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/colorTema2"
                 android:ems="10"
-                android:hint="@string/hint_ID"
+                android:hint="@string/hint_collegeID"
                 android:inputType="text"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_college" />
-            <EditText
-                android:id="@+id/editTextPhone"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+
+            <TextView
+                android:id="@+id/textView"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/edit_text_background"
-                android:drawableLeft="@drawable/baseline_contact_phone_24"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/colorTema2"
-                android:ems="10"
-                android:hint="@string/hint_phone"
-                android:inputType="phone"
-                android:padding="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/et_collegeID" />
-            <EditText
-                android:id="@+id/editTextTextEmailAddress"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/edit_text_background"
-                android:drawableLeft="@drawable/baseline_email_24"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/colorTema2"
-                android:ems="10"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                android:padding="8dp"
-                android:textColorHint="#A1A0A0"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
-            <EditText
-                android:id="@+id/editTextTextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/edit_text_background"
-                android:drawableLeft="@drawable/baseline_lock_24"
-                android:drawablePadding="8dp"
-                android:drawableTint="@color/colorTema2"
-                android:ems="10"
-                android:inputType="textVisiblePassword"
-                android:padding="8dp"
-                android:hint="@string/hint_password"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
-            <CheckBox
-                android:id="@+id/checkStudent"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="Are you a student?"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="50dp"
+                android:text="Join our student family to earn rewards, promotions and more!"
+                android:textColor="@color/colorTema2"
+                android:textSize="25dp"
+                app:layout_constraintTop_toBottomOf="@+id/et_collegeID"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+                />
+
             <Button
                 android:id="@+id/btn_finishSignup"
-                android:layout_width="0dp"
+                android:layout_width="352dp"
                 android:layout_height="55dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/colorTema2"
-                android:text="@string/login_register"
+                android:text="@string/login_registerStudent"
                 app:cornerRadius="32dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.925" />
+                app:layout_constraintTop_toBottomOf="@+id/et_collegeID"
+                app:layout_constraintVertical_bias="0.866" />
+
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-            </LinearLayout>
+                app:layout_constraintStart_toStartOf="parent"></LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

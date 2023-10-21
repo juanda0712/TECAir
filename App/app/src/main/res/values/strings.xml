@@ -4,13 +4,14 @@
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_register">Sign Up</string>
+    <string name="login_registerStudent">Complete Sign Up</string>
     <string name="login_button">Sign In</string>
     <string name="error_valid_email_password">Wrong Email or Password</string>
     <string name="hint_name">Full Name</string>
     <string name="hint_ID">ID</string>
     <string name="hint_email">E - mail</string>
-    <string name="hint_college">College (if applies) </string>
-    <string name="hint_collegeID">College ID (if applies) </string>
+    <string name="hint_college">College </string>
+    <string name="hint_collegeID">College ID </string>
     <string name="hint_phone">Phone number</string>
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm Password</string>

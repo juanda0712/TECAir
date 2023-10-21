@@ -450,7 +450,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      *
      * @param seat
      */
-    fun add(seat:Seat){val db = this.writableDatabase
+    fun addSeat(seat:Seat){val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.SeatEntry.COLUMN_NUMBER, seat.number)
         insertvalues.put(DBContract.SeatEntry.COLUMN_EXECUTIONID, seat.executionID)
@@ -569,7 +569,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(XLAYOVERTABLE_NAME, null, insertvalues)
         db.close()
     }
-
 
 
     /**
