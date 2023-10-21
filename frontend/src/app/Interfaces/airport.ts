@@ -15,3 +15,8 @@ export class Layover {
   origin?: string;
   destination?: string;
 }
+
+export class LoginRequest {
+  email?: String;
+  password?: String;
+}

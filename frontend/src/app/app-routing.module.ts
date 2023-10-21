@@ -130,11 +130,10 @@ export const routes: Routes = [
 })
 export class AppRoutingModule {}
 
-//en esta lista deben poner todos los componentes
-//de las rutas (solo puse HomeComponent) porque fue el unico que toque
 export const routingComponents = [
   HomeComponent,
   DateComponent,
   ExecutionComponent,
   BookingComponent,
+  LoginComponent,
 ];
