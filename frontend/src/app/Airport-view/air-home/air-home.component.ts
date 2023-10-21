@@ -28,4 +28,12 @@ export class AirHomeComponent {
     this.router.navigate(['/flight-management']);
   }
 
+  openFlights() {
+    this.router.navigate(['/app-opening-flights']);
+  }
+
+  closeFlights() {
+    this.router.navigate(['/app-close-flights']);
+  }
+
 }

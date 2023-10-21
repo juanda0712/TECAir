@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/Services/api-service';
 import { Flight } from 'src/app/Interfaces/airport';
 import { Seat } from 'src/app/Interfaces/execution';
 import { Reservation } from 'src/app/Interfaces/execution';
+import { Execution } from 'src/app/Interfaces/execution';
 
 @Component({
   selector: 'check-in',
@@ -28,6 +29,7 @@ export class CheckInComponent {
     private router: Router,
     private api: ApiService<Flight>,
     private ReservationApi: ApiService<Reservation>,
+    private ExecutionApi: ApiService<Execution>,
     private SeatApi: ApiService<Seat>,) {
   }
 
@@ -72,54 +74,47 @@ export class CheckInComponent {
 
   luggage() {
 
-    /**this.api.getById('Flight', this.flightID).subscribe(
-      (flight: Flight[]) => {
-        if (flight) {
-          this.flight = flight;
-          let seats = this.selectedSeats.join(', ');
-          this.router.navigate(['/luggage', this.flightID, seats]);
-        } else {
-
-        }
-      },
-      (error: any) => {
-        console.error('Error fetching flight:', error);
-      }
-    );
-  }**/
-
     //Obtener la ejecucion con el ID de la reservacion
     this.ReservationApi.getSingleById('Reservation', this.reservationID).subscribe(
       (reservation: Reservation) => {
         this.reservation = reservation;
 
-        const [letra, numeroStr] = this.selectedSeats[0];
-        const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
-        const valorNumero = parseInt(numeroStr, 10);
-        const numeroAsiento = (valorLetra - 1) * this.numCols + valorNumero;
+        this.ExecutionApi.getSingleById(
+          'Execution/GetExecutionByID',
+          reservation.idexecution
+        ).subscribe((execution: any) => {
 
-        const asiento: Seat = {
-          seatNumber: numeroAsiento,
-          idexecution: this.reservation.idexecution
-        };
+          const [letra, numeroStr] = this.selectedSeats[0];
+          const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
+          const valorNumero = parseInt(numeroStr, 10);
+          const numeroAsiento = (valorLetra - 1) * this.numCols + valorNumero;
 
-        console.log(asiento);
+          const asiento: Seat = {
+            seatNumber: numeroAsiento,
+            idexecution: this.reservation.idexecution
+          };
 
-        // Creación del asiento
-        this.SeatApi.create('Seat', asiento).subscribe(
-          (data) => {
-            console.log('Nuevo asiento creado:', data);
-            let seats = this.selectedSeats.join(', ');
-            this.router.navigate(['/luggage', this.reservationID, seats, numeroAsiento]);
-          },
+          console.log(asiento);
+
+          // Creación del asiento
+          this.SeatApi.create('Seat', asiento).subscribe(
+            (data) => {
+              console.log('Nuevo asiento creado:', data);
+              let seats = this.selectedSeats.join(', ');
+              this.router.navigate(['/luggage', this.reservationID, seats, numeroAsiento]);
+            },
+            (error: any) => {
+              console.error('Error al crear el nuevo asiento:', error);
+            }
+          );
+        },
           (error: any) => {
-            console.error('Error al crear el nuevo asiento:', error);
+            console.error('Error fetching reservation:', error);
           }
         );
-      },
-      (error: any) => {
-        console.error('Error fetching reservation:', error);
       }
-    );
+    )
   }
+
+
 }

@@ -12,14 +12,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
   templateUrl: './opening-flights.component.html',
 })
 export class OpeningFlightsComponent {
-  //changeStatus: Execution[];
   changeStatus: Execution[] = [];
   idexecution: any;
 
   constructor(private api: ApiService<Execution>) { }
-
-  ngOnInit() {
-  }
 
   update() {
 

@@ -1,7 +1,11 @@
-<h3 class="page-title"> Cierre de Vuelos </h3>
+<h3 class="page-title">Cierre de Vuelos</h3>
 <div class="card" style="width: 18rem;">
     <div class="card-body">
-        <h5 class="card-title">ID vuelo</h5>
-        <button class="btn btn-primary" href="#">Cerrar vuelo</button>
+        <input type="text" class="form-control" placeholder="ID del avion" [(ngModel)]="idexecution"
+            aria-label="Username" aria-describedby="addon-wrapping">
+
+        <button [disabled]="idexecution == undefined" type="button" class="btn btn-primary" (click)="update()">
+            Cerrar vuelo
+        </button>
     </div>
 </div>
