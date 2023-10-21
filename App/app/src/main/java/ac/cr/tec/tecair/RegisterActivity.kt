@@ -1,5 +1,6 @@
 package ac.cr.tec.tecair
 
+import ac.cr.tec.tecair.models.User
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,13 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var databaseHelper: DatabaseHelper
 
+    private lateinit var etName: EditText
+    private lateinit var etID: EditText
+    private lateinit var etPhoneNumber: EditText
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var checkStudent: CheckBox
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -19,56 +27,71 @@ class RegisterActivity : AppCompatActivity() {
         // Initialize the database helper
         databaseHelper = DatabaseHelper(this)
 
-        // Init UI and handle the registration logic
-        initUI()
+        // Initialize UI components
+        etName = findViewById(R.id.et_name)
+        etID = findViewById(R.id.et_userID)
+        etPhoneNumber = findViewById(R.id.editTextPhone)
+        etEmail = findViewById(R.id.editTextTextEmailAddress)
+        etPassword = findViewById(R.id.editTextTextPassword)
+        checkStudent = findViewById(R.id.checkStudent)
+
+        // Init registration logic
+        initRegistration()
     }
 
-    private fun initUI() {
-        val etName = findViewById<EditText>(R.id.et_college)
-        val etID = findViewById<EditText>(R.id.et_collegeID)
-        val etPhoneNumber = findViewById<EditText>(R.id.editTextPhone)
-        val etEmail = findViewById<EditText>(R.id.et_email)
-        val etPassword = findViewById<EditText>(R.id.et_password)
-        val checkStudent = findViewById<CheckBox>(R.id.checkStudent)
-
+    private fun initRegistration() {
         val btnRegister = findViewById<Button>(R.id.btn_finishSignup)
 
         btnRegister.setOnClickListener {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
-            val id= etID.text.toString()
             val phoneNumber = etPhoneNumber.text.toString()
             val name = etName.text.toString()
 
-            if (isValidRegistrationInput(name, id, phoneNumber, email, password)) {
-                if (checkStudent.isChecked) {
-                    // Start an activity to recover more information about the student
-                    val studentRecoveryIntent = Intent(this, StudentRegisterActivity::class.java)
-                    startActivity(studentRecoveryIntent)
+            val idText = etID.text.toString()
+
+            if (isValidRegistrationInput(name, idText, phoneNumber, email, password)) {
+                if (!databaseHelper.checkUser(email.trim())) {
+                    val id = idText.toInt()
+                    val user = User(name, id, password, phoneNumber, email, null)
+                    databaseHelper.addUser(user)
+                    Toast.makeText(this, getString(R.string.success_message), Toast.LENGTH_SHORT).show()
+
+                    val targetClass = if (checkStudent.isChecked) {
+                        StudentRegisterActivity::class.java
+                    } else {
+                        GridActivity::class.java
+                    }
+                    val nextActivityIntent = Intent(this, targetClass)
+                    startActivity(nextActivityIntent)
+
+                    // Clear input fields
+                    clearInputFields()
                 } else {
-                    // Start the normal next activity
-                    val normalNextActivityIntent = Intent(this, GridActivity::class.java)
-                    startActivity(normalNextActivityIntent)
+                    Toast.makeText(this, "Failed user registration", Toast.LENGTH_SHORT).show()
                 }
-
-                // Clear input fields
-                etEmail.text.clear()
-                etPassword.text.clear()
-                etName.text.clear()
-                etID.text.clear()
-                etPhoneNumber.text.clear()
-
-
             }
         }
     }
-
-    private fun isValidRegistrationInput(name:String, id:String, phoneNumber:String, email: String, password: String, ): Boolean {
-        if (email.isEmpty() || password.isEmpty()|| name.isEmpty()||phoneNumber.isEmpty() || id.isEmpty()) {
+    private fun isValidRegistrationInput(
+        name: String,
+        idText: String,
+        phoneNumber: String,
+        email: String,
+        password: String
+    ): Boolean {
+        if (email.isEmpty() || password.isEmpty() || name.isEmpty() || phoneNumber.isEmpty() || idText.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
     }
-}
 
+    private fun clearInputFields() {
+        etName.text.clear()
+        etID.text.clear()
+        etPhoneNumber.text.clear()
+        etEmail.text.clear()
+        etPassword.text.clear()
+    }
+}

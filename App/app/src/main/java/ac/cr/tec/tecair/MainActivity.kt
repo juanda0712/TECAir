@@ -57,7 +57,7 @@
             if(databaseHelper!!.checkUser(email!!.trim {it <= ' '}, password!!.trim{it <= ' '})){
                 emptyInputEditText()
 
-                val intent= Intent(this, HomeActivity::class.java)
+                val intent= Intent(this, GridActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
