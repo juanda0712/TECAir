@@ -84,33 +84,39 @@ export class CheckInComponent {
           reservation.idexecution
         ).subscribe((execution: any) => {
 
-          const [letra, numeroStr] = this.selectedSeats[0];
-          const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
-          const valorNumero = parseInt(numeroStr, 10);
-          const numeroAsiento = (valorLetra - 1) * this.numCols + valorNumero;
+          if (execution.status == 'open') {
 
-          const asiento: Seat = {
-            seatNumber: numeroAsiento,
-            idexecution: this.reservation.idexecution
-          };
+            const [letra, numeroStr] = this.selectedSeats[0];
+            const valorLetra = letra.charCodeAt(0) - 'A'.charCodeAt(0) + 1;
+            const valorNumero = parseInt(numeroStr, 10);
+            const numeroAsiento = (valorLetra - 1) * this.numCols + valorNumero;
 
-          console.log(asiento);
+            const asiento: Seat = {
+              seatNumber: numeroAsiento,
+              idexecution: this.reservation.idexecution
+            };
 
-          //Creación del asiento
-          this.SeatApi.create('Seat', asiento).subscribe(
-            (data) => {
-              console.log('Nuevo asiento creado:', data);
-              let seats = this.selectedSeats.join(', ');
-              this.router.navigate(['/luggage', this.reservationID, seats, numeroAsiento]);
-            },
+            console.log(asiento);
+
+            //Creación del asiento
+            this.SeatApi.create('Seat', asiento).subscribe(
+              (data) => {
+                console.log('Nuevo asiento creado:', data);
+                let seats = this.selectedSeats.join(', ');
+                this.router.navigate(['/luggage', this.reservationID, seats, numeroAsiento]);
+              },
+              (error: any) => {
+                console.error('Error al crear el nuevo asiento:', error);
+              }
+            );
             (error: any) => {
-              console.error('Error al crear el nuevo asiento:', error);
+              console.error('Error fetching reservation:', error);
             }
-          );
-        },
-          (error: any) => {
-            console.error('Error fetching reservation:', error);
           }
+          else {
+            console.log("El vuelo seleccionado no se encuentra abierto ")
+          }
+        }
         );
       }
     )
