@@ -7,13 +7,12 @@
     android:layout_margin="12dp"
     card_view:cardBackgroundColor="@color/colorTema2"
     card_view:cardElevation="6dp"
-    card_view:contentPadding="4dp"
+    card_view:contentPadding="16dp"
     card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="100dp"
@@ -40,13 +39,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Details"
+            android:text="Date"
             android:textColor="@color/white"
-            android:id="@+id/itemDetail"
-            android:textStyle="bold"
+            android:id="@+id/itemDate"
             android:layout_toEndOf="@id/itemImage"
             android:layout_toRightOf="@id/itemImage"
             android:layout_below="@id/itemTitle"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColor="@color/white"
+            android:id="@+id/itemPrice"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/itemImage"
+            android:layout_toRightOf="@id/itemImage"
+            android:layout_below="@id/itemDate"/>
 
     </RelativeLayout>
 

@@ -60,7 +60,7 @@ class RegisterActivity : AppCompatActivity() {
                     val targetClass = if (checkStudent.isChecked) {
                         StudentRegisterActivity::class.java
                     } else {
-                        GridActivity::class.java
+                        MainActivity::class.java
                     }
                     val nextActivityIntent = Intent(this, targetClass)
                     startActivity(nextActivityIntent)

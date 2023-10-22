@@ -28,36 +28,69 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Promo Code"
+            android:text="Passenger Name"
             android:textColor="@color/white"
-            android:id="@+id/itemTitle"
+            android:id="@+id/passengerName"
             android:textStyle="bold"
             android:layout_toEndOf="@id/itemImage"
             android:layout_toRightOf="@id/itemImage"
             android:layout_alignParentTop="true"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Promo Period"
+            android:text="Reservation ID"
             android:textColor="@color/white"
-            android:id="@+id/itemDetail"
+            android:id="@+id/reservationId"
             android:textStyle="bold"
             android:layout_toEndOf="@id/itemImage"
             android:layout_toRightOf="@id/itemImage"
-            android:layout_below="@id/itemTitle" />
+            android:layout_below="@id/passengerName" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Promo Price"
+            android:text="Flight Number"
             android:textColor="@color/white"
-            android:id="@+id/itemPrice"
+            android:id="@+id/flightNumber"
             android:textStyle="bold"
             android:layout_toEndOf="@id/itemImage"
             android:layout_toRightOf="@id/itemImage"
-            android:layout_below="@id/itemDetail" />
+            android:layout_below="@id/reservationId" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Origin - Destination"
+            android:textColor="@color/white"
+            android:id="@+id/originDestination"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/itemImage"
+            android:layout_toRightOf="@id/itemImage"
+            android:layout_below="@id/flightNumber" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Execution Date"
+            android:textColor="@color/white"
+            android:id="@+id/executionDate"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/itemImage"
+            android:layout_toRightOf="@id/itemImage"
+            android:layout_below="@id/originDestination" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Execution Price"
+            android:textColor="@color/white"
+            android:id="@+id/executionPrice"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/itemImage"
+            android:layout_toRightOf="@id/itemImage"
+            android:layout_below="@id/executionDate" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

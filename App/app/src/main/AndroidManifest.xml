@@ -41,9 +41,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShowFlightsActivity"
-            android:exported="false" />
-        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

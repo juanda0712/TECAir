@@ -44,7 +44,7 @@ object DBContract {
         companion object{
             val TABLE_NAME = "Reservation"
             val COLUMN_RESERVID= "ReservationID"
-            val COLUMN_USERID= "UserID"
+            val COLUMN_PASSENGERID= "UserID"
             val COLUMN_EXECUTIONID= "ExecutionID"
         }
     }

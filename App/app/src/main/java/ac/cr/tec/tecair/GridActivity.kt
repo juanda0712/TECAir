@@ -1,5 +1,6 @@
 package ac.cr.tec.tecair
 
+import ReservationActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,12 @@ class GridActivity : AppCompatActivity() {
         }
 
         flightsCardView.setOnClickListener {
+            // Call the addSampleData function to populate sample data
+            //SOLO PARA TESTING
+            val databaseHelper = DatabaseHelper(this)
+            DatabaseTestUtil(databaseHelper).addFlightSearchSampleData()
+
+            // Start the FlightsActivity
             val intent = Intent(this, FlightsActivity::class.java)
             startActivity(intent)
         }
@@ -32,6 +39,12 @@ class GridActivity : AppCompatActivity() {
         }
 
         promotionsCardView.setOnClickListener {
+            //Call the addPromoSampleData to populate sample data
+            //TESTING
+            val databaseHelper=DatabaseHelper(this)
+            DatabaseTestUtil(databaseHelper).addPromoSampleData()
+
+            //Start the promoactivity
             val intent = Intent(this, PromotionsActivity::class.java)
             startActivity(intent)
         }

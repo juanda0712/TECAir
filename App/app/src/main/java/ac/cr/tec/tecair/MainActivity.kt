@@ -9,9 +9,11 @@
     import android.view.View
     import android.widget.Toast
     import ac.cr.tec.tecair.DatabaseHelper
+    import androidx.core.view.ViewCompat
 
 
     class MainActivity : AppCompatActivity() {
+
         private val activity = this@MainActivity
         private lateinit var databaseHelper: DatabaseHelper
 
@@ -28,9 +30,14 @@
             initUI()
         }
 
+
+
+
+
         private fun initUI(){
 
             binding.btnSignin.setOnClickListener{
+                login()
 
             }
 
@@ -46,19 +53,15 @@
 
             }
 
-
         }
 
-        fun login(view: View){
+        private fun login() {
             val email = findViewById<EditText>(R.id.et_email).text.toString()
-            val password  = findViewById<EditText>(R.id.et_password).text.toString()
+            val password = findViewById<EditText>(R.id.et_password).text.toString()
 
-            //validacion del usuario en la DB
-            if(databaseHelper!!.checkUser(email!!.trim {it <= ' '}, password!!.trim{it <= ' '})){
+            if (databaseHelper.checkUser(email.trim(), password.trim())) {
                 emptyInputEditText()
-
-                val intent= Intent(this, GridActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, GridActivity::class.java))
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
             }

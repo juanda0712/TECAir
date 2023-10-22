@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
 //Funciona como un API para la creación de la DB local
-class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
+class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         //Si se cambia el esquema de la DB se debe incrementar la version
@@ -36,7 +36,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                     "$COL_PASSWORD STRING," +
                     "FOREIGN KEY ($COL_PASSID) REFERENCES ${DBContract.PassengerEntry.TABLE_NAME}(${DBContract.PassengerEntry.COLUMN_PASSENGERID})" +
                     ")"
-
 
 
         /**PassengerTable**/
@@ -69,7 +68,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         /**ReservationTable**/
         val RESERVATIONTABLE_NAME = DBContract.ReservationEntry.TABLE_NAME
         val COL_RESERVID = DBContract.ReservationEntry.COLUMN_RESERVID
-        val COL_RESUSERID = DBContract.ReservationEntry.COLUMN_USERID
+        val COL_RESUSERID = DBContract.ReservationEntry.COLUMN_PASSENGERID
         val COL_RESEXECUTIONID = DBContract.ReservationEntry.COLUMN_EXECUTIONID
 
         private val SQL_CREATE_RESERVATIONTABLE =
@@ -94,8 +93,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val PROMOTIONTABLE_NAME = DBContract.PromotionEntry.TABLE_NAME
         val COL_PROMONUMBER = DBContract.PromotionEntry.COLUMN_NUMBER
         val COL_PROMOEXECID = DBContract.PromotionEntry.COLUMN_EXECUTIONID
-        val COL_PROMOORIGIN = DBContract.PromotionEntry.COLUMN_ORIGIN
-        val COL_PROMODESTIN = DBContract.PromotionEntry.COLUMN_DESTINATION
         val COL_PROMOPERIOD = DBContract.PromotionEntry.COLUMN_PERIOD
         val COL_PROMOPRICE = DBContract.PromotionEntry.COLUMN_PRICE
 
@@ -103,11 +100,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             "CREATE TABLE $PROMOTIONTABLE_NAME (" +
                     "$COL_PROMONUMBER INTEGER PRIMARY KEY," +
                     "$COL_PROMOEXECID INTEGER," +
-                    "$COL_PROMOORIGIN STRING," +
-                    "$COL_PROMODESTIN STRING," +
                     "$COL_PROMOPERIOD STRING," +
-                    "$COL_PROMOPRICE STRING" +
+                    "$COL_PROMOPRICE STRING," +
+                    "FOREIGN KEY ($COL_PROMOEXECID) REFERENCES ${DBContract.ExecutionEntry.TABLE_NAME}(${DBContract.ExecutionEntry.COLUMN_EXECUTIONID})" +
                     ")"
+
 
         /**StudentTable**/
         val STUDENTTABLE_NAME = DBContract.StudentEntry.TABLE_NAME
@@ -146,7 +143,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val COL_EXECPRICE = DBContract.ExecutionEntry.COLUMN_PRICE
         val COL_EXECSTATUS = DBContract.ExecutionEntry.COLUMN_STATUS
         val COL_BOARDINGDOOR = DBContract.ExecutionEntry.COLUMN_BOARDINGDOOR
-
 
 
         private val SQL_CREATE_EXECUTIONTABLE =
@@ -237,7 +233,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         /**ExecutionLayoverTable**/
         val XLAYOVERTABLE_NAME = DBContract.ExecutionLayoverEntry.TABLE_NAME
         val COL_XLAYOVERID = DBContract.ExecutionLayoverEntry.COLUMN_LAYOVERID //PrimaryKey
-        val COL_XLAYOVEREXECUTIONID = DBContract.ExecutionLayoverEntry.COLUMN_EXECUTIONID //PrimaryKey
+        val COL_XLAYOVEREXECUTIONID =
+            DBContract.ExecutionLayoverEntry.COLUMN_EXECUTIONID //PrimaryKey
         val COL_XLAYOVERPRICE = DBContract.ExecutionLayoverEntry.COLUMN_PRICE
         private val SQL_CREATE_XLAYOVERTABLE = (
                 "CREATE TABLE " + XLAYOVERTABLE_NAME + " (" +
@@ -248,21 +245,34 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                         ");")
 
         private val SQL_DELETE_USERTABLE = "DROP TABLE IF EXISTS " + DBContract.UserEntry.TABLE_NAME
-        private val SQL_DELETE_PASSENGERTABLE = "DROP TABLE IF EXISTS " + DBContract.PassengerEntry.TABLE_NAME
-        private val SQL_DELETE_FLIGHTTABLE = "DROP TABLE IF EXISTS " + DBContract.FlightEntry.TABLE_NAME
-        private val SQL_DELETE_RESERVATIONTABLE = "DROP TABLE IF EXISTS " + DBContract.ReservationEntry.TABLE_NAME
-        private val SQL_DELETE_AIRPORTTABLE = "DROP TABLE IF EXISTS " + DBContract.AirportEntry.TABLE_NAME
-        private val SQL_DELETE_PROMOTIONTABLE = "DROP TABLE IF EXISTS " + DBContract.PromotionEntry.TABLE_NAME
-        private val SQL_DELETE_STUDENTTABLE = "DROP TABLE IF EXISTS " + DBContract.StudentEntry.TABLE_NAME
+        private val SQL_DELETE_PASSENGERTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.PassengerEntry.TABLE_NAME
+        private val SQL_DELETE_FLIGHTTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.FlightEntry.TABLE_NAME
+        private val SQL_DELETE_RESERVATIONTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.ReservationEntry.TABLE_NAME
+        private val SQL_DELETE_AIRPORTTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.AirportEntry.TABLE_NAME
+        private val SQL_DELETE_PROMOTIONTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.PromotionEntry.TABLE_NAME
+        private val SQL_DELETE_STUDENTTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.StudentEntry.TABLE_NAME
         private val SQL_DELETE_SEATTABLE = "DROP TABLE IF EXISTS " + DBContract.SeatEntry.TABLE_NAME
-        private val SQL_DELETE_EXECUTIONTABLE = "DROP TABLE IF EXISTS " + DBContract.ExecutionEntry.TABLE_NAME
-        private val SQL_DELETE_TICKETTABLE = "DROP TABLE IF EXISTS " + DBContract.TicketEntry.TABLE_NAME
-        private val SQL_DELETE_PLANETABLE = "DROP TABLE IF EXISTS " + DBContract.PlaneEntry.TABLE_NAME
-        private val SQL_DELETE_SUITCASETABLE = "DROP TABLE IF EXISTS " + DBContract.SuitcaseEntry.TABLE_NAME
-        private val SQL_DELETE_LAYOVERTABLE = "DROP TABLE IF EXISTS " + DBContract.LayoverEntry.TABLE_NAME
-        private val SQL_DELETE_XLAYOVERTABLE = "DROP TABLE IF EXISTS " + DBContract.ExecutionLayoverEntry.TABLE_NAME
+        private val SQL_DELETE_EXECUTIONTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.ExecutionEntry.TABLE_NAME
+        private val SQL_DELETE_TICKETTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.TicketEntry.TABLE_NAME
+        private val SQL_DELETE_PLANETABLE =
+            "DROP TABLE IF EXISTS " + DBContract.PlaneEntry.TABLE_NAME
+        private val SQL_DELETE_SUITCASETABLE =
+            "DROP TABLE IF EXISTS " + DBContract.SuitcaseEntry.TABLE_NAME
+        private val SQL_DELETE_LAYOVERTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.LayoverEntry.TABLE_NAME
+        private val SQL_DELETE_XLAYOVERTABLE =
+            "DROP TABLE IF EXISTS " + DBContract.ExecutionLayoverEntry.TABLE_NAME
 
     }
+
     /* Crea la base de datos*/
     override fun onCreate(db: SQLiteDatabase) {
 
@@ -281,7 +291,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(SQL_CREATE_TICKETTABLE)//x
         db.execSQL(SQL_CREATE_XLAYOVERTABLE)//x
     }
-    
+
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         //Descarta la fecha y reinicia
         db.execSQL(SQL_DELETE_USERTABLE)//x
@@ -348,7 +358,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      *
      * @param passenger
      */
-    fun addPassenger(passenger: Passenger){
+    fun addPassenger(passenger: Passenger) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.PassengerEntry.COLUMN_PASSENGERID, passenger.passengerID)
@@ -359,13 +369,14 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(PASSENGERTABLE_NAME, null, insertvalues)
         db.close()
     }
+
     /**
      * Metodo que agrega información del vuelo a la DB
      *
      * @param Flight
      */
 
-    fun addFlight(flight: Flight){
+    fun addFlight(flight: Flight) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.FlightEntry.COLUMN_FLIGHTNUMBER, flight.number)
@@ -376,16 +387,17 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(FLIGHTTABLE_NAME, null, insertvalues)
         db.close()
     }
+
     /**
      * Metodo que agrega información de la reservacion a la DB
      *
      * @param reservation
      */
-    fun addReservation(reservation: Reservation){
+    fun addReservation(reservation: Reservation) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.ReservationEntry.COLUMN_RESERVID, reservation.reservationID)
-        insertvalues.put(DBContract.ReservationEntry.COLUMN_USERID, reservation.userID)
+        insertvalues.put(DBContract.ReservationEntry.COLUMN_PASSENGERID, reservation.passengerID)
         insertvalues.put(DBContract.ReservationEntry.COLUMN_EXECUTIONID, reservation.executionID)
 
         //insert
@@ -398,7 +410,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      *
      * @param Airport
      */
-    fun addAirport(airport: Airport){
+    fun addAirport(airport: Airport) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.AirportEntry.COLUMN_NAME, airport.name)
@@ -414,13 +426,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
      *
      * @param promotion
      */
-    fun addPromotion(promotion: Promotion){
+    fun addPromotion(promotion: Promotion) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.PromotionEntry.COLUMN_NUMBER, promotion.promoNumber)
         insertvalues.put(DBContract.PromotionEntry.COLUMN_EXECUTIONID, promotion.promoExecID)
-        insertvalues.put(DBContract.PromotionEntry.COLUMN_ORIGIN, promotion.promoOrigin)
-        insertvalues.put(DBContract.PromotionEntry.COLUMN_DESTINATION, promotion.promoDestin)
         insertvalues.put(DBContract.PromotionEntry.COLUMN_PERIOD, promotion.promoPeriod)
         insertvalues.put(DBContract.PromotionEntry.COLUMN_PRICE, promotion.promoPrice)
 
@@ -428,12 +438,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(PROMOTIONTABLE_NAME, null, insertvalues)
         db.close()
     }
+
     /**
      * Metodo que agrega información del estudiante a la DB
      *
      * @param student
      */
-    fun addStudent(student: Student){
+    fun addStudent(student: Student) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.StudentEntry.COLUMN_UNICARD, student.universityCard)
@@ -445,25 +456,29 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(STUDENTTABLE_NAME, null, insertvalues)
         db.close()
     }
+
     /**
      * Metodo que agrega información del asiento a la DB
      *
      * @param seat
      */
-    fun addSeat(seat:Seat){val db = this.writableDatabase
+    fun addSeat(seat: Seat) {
+        val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.SeatEntry.COLUMN_NUMBER, seat.number)
         insertvalues.put(DBContract.SeatEntry.COLUMN_EXECUTIONID, seat.executionID)
 
         //insert
         db.insert(SEATTABLE_NAME, null, insertvalues)
-        db.close()}
+        db.close()
+    }
+
     /**
      * Metodo que agrega información de la ejecución a la DB
      *
      * @param execution
      */
-    fun addExecution(execution:Execution){
+    fun addExecution(execution: Execution) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.ExecutionEntry.COLUMN_EXECUTIONID, execution.executionID)
@@ -478,15 +493,14 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         //insert
         db.insert(EXECUTIONTABLE_NAME, null, insertvalues)
         db.close()
-
-
     }
+
     /**
      * Metodo que agrega información del tiquete a la DB
      *
      * @param ticket
      */
-    fun addTicket(ticket:Ticket){
+    fun addTicket(ticket: Ticket) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.TicketEntry.COLUMN_TICKETID, ticket.ticketID)
@@ -502,6 +516,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(TICKETTABLE_NAME, null, insertvalues)
         db.close()
     }
+
     /**
      * Metodo que agrega información del avion a la DB
      *
@@ -518,12 +533,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(PLANETABLE_NAME, null, insertvalues)
         db.close()
     }
+
     /**
      * Metodo que agrega información del equipaje a la DB
      *
      * @param suitcase
      */
-    fun addSuitcase(suitcase:Suitcase){
+    fun addSuitcase(suitcase: Suitcase) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.SuitcaseEntry.COLUMN_SUITCASEID, suitcase.suitcaseID)
@@ -535,12 +551,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert(SUITCASETABLE_NAME, null, insertvalues)
         db.close()
     }
+
     /**
      * Metodo que agrega información de la escala a la DB
      *
      * @param layover
      */
-    fun addLayover(layover: Layover){
+    fun addLayover(layover: Layover) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
         insertvalues.put(DBContract.LayoverEntry.COLUMN_LAYOVERID, layover.layoverID)
@@ -553,16 +570,23 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.close()
 
     }
+
     /**
      * Metodo que agrega información de la escala de la ejecución a la DB
      *
      * @param executionLayover
      */
-    fun addExecutionLayover(executionLayover: ExecutionLayover){
+    fun addExecutionLayover(executionLayover: ExecutionLayover) {
         val db = this.writableDatabase
         val insertvalues = ContentValues()
-        insertvalues.put(DBContract.ExecutionLayoverEntry.COLUMN_LAYOVERID, executionLayover.layoverID)
-        insertvalues.put(DBContract.ExecutionLayoverEntry.COLUMN_EXECUTIONID, executionLayover.executionID)
+        insertvalues.put(
+            DBContract.ExecutionLayoverEntry.COLUMN_LAYOVERID,
+            executionLayover.layoverID
+        )
+        insertvalues.put(
+            DBContract.ExecutionLayoverEntry.COLUMN_EXECUTIONID,
+            executionLayover.executionID
+        )
         insertvalues.put(DBContract.ExecutionLayoverEntry.COLUMN_PRICE, executionLayover.price)
 
         //insert
@@ -612,12 +636,18 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         if (cursor!!.moveToFirst()) {
             while (cursor.isAfterLast == false) {
-                name = cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME))
-                userID = cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_USERID))
-                phoneNumber = cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_PHONE))
-                password = cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_PASSWORD))
-                email = cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_EMAIL))
-                passengerID = cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_PASSENGERID))
+                name =
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME))
+                userID =
+                    cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_USERID))
+                phoneNumber =
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_PHONE))
+                password =
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_PASSWORD))
+                email =
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_EMAIL))
+                passengerID =
+                    cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_PASSENGERID))
 
                 dBdata.add(User(name, userID, password, phoneNumber, email, passengerID))
                 cursor.moveToNext()
@@ -647,7 +677,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             selectionArgs,  //The values for the WHERE clause
             null,  //group the rows
             null,   //filter by row groups
-            null)  //The sort order
+            null
+        )  //The sort order
         val cursorCount = cursor.count
         cursor.close()
         db.close()
@@ -678,7 +709,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             selectionArgs, //The values for the WHERE clause
             null,  //group the rows
             null, //filter by row groups
-            null) //The sort order
+            null
+        ) //The sort order
         val cursorCount = cursor.count
         cursor.close()
         db.close()
@@ -686,4 +718,139 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             return true
         return false
     }
+
+    fun checkFlight(origin: String, destination: String): List<Flight> {
+        val flightList = mutableListOf<Flight>()
+        val query = "SELECT * FROM $FLIGHTTABLE_NAME WHERE " +
+                "${DBContract.FlightEntry.COLUMN_ORIGIN} = ? AND " +
+                "${DBContract.FlightEntry.COLUMN_DESTINATION} = ?"
+
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(query, arrayOf(origin, destination))
+
+        if (cursor != null && cursor.moveToFirst()) {
+            val flightNumberIndex =
+                cursor.getColumnIndex(DBContract.FlightEntry.COLUMN_FLIGHTNUMBER)
+            val originIndex = cursor.getColumnIndex(DBContract.FlightEntry.COLUMN_ORIGIN)
+            val destinationIndex = cursor.getColumnIndex(DBContract.FlightEntry.COLUMN_DESTINATION)
+
+            do {
+                val flightNumber = cursor.getInt(flightNumberIndex)
+                val flightOrigin = cursor.getString(originIndex)
+                val flightDestination = cursor.getString(destinationIndex)
+
+                val flight = Flight(flightNumber, flightOrigin, flightDestination)
+                flightList.add(flight)
+            } while (cursor.moveToNext())
+        }
+
+        cursor?.close()
+        db.close()
+
+        return flightList
+    }
+
+    fun checkExecution(flightNumber: Int): List<Execution> {
+        val executionList = mutableListOf<Execution>()
+        val db = this.readableDatabase
+        val query =
+            "SELECT ${DBContract.ExecutionEntry.COLUMN_DATE}, ${DBContract.ExecutionEntry.COLUMN_PRICE} " +
+                    "FROM $EXECUTIONTABLE_NAME " +
+                    "WHERE ${DBContract.ExecutionEntry.COLUMN_FLIGHTNUMBER} = ?"
+
+        val cursor = db.rawQuery(query, arrayOf(flightNumber.toString()))
+
+        if (cursor != null && cursor.moveToFirst()) {
+            val dateIndex = cursor.getColumnIndex(DBContract.ExecutionEntry.COLUMN_DATE)
+            val priceIndex = cursor.getColumnIndex(DBContract.ExecutionEntry.COLUMN_PRICE)
+
+            do {
+                val date = cursor.getString(dateIndex)
+                val price = cursor.getString(priceIndex)
+
+                val execution = Execution(
+                    executionID = 0,  // You can set this to 0 or provide an appropriate value
+                    flightNumber = flightNumber,
+                    plateNumber = 0,  // You can set this to 0 or provide an appropriate value
+                    date = date,
+                    departureTime = "",  // You can set this to an empty string or provide an appropriate value
+                    price = price,
+                    status = "",  // You can set this to an empty string or provide an appropriate value
+                    boardingDoor = ""  // You can set this to an empty string or provide an appropriate value
+                )
+                executionList.add(execution)
+            } while (cursor.moveToNext())
+        }
+
+        cursor?.close()
+        db.close()
+
+        return executionList
+    }
+
+    fun getAllPromos(): List<Promotion> {
+        val promotionList = mutableListOf<Promotion>()
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM ${DBContract.PromotionEntry.TABLE_NAME}", null)
+
+        while (cursor.moveToNext()) {
+            val promotionNumberIndex = cursor.getColumnIndex(DBContract.PromotionEntry.COLUMN_NUMBER)
+            val promoPeriodIndex = cursor.getColumnIndex(DBContract.PromotionEntry.COLUMN_PERIOD)
+            val promoPriceIndex = cursor.getColumnIndex(DBContract.PromotionEntry.COLUMN_PRICE)
+
+            // Check if columns exist in the cursor
+            if (promotionNumberIndex >= 0 && promoPeriodIndex >= 0 && promoPriceIndex >= 0) {
+                val promotionNumber = cursor.getInt(promotionNumberIndex)
+                val promoPeriod = cursor.getString(promoPeriodIndex)
+                val promoPrice = cursor.getString(promoPriceIndex)
+
+                val promotion = Promotion(promotionNumber,0, promoPeriod, promoPrice)
+                promotionList.add(promotion)
+            }
+        }
+
+        cursor.close()
+        return promotionList
+    }
+
+    fun getUserData(): User? {
+        var userData: User? = null
+        val selectQuery = "SELECT $COL_NAME, $COL_EMAIL, $COL_PHONE, $COL_USERID FROM $USERTABLE_NAME"
+        val db = this.readableDatabase
+
+        val cursor = db.rawQuery(selectQuery, null)
+        if (cursor.moveToFirst()) {
+            val nameColumnIndex = cursor.getColumnIndex(COL_NAME)
+            val emailColumnIndex = cursor.getColumnIndex(COL_EMAIL)
+            val phoneColumnIndex = cursor.getColumnIndex(COL_PHONE)
+            val userIdColumnIndex = cursor.getColumnIndex(COL_USERID)
+            val passwordColumnIndex = cursor.getColumnIndex(COL_PASSWORD)
+
+            // Check if the columns exist
+            if (nameColumnIndex >= 0 && emailColumnIndex >= 0 && phoneColumnIndex >= 0 && userIdColumnIndex >= 0) {
+                val name = cursor.getString(nameColumnIndex)
+                val email = cursor.getString(emailColumnIndex)
+                val phone = cursor.getString(phoneColumnIndex)
+                val userId = cursor.getInt(userIdColumnIndex)
+                val password = cursor.getString(passwordColumnIndex)
+
+                // Create a User object with the retrieved data
+                userData = User(name, userId, password , phone, email, null)
+            }
+        }
+
+        cursor.close()
+        db.close()
+
+        return userData
+    }
+
+
+
+
+    fun getAllReservationsWithInfo(any: Any) {
+
+    }
+
+
 }
