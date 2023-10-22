@@ -1,0 +1,68 @@
+/* Estilos globales para botones */
+.button {
+    background-color: #ff731d;
+    color: #fff7e9;
+    border: 1.5px solid #5f9cf7;
+    padding: 10px 20px;
+    margin: 20px;
+    margin-top: 50px;
+    cursor: pointer;
+  }
+
+.desplegable {
+    position: relative;
+    border: 1px solid #1746a2;
+    padding: 10px;
+    background-color: #fff7e9;
+    cursor: pointer;
+}
+
+  /* Estilo para las opciones dentro del ng-select */
+.desplegable .ng-dropdown-panel .ng-option {
+    background-color: #fff7e9; /* Cambia el color de fondo de las opciones */
+    opacity: 80%;
+}
+  
+/* Cambia la posición del encabezado a absoluta y ajusta las coordenadas */
+h4{
+    position: relative;
+  }
+
+h1{
+  position: relative;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+}
+
+h2{
+  position: relative;
+  top: 10px;
+  left: 15px;
+}
+
+h5{
+  color: #1746a2;
+  position: relative;
+  top: 0px;
+  left: 40px;
+  font-family: cursive, ;
+  font-style: italic;
+}
+
+.selectDate{
+  margin-top: 30px;
+  margin-left: 30px;
+  padding: 10px;
+  width: 20%;
+  color:#1746a2;
+  font-weight: bold;
+}
+
+/* Cambia el tamaño del contenedor del carousel */
+.carousel.slide {
+  width: 80%; /* Ancho deseado */
+  height: 80%; /* Altura deseada */
+}
+
+  
+
+  

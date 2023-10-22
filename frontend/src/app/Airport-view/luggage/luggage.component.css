@@ -1,0 +1,29 @@
+.mb-3 {
+    margin-left: 3%;
+    width: 50%;
+}
+
+.form-label {
+    font-weight: bold; 
+    font-size:large;
+}
+
+.btn {
+    background-color: #ff731d;
+    color: #fff7e9;
+    border: 1.5px solid #fff7e9;
+    padding: 10px 20px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.card {
+    position: relative;
+}
+
+.page-title {
+    position: relative; 
+    top: 20px; 
+    margin-bottom: 30px;
+    margin-left: 15px;
+}

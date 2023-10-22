@@ -1,0 +1,11 @@
+.card {
+    width: 30%;
+    margin: 20px;
+    display: inline-block;
+}
+
+.btn.btn-primary {
+    background-color:  #5f9cf7;
+    border: 1.5px solid #1746a2;
+    width: 20%;
+}

@@ -1,0 +1,58 @@
+.button {
+    background-color: #ff731d;
+    color: #fff7e9;
+    border: 1px solid #fff7e9;
+    padding: 10px 20px;
+    margin: 20px;
+    top: 20px;
+    cursor: pointer;
+}
+
+.card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    top: 20px;
+    width: 70%;
+
+}
+
+.card-title {
+    color:  #1746a2;
+    text-align: left;
+    left: 5px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center ;
+    color: #5f9cf7;
+
+}
+
+/* Define una clase de color naranja para botones outline */
+.btn-outline-blue {
+    color: #5f9cf7; /* Color del texto en naranja */
+    border-color: #5f9cf7; /* Color del borde en naranja */
+  }
+  
+  /* Cambia el color del fondo al pasar el cursor sobre el botón */
+.btn-outline-blue:hover {
+    background-color: #5f9cf7; /* Color de fondo al pasar el cursor en naranja */
+    color: #fff; /* Color del texto al pasar el cursor en blanco */
+}
+.btn-outline-blue:checked {
+    background-color: #5f9cf7;
+}
+
+.input-group.flex-nowrap {
+    margin: 1%;
+    width: 50%
+}
+  
+  
+  
+  
+  
+  
+  

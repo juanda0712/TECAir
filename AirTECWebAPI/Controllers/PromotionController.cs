@@ -1,8 +1,9 @@
-﻿using AirTECWebAPI.DTOModels.Promotion;
+using AirTECWebAPI.DTOModels.Promotion;
 using AirTECWebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AirTECWebAPI.Controllers
 {
@@ -11,53 +12,64 @@ namespace AirTECWebAPI.Controllers
     public class PromotionController : ControllerBase
     {
 
-        private readonly BdAirTecContext _context;
+        private readonly BdAirTecContext _bdAirTecContext;
 
-        public PromotionController(BdAirTecContext context)
+        public PromotionController(BdAirTecContext bdAirTecContext)
         {
-            _context = context;
+            _bdAirTecContext = bdAirTecContext;
         }
 
-        // GET: api/Promotion
+        /// <summary>
+        /// Retrieves a list of promotions.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PromotionDTO>>> GetPromotions()
         {
-            var promotions = await _context.Promotions
-                .Select(p => new PromotionDTO
+            var promotions = await _bdAirTecContext.Promotions
+                .Select(a => new PromotionDTO
                 {
-                    Number = p.Number,
-                    Idexecution = p.Idexecution,
-                    Period = p.Period,
-                    Price = p.Price
+             
+                    Number = a.Number,
+                    Idexecution = a.Idexecution,
+                    Period = a.Period,
+                    Price = a.Price
+
                 })
                 .ToListAsync();
 
             return promotions;
         }
 
-        // GET: api/Promotion/5
+        /// <summary>
+        /// Retrieves a specific promotion by its unique identifier.
+        /// </summary>
+        /// <param number="number">The unique identifier of the promotion.</param>
         [HttpGet("{number}")]
         public async Task<ActionResult<PromotionDTO>> GetPromotion(int number)
         {
-            var promotion = await _context.Promotions.FindAsync(number);
+            var promotion = await _bdAirTecContext.Promotions
+                .Where(a => a.Number == number)
+                .Select(a => new PromotionDTO
+                {
+                    Number = a.Number,
+                    Idexecution = a.Idexecution,
+                    Period = a.Period,
+                    Price = a.Price
+                })
+                .FirstOrDefaultAsync();
 
             if (promotion == null)
             {
                 return NotFound();
             }
 
-            var promotionDTO = new PromotionDTO
-            {
-                Number = promotion.Number,
-                Idexecution = promotion.Idexecution,
-                Period = promotion.Period,
-                Price = promotion.Price
-            };
-
-            return promotionDTO;
+            return promotion;
         }
 
-        // POST: api/Promotion
+        /// <summary>
+        /// Creates a new promotion.
+        /// </summary>
+        /// <param number="promotionDTO">The PromotionDTO containing promotion details.</param>
         [HttpPost]
         public async Task<ActionResult<PromotionDTO>> PostPromotion(PromotionDTO promotionDTO)
         {
@@ -69,13 +81,22 @@ namespace AirTECWebAPI.Controllers
                 Price = promotionDTO.Price
             };
 
-            _context.Promotions.Add(promotion);
-            await _context.SaveChangesAsync();
+            _bdAirTecContext.Promotions.Add(promotion);
+            await _bdAirTecContext.SaveChangesAsync();
+
+            promotionDTO.Number = promotion.Number;
+            promotionDTO.Idexecution = promotion.Idexecution;
+            promotionDTO.Period = promotion.Period;
+            promotionDTO.Price = promotion.Price;
 
             return CreatedAtAction("GetPromotion", new { number = promotion.Number }, promotionDTO);
         }
 
-        // PUT: api/Promotion/5
+        /// <summary>
+        /// Updates an existing promotion by its unique identifier.
+        /// </summary>
+        /// <param number="number">The unique identifier of the promotion to update.</param>
+        /// <param number="promotionDTO">The PromotionDTO containing updated promotion details.</param>
         [HttpPut("{number}")]
         public async Task<IActionResult> PutPromotion(int number, PromotionDTO promotionDTO)
         {
@@ -84,19 +105,24 @@ namespace AirTECWebAPI.Controllers
                 return BadRequest();
             }
 
-            var promotion = new Promotion
-            {
-                Number = promotionDTO.Number,
-                Idexecution = promotionDTO.Idexecution,
-                Period = promotionDTO.Period,
-                Price = promotionDTO.Price
-            };
+            var promotion = await _bdAirTecContext.Promotions.FindAsync(number);
 
-            _context.Entry(promotion).State = EntityState.Modified;
+            if (promotion == null)
+            {
+                return NotFound();
+            }
+
+            promotion.Number = promotionDTO.Number;
+            promotion.Idexecution = promotionDTO.Idexecution;
+            promotion.Period = promotionDTO.Period;
+            promotion.Price = promotionDTO.Price;
+
+
+            _bdAirTecContext.Entry(promotion).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bdAirTecContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -113,24 +139,29 @@ namespace AirTECWebAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Promotion/5
+        /// <summary>
+        /// Deletes a specific promotion by its unique identifier.
+        /// </summary>
+        /// <param name="number">The unique identifier of the promotion to delete.</param>
         [HttpDelete("{number}")]
-        public async Task<IActionResult> DeletePromotion(int number)
+        public async Task<IActionResult> DeleteAirport(int number)
         {
-            var promotion = await _context.Promotions.FindAsync(number);
+            var promotion = await _bdAirTecContext.Promotions.FindAsync(number);
+
             if (promotion == null)
             {
                 return NotFound();
             }
 
-            _context.Promotions.Remove(promotion);
-            await _context.SaveChangesAsync();
+            _bdAirTecContext.Promotions.Remove(promotion);
+            await _bdAirTecContext.SaveChangesAsync();
+
             return NoContent();
         }
 
         private bool PromotionExists(int number)
         {
-            return _context.Promotions.Any(e => e.Number == number);
+            return _bdAirTecContext.Promotions.Any(e => e.Number == number);
         }
     }
 }

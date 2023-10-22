@@ -1,0 +1,100 @@
+<h1 style="top: 10px; left: 10px">
+  Bienvenid@ a TECAir{{ authenticated ? " - " + userName : "!" }}
+</h1>
+
+<h5>Su aerolínea en línea</h5>
+
+<div class="d-flex justify-content-center align-items-center">
+  <div
+    id="carouselExample"
+    class="carousel slide"
+    data-ride="carousel"
+    style="margin-bottom: 20px"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="../../../assets/Cancun.jpeg"
+          class="d-block w-100"
+          alt="..."
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h3>Cancún</h3>
+          <p>México</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/Verona.jpg" class="d-block w-100" alt="..." />
+        <div class="carousel-caption d-none d-md-block">
+          <h3>Verona</h3>
+          <p>Italia</p>
+        </div>
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExample"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center">
+  <form [formGroup]="homeForm" (ngSubmit)="selectDate()">
+    <label
+      style="font-size: 20px; margin-left: 10px; font-weight: bold"
+      for="originName"
+      >Seleccionar Origen:</label
+    >
+    <select
+      id="origin"
+      class="form-control"
+      formControlName="origin"
+      [(ngModel)]="selectedOrigin"
+    >
+      <option value="" disabled selected>Seleccionar Origen</option>
+      <option *ngFor="let location of locationsList" [value]="location.name">
+        {{ location.name }} ({{ location.city }})
+      </option>
+    </select>
+    <label
+      style="font-size: 20px; margin-left: 10px; font-weight: bold"
+      for="destinationName"
+      >Seleccionar Destino:</label
+    >
+    <select
+      id="destination"
+      class="form-control"
+      formControlName="destination"
+      [(ngModel)]="selectedDestination"
+    >
+      <option value="" disabled selected>Seleccionar Destino</option>
+      <option *ngFor="let location of locationsList" [value]="location.name">
+        {{ location.name }} ({{ location.city }})
+      </option>
+    </select>
+    <div class="form-group">
+      <button
+        style="margin: 20px"
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!homeForm.valid"
+      >
+        Continuar
+      </button>
+    </div>
+  </form>
+</div>

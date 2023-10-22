@@ -1,0 +1,36 @@
+.card-img-top {
+    position: relative;
+    top: 5px;
+    left: 7px;
+    width: 7%;
+    height: 7%;
+    border-radius: 5px;
+}
+
+
+.card {
+    background-color:  #DFEBFD;
+    border: 1.5px solid #5f9cf7;
+    margin: 20px;
+}
+
+.card-title {
+    position: absolute;
+    margin-left: 60px;
+    margin-top: 15px;
+    font-size: x-large;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.button {
+    background-color: #ff731d;
+    color: #fff7e9;
+    border: none;
+    padding: 10px 20px;
+    margin: 0px;
+    margin-top: 0px;
+    cursor: pointer;
+    float: right;
+  }
+
