@@ -814,36 +814,37 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     fun getUserData(): User? {
-        var userData: User? = null
-        val selectQuery = "SELECT $COL_NAME, $COL_EMAIL, $COL_PHONE, $COL_USERID FROM $USERTABLE_NAME"
+        val selectQuery = "SELECT * FROM ${DBContract.UserEntry.TABLE_NAME}"
         val db = this.readableDatabase
-
         val cursor = db.rawQuery(selectQuery, null)
-        if (cursor.moveToFirst()) {
-            val nameColumnIndex = cursor.getColumnIndex(COL_NAME)
-            val emailColumnIndex = cursor.getColumnIndex(COL_EMAIL)
-            val phoneColumnIndex = cursor.getColumnIndex(COL_PHONE)
-            val userIdColumnIndex = cursor.getColumnIndex(COL_USERID)
-            val passwordColumnIndex = cursor.getColumnIndex(COL_PASSWORD)
 
-            // Check if the columns exist
-            if (nameColumnIndex >= 0 && emailColumnIndex >= 0 && phoneColumnIndex >= 0 && userIdColumnIndex >= 0) {
-                val name = cursor.getString(nameColumnIndex)
-                val email = cursor.getString(emailColumnIndex)
-                val phone = cursor.getString(phoneColumnIndex)
-                val userId = cursor.getInt(userIdColumnIndex)
-                val password = cursor.getString(passwordColumnIndex)
+        try {
+            if (cursor.moveToFirst()) {
+                val nameIndex = cursor.getColumnIndex(DBContract.UserEntry.COLUMN_NAME)
+                val emailIndex = cursor.getColumnIndex(DBContract.UserEntry.COLUMN_EMAIL)
+                val phoneIndex = cursor.getColumnIndex(DBContract.UserEntry.COLUMN_PHONE)
+                val userIdIndex = cursor.getColumnIndex(DBContract.UserEntry.COLUMN_USERID)
+                val passwordIndex = cursor.getColumnIndex(DBContract.UserEntry.COLUMN_PASSWORD)
 
-                // Create a User object with the retrieved data
-                userData = User(name, userId, password , phone, email, null)
+                if (nameIndex >= 0 && emailIndex >= 0 && phoneIndex >= 0 && userIdIndex >= 0 && passwordIndex >= 0) {
+                    val name = cursor.getString(nameIndex)
+                    val email = cursor.getString(emailIndex)
+                    val phone = cursor.getString(phoneIndex)
+                    val userId = cursor.getInt(userIdIndex)
+                    val password = cursor.getString(passwordIndex)
+
+                    // Create a User object with the retrieved data
+                    return User(name, userId, password, phone, email, null)
+                }
             }
+        } finally {
+            cursor.close()
+            db.close()
         }
-
-        cursor.close()
-        db.close()
-
-        return userData
+        return null
     }
+
+
 
 
 
