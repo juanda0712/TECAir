@@ -41,7 +41,10 @@ export class HomeComponent implements OnInit {
         console.error('Error fetching locations:', error);
       }
     );
-    if (iduser) {
+    if (iduser == undefined) {
+      this.authenticated = false;
+      console.log('no existe usuario');
+    } else {
       this.authenticated = true;
       this.userApi.getSingleById('User', iduser).subscribe(
         (user: User) => {
@@ -51,9 +54,6 @@ export class HomeComponent implements OnInit {
           console.error('Error fetching locations:', error);
         }
       );
-    } else {
-      this.authenticated = false;
-      console.log('no existe usuario');
     }
   }
 

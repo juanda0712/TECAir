@@ -20,7 +20,7 @@ import { AirPromotionsComponent } from './Airport-view/air-promotions/air-promot
 import { FlightManagementComponent } from './Airport-view/flight-management/flight-management.component';
 import { OpeningFlightsComponent } from './Airport-view/opening-flights/opening-flights.component';
 import { CloseFlightsComponent } from './Airport-view/close-flights/close-flights.component';
-
+import { AdminGuard } from './Services/admin-guard';
 export const routes: Routes = [
   {
     path: '',
@@ -66,6 +66,7 @@ export const routes: Routes = [
     path: 'air-home',
     component: AirHomeComponent,
     title: 'AirHome',
+    canActivate: [AdminGuard],
   },
   {
     path: 'app-air-login',
@@ -91,6 +92,7 @@ export const routes: Routes = [
     path: 'check-in',
     component: CheckInComponent,
     title: 'ChequeoPasajeros',
+    canActivate: [AdminGuard],
   },
   {
     path: 'luggage/:idReservation/:seats/:numeroAsiento',
@@ -101,6 +103,7 @@ export const routes: Routes = [
     path: 'flight-management',
     component: FlightManagementComponent,
     title: 'GestionVuelos',
+    canActivate: [AdminGuard],
   },
   {
     path: 'executions',
@@ -111,6 +114,7 @@ export const routes: Routes = [
     path: 'app-opening-flights',
     component: OpeningFlightsComponent,
     title: 'Apertura',
+    canActivate: [AdminGuard],
   },
   {
     path: 'app-air-promotions',
@@ -121,6 +125,7 @@ export const routes: Routes = [
     path: 'app-close-flights',
     component: CloseFlightsComponent,
     title: 'Cierre',
+    canActivate: [AdminGuard],
   },
 ];
 
