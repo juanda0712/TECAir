@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h3 class = "page-title">Chequeo de maletas</h3>
+
+
+      <form [formGroup]="luggageForm" (submit)="addLuggage()">
+        <div class="mb-3">
+          <label for="peso" class="form-label">Peso de la Maleta (kg)</label>
+          <input type="number" id="peso" class="form-control" placeholder="0" formControlName="weight" [(ngModel)]="weight"required>
+        </div>
+        <div class="mb-3">
+          <label for="color" class="form-label">Color de la Maleta</label>
+          <input type="text" id="color" class="form-control" placeholder="blue" formControlName="color" [(ngModel)]="color" required>
+        </div>
+        <button type="submit" [disabled]="!luggageForm.valid" class="btn btn-primary">Agregar Maleta</button>
+      </form>
+
+
+    </div>
+    <div class="col-md-4">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title">Información sobre el equipaje 🧳</h4>
+          <p class="card-text">Costo de las maletas por pasajer@</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"> <strong>1 maleta:</strong> 0$</li>
+            <li class="list-group-item"> <strong>2 maletas:</strong> 50$ adicionales</li>
+            <li class="list-group-item"><strong>3 o más maletas:</strong> 75$ adicionales por maleta</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center">
+  <a class="btn btn-primary" (click)="generateTicket()">Generar tickete</a>
+</div>

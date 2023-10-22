@@ -1,0 +1,29 @@
+.btn {
+    background-color: #ff731d;
+    color: #fff7e9;
+    border: 1.5px solid #fff7e9;
+    padding: 10px 20px;
+    margin: 20px;
+    cursor: pointer;
+    display: block;
+}
+
+.form-control {
+    margin: 10px;
+    width: 50%;
+
+}
+
+.select-title {
+    font-size: 20px;
+    margin-left: 20px;
+
+}
+
+.page-title {
+    position: relative; 
+    top: 20px; 
+    margin-bottom: 30px;
+    margin-left: 15px;
+}
+

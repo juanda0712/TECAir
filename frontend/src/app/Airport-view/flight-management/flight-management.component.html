@@ -1,0 +1,44 @@
+<h3 class="page-title"> Gestión de vuelos 🗺️ </h3>
+
+<form [formGroup]="addFlightForm" (ngSubmit)="addFlight()">
+  <label class="select-title" for="originName">Seleccionar Origen:</label>
+  <select id="origin" class="form-control" formControlName="origin" [(ngModel)]="selectedOrigin">
+    <option value="" disabled selected>Seleccionar Origen</option>
+    <option *ngFor="let location of locationsList" [value]="location.name">
+      {{ location.name }} ({{ location.city }})
+    </option>
+  </select>
+
+  <label class="select-title" for="destinationName">Seleccionar Destino:</label>
+  <select id="destination" class="form-control" formControlName="destination" [(ngModel)]="selectedDestination">
+    <option value="" disabled selected>Seleccionar Destino</option>
+    <option *ngFor="let location of locationsList" [value]="location.name">
+      {{ location.name }} ({{ location.city }})
+    </option>
+  </select>
+  <div class="form-group">
+    <button style="margin: 20px" type="submit" class="btn btn-primary" [disabled]="!addFlightForm.valid">
+      Agregar vuelo
+    </button>
+  </div>
+
+  <label class="select-title" for="layovers">Escalas:</label>
+  <div>
+    <select id="layover" class="form-control" formControlName="layoverOrigin" [(ngModel)]="layoverOrigin">
+      <option value="" disabled selected>Seleccionar Origen de Escala</option>
+      <option *ngFor="let location of locationsList" [value]="location.name">
+        {{ location.name }} ({{ location.city }})
+      </option>
+    </select>
+
+    <select id="layover" placeholder="Escala" class="form-control" formControlName="layover"
+      [(ngModel)]="selectedLayover">
+      <option value="" disabled selected>Seleccionar Destino de Escala</option>
+      <option *ngFor="let location of locationsList" [value]="location.name">
+        {{ location.name }} ({{ location.city }})
+      </option>
+    </select>
+
+    <button type="button" class="btn btn-primary" (click)="addLayover()">Agregar Escala</button>
+  </div>
+</form>

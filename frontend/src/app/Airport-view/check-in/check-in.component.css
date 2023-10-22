@@ -1,0 +1,38 @@
+.grid-wrapper {
+    background-color: lightgray;
+    padding: 20px; 
+    border-radius: 10px; 
+    display: inline-block; 
+}
+
+.grid-cell:hover {
+    cursor: pointer;
+}
+
+.grid-cell {
+    border: 1px solid black;
+    background-color: white;
+}
+
+.col.custom-col {
+    margin: 1px;
+    padding: 0;
+    background-color: lightgray;
+}
+  
+.col.custom-col:nth-child(2n) {
+    margin-right: 20px; 
+}
+
+.col.custom-col:first-child {
+    margin-left: 20px; 
+}
+
+.btn {
+    background-color: #ff731d;
+    color: #fff7e9;
+    border: 1.5px solid #fff7e9;
+    padding: 10px 20px;
+    margin: 20px;
+    cursor: pointer;
+}
