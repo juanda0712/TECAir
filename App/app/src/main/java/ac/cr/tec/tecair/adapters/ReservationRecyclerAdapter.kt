@@ -49,7 +49,7 @@ class ReservationRecyclerAdapter : RecyclerView.Adapter<ReservationRecyclerAdapt
             fun bind(reservationInfo: ReservationInfo) {
                 itemFlightNumber.text = "Flight Number: ${reservationInfo.flightNumber}"
                 itemDate.text = "${reservationInfo.date}"
-                itemPrice.text = "$${reservationInfo.price}"
+                itemPrice.text = "${reservationInfo.price}"
                 oriDest.text = "${reservationInfo.origin} - ${reservationInfo.destination}"
                 // Set the image resource
                 itemImage.setImageResource(R.drawable.baseline_airplane_ticket_24)
