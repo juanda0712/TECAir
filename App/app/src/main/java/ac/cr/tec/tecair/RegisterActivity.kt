@@ -51,24 +51,28 @@ class RegisterActivity : AppCompatActivity() {
             val idText = etID.text.toString()
 
             if (isValidRegistrationInput(name, idText, phoneNumber, email, password)) {
-                if (!databaseHelper.checkUser(email.trim())) {
+                try {
                     val id = idText.toInt()
-                    val user = User(name, id, password, phoneNumber, email, null)
-                    databaseHelper.addUser(user)
-                    Toast.makeText(this, getString(R.string.success_message), Toast.LENGTH_SHORT).show()
+                    if (!databaseHelper.checkUser(email.trim())) {
+                        val user = User(name, id, password, phoneNumber, email, null)
+                        databaseHelper.addUser(user)
+                        Toast.makeText(this, getString(R.string.success_message), Toast.LENGTH_SHORT).show()
 
-                    val targetClass = if (checkStudent.isChecked) {
-                        StudentRegisterActivity::class.java
+                        val targetClass = if (checkStudent.isChecked) {
+                            StudentRegisterActivity::class.java
+                        } else {
+                            MainActivity::class.java
+                        }
+                        val nextActivityIntent = Intent(this, targetClass)
+                        startActivity(nextActivityIntent)
+
+                        // Clear input fields
+                        clearInputFields()
                     } else {
-                        MainActivity::class.java
+                        Toast.makeText(this, "Failed user registration", Toast.LENGTH_SHORT).show()
                     }
-                    val nextActivityIntent = Intent(this, targetClass)
-                    startActivity(nextActivityIntent)
-
-                    // Clear input fields
-                    clearInputFields()
-                } else {
-                    Toast.makeText(this, "Failed user registration", Toast.LENGTH_SHORT).show()
+                } catch (e: NumberFormatException) {
+                    Toast.makeText(this, "Invalid ID format. Please enter a valid number.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

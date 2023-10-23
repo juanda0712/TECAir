@@ -152,4 +152,15 @@ object DBContract {
         val COLUMN_PRICE= "Price"
         }
     }
+
+    class ReservationInfoEntry:BaseColumns{
+        companion object{
+        val TABLE_NAME="ReservationInfo"
+        val COLUMN_FLIGHTNUMBER= "FlightNumber"
+        val COLUMN_DATE= "Date"
+        val COLUMN_PRICE= "Price"
+        val COLUMN_ORIGIN= "Origin"
+        val COLUMN_DESTINATION= "Destination"
+        }
+    }
 }

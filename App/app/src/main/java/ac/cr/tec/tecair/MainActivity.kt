@@ -17,9 +17,7 @@
         private val activity = this@MainActivity
         private lateinit var databaseHelper: DatabaseHelper
 
-
         private lateinit var binding: ActivityMainBinding
-
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -30,46 +28,41 @@
             initUI()
         }
 
-
-
-
-
-        private fun initUI(){
-
-            binding.btnSignin.setOnClickListener{
+        private fun initUI() {
+            binding.btnSignin.setOnClickListener {
                 login()
-
             }
 
-            binding.tvForgotpass.setOnClickListener{
+            binding.tvForgotpass.setOnClickListener {
                 val intent = Intent(this, GridActivity::class.java)
                 startActivity(intent)
-
             }
 
-            binding.tvSignup.setOnClickListener{
+            binding.tvSignup.setOnClickListener {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
-
             }
-
         }
 
         private fun login() {
-            val email = findViewById<EditText>(R.id.et_email).text.toString()
-            val password = findViewById<EditText>(R.id.et_password).text.toString()
+            val email = findViewById<EditText>(R.id.et_email).text.toString().trim()
+            val password = findViewById<EditText>(R.id.et_password).text.toString().trim()
 
-            if (databaseHelper.checkUser(email.trim(), password.trim())) {
+            val userID = databaseHelper.getUserID(email)
+
+            if(databaseHelper.checkUser(email.trim(), password.trim())){
                 emptyInputEditText()
-                startActivity(Intent(this, GridActivity::class.java))
+                val intent = Intent(this, GridActivity::class.java)
+                intent.putExtra("userID", userID)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
             }
         }
 
-        //Limpia el input
+        // Clears the input fields
         private fun emptyInputEditText() {
-            findViewById<EditText>(R.id.et_email)!!.text=null
-            findViewById<EditText>(R.id.et_password)!!.text=null
+            findViewById<EditText>(R.id.et_email)?.text = null
+            findViewById<EditText>(R.id.et_password)?.text = null
         }
     }

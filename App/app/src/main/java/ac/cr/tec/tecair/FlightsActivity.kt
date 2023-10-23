@@ -1,6 +1,6 @@
 package ac.cr.tec.tecair
 
-import ReservationActivity
+import ReservationInfo
 import ac.cr.tec.tecair.adapters.FlightRecyclerAdapter
 import ac.cr.tec.tecair.models.Execution
 import ac.cr.tec.tecair.models.Flight
@@ -23,6 +23,8 @@ class FlightsActivity : AppCompatActivity() {
     private lateinit var originEditText: EditText
     private lateinit var destinationEditText: EditText
     private lateinit var searchButton: Button
+    private val reservedFlights = mutableListOf<Flight>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +75,11 @@ class FlightsActivity : AppCompatActivity() {
                     showReservationConfirmationDialog(flight, execution)
                 }
             } else {
-                Toast.makeText(this, "Please enter both origin and destination.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Please enter both origin and destination.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -87,25 +93,34 @@ class FlightsActivity : AppCompatActivity() {
                 val reservationId = generateUniqueReservationId()
                 val passengerId = generateUniquePassengerId()
 
-                // Create a reservation with the generated IDs
-                val reservation = Reservation(reservationId, passengerId, execution.executionID)
-                // Add the reservation to the database
-                databaseHelper.addReservation(reservation)
+                // Create a reservation info object
+                val reservationInfo = ReservationInfo(
+                    flightNumber = flight.number,
+                    date = execution.date,
+                    price = execution.price,
+                    origin = flight.origin,
+                    destination = flight.destination
+                )
+
+                // Use the DatabaseHelper to add the reservation info to the database
+                databaseHelper.addReservationInfo(reservationInfo)
+
+                // Add the reservation info to the intent as Parcelable
+                val intent = Intent(this, ReservationActivity::class.java)
+                intent.putExtra("reservationInfo", reservationInfo)
+
+                reservedFlights.add(flight)
+
                 Toast.makeText(this, "Reservation confirmed!", Toast.LENGTH_SHORT).show()
 
                 // Start ReservationActivity and pass necessary data
-                val intent = Intent(this, ReservationActivity::class.java)
-                intent.putExtra("reservationId", reservationId)
-                intent.putExtra("flightId", flight.number)
                 startActivity(intent)
             }
-
             .setNegativeButton("Cancel") { _, _ ->
                 // User canceled the reservation
             }
             .show()
     }
-}
 
 
     // Generate a unique reservation ID
@@ -117,6 +132,7 @@ class FlightsActivity : AppCompatActivity() {
     private fun generateUniquePassengerId(): Int {
         return System.currentTimeMillis().toInt()
     }
+}
 
 
 

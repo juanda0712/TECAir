@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Promo Code"
             android:textColor="@color/white"
-            android:id="@+id/itemTitle"
+            android:id="@+id/OriDest"
             android:textStyle="bold"
             android:layout_toEndOf="@id/itemImage"
             android:layout_toRightOf="@id/itemImage"
@@ -42,22 +42,22 @@
             android:layout_height="wrap_content"
             android:text="Promo Period"
             android:textColor="@color/white"
-            android:id="@+id/itemDetail"
+            android:id="@+id/itemFlightNumber"
             android:textStyle="bold"
             android:layout_toEndOf="@id/itemImage"
             android:layout_toRightOf="@id/itemImage"
-            android:layout_below="@id/itemTitle" />
+            android:layout_below="@id/OriDest" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Promo Price"
             android:textColor="@color/white"
-            android:id="@+id/itemPrice"
+            android:id="@+id/itemDate"
             android:textStyle="bold"
             android:layout_toEndOf="@id/itemImage"
             android:layout_toRightOf="@id/itemImage"
-            android:layout_below="@id/itemDetail" />
+            android:layout_below="@id/itemFlightNumber" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

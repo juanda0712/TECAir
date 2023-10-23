@@ -2,7 +2,6 @@ package ac.cr.tec.tecair.adapters
 
 import ac.cr.tec.tecair.models.Flight
 import ac.cr.tec.tecair.R
-import ac.cr.tec.tecair.databinding.ItemFlightRecyclerBinding
 import ac.cr.tec.tecair.models.Execution
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -47,9 +46,9 @@ class FlightRecyclerAdapter : RecyclerView.Adapter<FlightRecyclerAdapter.ViewHol
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
-        private val itemTitle: TextView = itemView.findViewById(R.id.itemTitle)
-        private val itemDate: TextView = itemView.findViewById(R.id.itemDate)
-        private val itemPrice: TextView = itemView.findViewById(R.id.itemPrice)
+        private val itemTitle: TextView = itemView.findViewById(R.id.OriDest)
+        private val itemDate: TextView = itemView.findViewById(R.id.itemFlightNumber)
+        private val itemPrice: TextView = itemView.findViewById(R.id.itemDate)
 
         // Bind the flight data to the ViewHolder
         fun bind(flight: Flight, execution: Execution) {

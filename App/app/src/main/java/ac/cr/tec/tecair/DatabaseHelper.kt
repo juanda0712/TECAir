@@ -1,5 +1,6 @@
 package ac.cr.tec.tecair
 
+import ReservationInfo
 import ac.cr.tec.tecair.models.*
 import android.content.ContentValues
 import android.content.Context
@@ -243,6 +244,24 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                         COL_XLAYOVERPRICE + " INTEGER, " +
                         "PRIMARY KEY (" + COL_XLAYOVERID + ", " + COL_XLAYOVEREXECUTIONID + ")" +
                         ");")
+        /** ReservationInfoTable **/
+        val RESERVATION_INFO_TABLE_NAME = DBContract.ReservationInfoEntry.TABLE_NAME
+        val COL_FLIGHT_NUMBER = DBContract.ReservationInfoEntry.COLUMN_FLIGHTNUMBER
+        val COL_DATE = DBContract.ReservationInfoEntry.COLUMN_DATE
+        val COL_PRICE = DBContract.ReservationInfoEntry.COLUMN_PRICE
+        val COL_RESORIGIN = DBContract.ReservationInfoEntry.COLUMN_ORIGIN
+        val COL_RESDESTINATION = DBContract.ReservationInfoEntry.COLUMN_DESTINATION
+
+        private val SQL_CREATE_RESERVATION_INFO_TABLE =
+            "CREATE TABLE $RESERVATION_INFO_TABLE_NAME (" +
+                    "$COL_FLIGHT_NUMBER INTEGER PRIMARY KEY," +
+                    "$COL_DATE STRING," +
+                    "$COL_PRICE STRING," +
+                    "$COL_RESORIGIN STRING," +
+                    "$COL_RESDESTINATION STRING" +
+                    ")"
+
+
 
         private val SQL_DELETE_USERTABLE = "DROP TABLE IF EXISTS " + DBContract.UserEntry.TABLE_NAME
         private val SQL_DELETE_PASSENGERTABLE =
@@ -290,6 +309,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(SQL_CREATE_SUITCASETABLE)
         db.execSQL(SQL_CREATE_TICKETTABLE)//x
         db.execSQL(SQL_CREATE_XLAYOVERTABLE)//x
+        db.execSQL(SQL_CREATE_RESERVATION_INFO_TABLE)//x
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -813,10 +834,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return promotionList
     }
 
-    fun getUserData(): User? {
-        val selectQuery = "SELECT * FROM ${DBContract.UserEntry.TABLE_NAME}"
+    fun getUserData(userID: Int): User? {
+        val selectQuery = "SELECT * FROM ${DBContract.UserEntry.TABLE_NAME} WHERE ${DBContract.UserEntry.COLUMN_USERID} = ?"
         val db = this.readableDatabase
-        val cursor = db.rawQuery(selectQuery, null)
+        val cursor = db.rawQuery(selectQuery, arrayOf(userID.toString()))
 
         try {
             if (cursor.moveToFirst()) {
@@ -847,11 +868,114 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
 
 
+    fun getStudentData(userID: Int): Student? {
+        val selectQuery = "SELECT * FROM $STUDENTTABLE_NAME WHERE $COL_USERID = $userID"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
 
+        try {
+            if (cursor.moveToFirst()) {
+                val unicardIndex = cursor.getColumnIndex(COL_UNICARD)
+                val userIDIndex = cursor.getColumnIndex(COL_STUDENTUSERID)
+                val uniNameIndex = cursor.getColumnIndex(COL_UNINAME)
+                val milesIndex = cursor.getColumnIndex(COL_MILES)
 
-    fun getAllReservationsWithInfo(any: Any) {
+                if (unicardIndex >= 0 && userIDIndex >= 0 && uniNameIndex >= 0 && milesIndex >= 0) {
+                    val unicard = cursor.getInt(unicardIndex)
+                    val userID = cursor.getInt(userIDIndex)
+                    val uniName = cursor.getString(uniNameIndex)
+                    val miles = cursor.getInt(milesIndex)
 
+                    // Create a Student object with the retrieved data
+                    return Student(unicard, userID, uniName, miles)
+                }
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+        return null
     }
 
 
+
+    fun getUserID(email: String): Int {
+        val db = this.readableDatabase
+        val columns = arrayOf(COL_USERID)
+        val selection = "$COL_EMAIL = ?"
+        val selectionArgs = arrayOf(email)
+
+        val cursor = db.query(USERTABLE_NAME, columns, selection, selectionArgs, null, null, null)
+
+        var userID = -1 // Default value in case no user is found
+
+        if (cursor.moveToFirst()) {
+           val userIDIndex = cursor.getColumnIndex(COL_USERID)
+            userID = cursor.getInt(userIDIndex)
+        }
+
+        cursor.close()
+        db.close()
+
+        return userID
+    }
+
+    fun getReservationInfo(): List<ReservationInfo> {
+        val reservationInfoList = mutableListOf<ReservationInfo>()
+        val db = this.readableDatabase
+
+        // Define the columns to be retrieved
+        val columns = arrayOf(
+            DBContract.ReservationInfoEntry.COLUMN_FLIGHTNUMBER,
+            DBContract.ReservationInfoEntry.COLUMN_DATE,
+            DBContract.ReservationInfoEntry.COLUMN_PRICE,
+            DBContract.ReservationInfoEntry.COLUMN_ORIGIN,
+            DBContract.ReservationInfoEntry.COLUMN_DESTINATION
+        )
+
+        // Query the ReservationInfo table
+        val cursor = db.rawQuery("SELECT * FROM ${DBContract.ReservationInfoEntry.TABLE_NAME}",null)
+
+
+        // Iterate through the cursor and add ReservationInfo objects to the list
+        while (cursor.moveToNext()) {
+
+            val flightNumberIndex= cursor.getColumnIndex(DBContract.ReservationInfoEntry.COLUMN_FLIGHTNUMBER)
+            val dateIndex= cursor.getColumnIndex(DBContract.ReservationInfoEntry.COLUMN_DATE)
+            val priceIndex=cursor.getColumnIndex(DBContract.ReservationInfoEntry.COLUMN_PRICE)
+            val originIndex=cursor.getColumnIndex(DBContract.ReservationInfoEntry.COLUMN_ORIGIN)
+            val destinationIndex=cursor.getColumnIndex(DBContract.ReservationInfoEntry.COLUMN_DESTINATION)
+
+            val reservationInfo = ReservationInfo(
+                flightNumber = cursor.getInt(flightNumberIndex),
+                date = cursor.getString(dateIndex),
+                price = cursor.getString(priceIndex),
+                origin = cursor.getString(originIndex),
+                destination = cursor.getString(destinationIndex))
+
+            reservationInfoList.add(reservationInfo)
+        }
+
+        // Close the cursor and database
+        cursor.close()
+        db.close()
+
+        return reservationInfoList
+    }
+
+    fun addReservationInfo(reservationInfo: ReservationInfo){
+        val db = this.writableDatabase
+        val insertvalues = ContentValues()
+        insertvalues.put(DBContract.ReservationInfoEntry.COLUMN_FLIGHTNUMBER, reservationInfo.flightNumber)
+        insertvalues.put(DBContract.ReservationInfoEntry.COLUMN_DESTINATION, reservationInfo.destination)
+        insertvalues.put(DBContract.ReservationInfoEntry.COLUMN_PRICE, reservationInfo.price)
+        insertvalues.put(DBContract.ReservationInfoEntry.COLUMN_ORIGIN, reservationInfo.origin)
+        insertvalues.put(DBContract.ReservationInfoEntry.COLUMN_DATE, reservationInfo.date)
+        //insert
+        db.insert(RESERVATION_INFO_TABLE_NAME, null, insertvalues)
+        db.close()
+    }
 }
+
+
+

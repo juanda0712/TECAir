@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@drawable/grid_background"
+    android:padding="16dp"
     tools:context=".PassengerActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,13 +15,13 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
         android:clickable="true"
+        android:contentDescription="Go Back"
         android:src="@drawable/baseline_arrow_back_ios_24"
         app:backgroundTint="@color/white"
         app:cornerRadius="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorTema2"
-        android:contentDescription="Go Back" />
+        app:tint="@color/colorTema2" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,15 +29,15 @@
         android:layout_height="150dp"
         android:layout_marginTop="28dp"
         android:src="@drawable/baseline_hail_24"
-        app:tint="@color/colorTema2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorTema2" />
 
     <LinearLayout
         android:id="@+id/userInfoLayout"
-        android:layout_width="342dp"
-        android:layout_height="444dp"
+        android:layout_width="356dp"
+        android:layout_height="369dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,19 +51,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:paddingEnd="8dp"
-                android:text="Name: " />
+                android:text="Name: "
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/usernameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="User's Name" />
+                android:text="User's Name"
+                android:textSize="30sp" />
         </LinearLayout>
 
 
@@ -74,19 +75,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:paddingEnd="8dp"
-                android:text="Email: " />
+                android:text="Email: "
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/emailTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="User's Email" />
+                android:text="User's Email"
+                android:textSize="30sp" />
         </LinearLayout>
 
 
@@ -96,19 +99,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:paddingEnd="8dp"
-                android:text="Phone: " />
+                android:text="Phone: "
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/phoneTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="User's Phone Number" />
+                android:text="Phone"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <!-- User ID -->
@@ -118,41 +123,119 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:paddingEnd="8dp"
-                android:text="User ID: " />
+                android:text="User ID: "
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/userIdTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="User's ID" />
+                android:text="User's ID"
+                android:textSize="30sp" />
         </LinearLayout>
 
-        <!-- Password -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:paddingEnd="8dp"
-                android:text="Password: " />
+                android:text="Password: "
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/passwordTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="*********" />
+                android:text="*********"
+                android:textSize="30sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingEnd="8dp"
+                android:text="College: "
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/collegeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="College"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingEnd="8dp"
+                android:text="CollegeID: "
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/collegeIDTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="College ID"
+                android:textSize="30sp" />
+        </LinearLayout>
+
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorTema2"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userInfoLayout">
+
+
+        <TextView
+            android:id="@+id/milesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/baseline_star_rate_24"
+            android:drawableRight="@drawable/baseline_star_rate_24"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Miles"
+            android:textColor="@color/colorFuente"
+            android:textSize="24sp" />
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

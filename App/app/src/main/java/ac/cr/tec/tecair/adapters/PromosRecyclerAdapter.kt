@@ -26,9 +26,9 @@ class PromosRecyclerAdapter(private val promotions: List<Promotion>) : RecyclerV
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
-        private val itemPrice: TextView = itemView.findViewById(R.id.itemPrice)
-        private val itemPromoCode: TextView = itemView.findViewById(R.id.itemTitle)
-        private val itemPromoValid: TextView = itemView.findViewById(R.id.itemDate)
+        private val itemPrice: TextView = itemView.findViewById(R.id.itemDate)
+        private val itemPromoCode: TextView = itemView.findViewById(R.id.OriDest)
+        private val itemPromoValid: TextView = itemView.findViewById(R.id.itemFlightNumber)
 
         fun bind(promotion: Promotion) {
             itemPrice.text = "Discount: ${promotion.promoPrice}"

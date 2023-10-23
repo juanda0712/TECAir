@@ -1,25 +1,31 @@
 package ac.cr.tec.tecair.adapters
 
+import ReservationInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ac.cr.tec.tecair.R
-import ac.cr.tec.tecair.models.ReservationInfo
+import ac.cr.tec.tecair.databinding.ItemReservationRecyclerBinding
+import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 
-class ReservationRecyclerAdapter(
-    private val reservationInfoList: List<ReservationInfo>
-) : RecyclerView.Adapter<ReservationRecyclerAdapter.ViewHolder>() {
+
+class ReservationRecyclerAdapter : RecyclerView.Adapter<ReservationRecyclerAdapter.ViewHolder>() {
+    private var reservationInfoList: MutableList<ReservationInfo> = mutableListOf()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_reservation_recycler, viewGroup, false)
+        val v = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.item_reservation_recycler, viewGroup, false)
         return ViewHolder(v)
     }
 
+
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+        // Update the ViewHolder with flight data
         val reservationInfo = reservationInfoList[i]
+
         viewHolder.bind(reservationInfo)
     }
 
@@ -27,25 +33,26 @@ class ReservationRecyclerAdapter(
         return reservationInfoList.size
     }
 
+    fun setReservationInfoList(reservations: List<ReservationInfo>) {
+        reservationInfoList.addAll(reservations)
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val itemImage: ImageView = itemView.findViewById(R.id.itemImage)
-        private val itemPassengerName: TextView = itemView.findViewById(R.id.passengerName)
-        private val itemReservationID: TextView = itemView.findViewById(R.id.reservationId)
-        private val itemFlightNumber: TextView = itemView.findViewById(R.id.flightNumber)
-        private val itemOriginDestination: TextView = itemView.findViewById(R.id.originDestination)
-        private val itemExecutionDate: TextView = itemView.findViewById(R.id.executionDate)
-        private val itemExecutionPrice: TextView = itemView.findViewById(R.id.executionPrice)
+        private val itemImage:ImageView = itemView.findViewById(R.id.itemImage)
+        private val itemFlightNumber:TextView = itemView.findViewById(R.id.itemFlightNumber)
+        private val itemDate:TextView= itemView.findViewById(R.id.itemDate)
+        private val itemPrice:TextView= itemView.findViewById(R.id.itemPrice)
+        private val oriDest:TextView= itemView.findViewById(R.id.OriDest)
 
-        fun bind(reservationInfo: ReservationInfo) {
-            itemPassengerName.text = "Passenger Name: ${reservationInfo.passengerName ?: "Unknown"}"
-            itemReservationID.text = "Reservation ID: ${reservationInfo.reservationID}"
-            itemFlightNumber.text = "Flight Number: ${reservationInfo.flightNumber ?: "Unknown"}"
-            itemOriginDestination.text = "Origin - Destination: ${reservationInfo.originDestination ?: "Unknown"}"
-            itemExecutionDate.text = "Execution Date: ${reservationInfo.executionDate ?: "Unknown"}"
-            itemExecutionPrice.text = "Execution Price: ${reservationInfo.executionPrice ?: "Unknown"}"
-
-            // You can set the itemImage here based on your requirements
-            itemImage.setImageResource(R.drawable.baseline_airplane_ticket_24)
+            //bind the reservationInfo data to the ViewHolder
+            fun bind(reservationInfo: ReservationInfo) {
+                itemFlightNumber.text = "Flight Number: ${reservationInfo.flightNumber}"
+                itemDate.text = "${reservationInfo.date}"
+                itemPrice.text = "$${reservationInfo.price}"
+                oriDest.text = "${reservationInfo.origin} - ${reservationInfo.destination}"
+                // Set the image resource
+                itemImage.setImageResource(R.drawable.baseline_airplane_ticket_24)
+            }
         }
     }
-}

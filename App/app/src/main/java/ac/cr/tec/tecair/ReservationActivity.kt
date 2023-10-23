@@ -1,13 +1,13 @@
-import ac.cr.tec.tecair.DatabaseHelper
-import ac.cr.tec.tecair.R
+package ac.cr.tec.tecair
+
+import ReservationInfo
 import ac.cr.tec.tecair.adapters.ReservationRecyclerAdapter
-import ac.cr.tec.tecair.models.ReservationInfo
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -16,35 +16,28 @@ class ReservationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_reservation)
 
         recyclerView = findViewById(R.id.reservationRecyclerView)
+        adapter = ReservationRecyclerAdapter()
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
+        // Initialize the DatabaseHelper
         databaseHelper = DatabaseHelper(this)
 
-        // Fetch reservations with additional info
-        val reservationsWithInfo = mutableListOf<ReservationInfo>()
+        // Fetch reservation info from the SQLite table
+        val reservationInfoList = databaseHelper.getReservationInfo()
 
-        databaseHelper.getAllReservationsWithInfo { reservationInfoList: List<ReservationInfo>? ->
-            if (reservationInfoList != null) {
-                reservationsWithInfo.addAll(reservationInfoList)
-
-                // Check if all data has been fetched
-                if (reservationsWithInfo.size == reservationInfoList.size) {
-                    // Update the RecyclerView with the fetched data
-                    adapter = ReservationRecyclerAdapter(reservationsWithInfo)
-                    recyclerView.adapter = adapter
-                }
-            }
-        }
+        // Set the list of ReservationInfo in the adapter
+        adapter.setReservationInfoList(reservationInfoList)
 
         val fabBack = findViewById<FloatingActionButton>(R.id.fab_back)
         fabBack.setOnClickListener {
-            finish() // Finish the current activity to go back
+            // Handle FAB click to navigate to OtherActivity
+            val intent = Intent(this, GridActivity::class.java)
+            startActivity(intent)
         }
     }
 }
-
-
-

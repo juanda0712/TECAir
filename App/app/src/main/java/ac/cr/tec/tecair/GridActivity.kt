@@ -1,6 +1,5 @@
 package ac.cr.tec.tecair
 
-import ReservationActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,7 +17,9 @@ class GridActivity : AppCompatActivity() {
 
         // Set click listeners for CardViews
         passengerCardView.setOnClickListener {
+            val userID = intent.getIntExtra("userID", 0)
             val intent = Intent(this, PassengerActivity::class.java)
+            intent.putExtra("userID", userID)
             startActivity(intent)
         }
 
@@ -35,6 +36,8 @@ class GridActivity : AppCompatActivity() {
 
         reservationsCardView.setOnClickListener {
             val intent = Intent(this, ReservationActivity::class.java)
+            val userID = intent.getIntExtra("userID", 0)
+            intent.putExtra("userID", userID)
             startActivity(intent)
         }
 

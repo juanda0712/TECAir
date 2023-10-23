@@ -47,6 +47,8 @@ class StudentRegisterActivity : AppCompatActivity() {
                 // Add the student data to the database
                 databaseHelper.addStudent(student)
                 Toast.makeText(this, "Student registered successfully!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, GridActivity::class.java)
+                startActivity(intent)
             }else{
                 Toast.makeText(this, "Error adding student to the database.", Toast.LENGTH_SHORT).show()
                 Toast.makeText(this, "Invalid input. Please check your college and CollegeID.", Toast.LENGTH_SHORT).show()
