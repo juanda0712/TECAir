@@ -1,49 +1,100 @@
-<h3 class="page-title"> Gestión de promociones </h3>
-<form>
-    <label class="select-title" for="originName">Seleccionar Origen:</label>
-    <select>
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-    </select>
+<div class="container mt-4">
+  <h2>Gestionar Promociones de Aire</h2>
+  <hr />
 
-
-    <label class="select-title" for="originName">Seleccionar Destino :</label>
-    <select>
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-    </select>
-    <label class="select-title" for="originName">Monto de la Promoción :</label>
-    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg"
-        aria-label=".form-control-lg example">
-
-    <label class="select-title" for="originName">Periodo de la promoción :</label>
-    <select>
-        <option selected>cantidad de meses disponibles para promociones</option>
-        <option value="1">1 mes</option>
-        <option value="2">2 meses</option>
-        <option value="3">3 meses</option>
-    </select>
-
-
-    <button class="btn btn-primary" href="#">Agregar Promoción</button>
-
-</form>
-
-<!--
-        <label class="select-title" for="destinationName">Seleccionar Destino:</label>
-    <select id="destination" class="form-control" formControlName="destination" [(ngModel)]="selectedDestination">
-        <option value="" disabled selected>Seleccionar Destino</option>
-        <option *ngFor="let location of locationsList" [value]="location.name">
-            {{ location.name }} ({{ location.city }})
-        </option>
-    </select>
-    <div class="form-group">
-        <button style="margin: 20px" type="submit" class="btn btn-primary" [disabled]="!addFlightForm.valid">
-            Agregar vuelo
-        </button>
+  <!-- Formulario para crear/editar promociones -->
+  <form [formGroup]="promotionForm" (ngSubmit)="saveMovie()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="idexecution">ID de Ejecución:</label>
+          <select
+            id="idexecution"
+            class="form-control"
+            formControlName="idexecution"
+            required
+          >
+            <option
+              *ngFor="let execution of executionList"
+              [value]="execution.idexecution"
+            >
+              id: {{ execution.idexecution }} - numero vuelo:{{
+                execution.numberFlight
+              }}
+            </option>
+          </select>
+        </div>
+      </div>
     </div>
--->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="period">Período:</label>
+          <input
+            type="text"
+            id="period"
+            class="form-control"
+            formControlName="period"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="price">Precio:</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control"
+            formControlName="price"
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!promotionForm.valid"
+      >
+        {{ editMode ? "Editar" : "Guardar" }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="createNew()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <!-- Lista de promociones de aire -->
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>ID de Ejecución</th>
+        <th>Período</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let promotion of promotionList">
+        <td>{{ promotion.number }}</td>
+        <td>{{ promotion.idexecution }}</td>
+        <td>{{ promotion.period }}</td>
+        <td>{{ promotion.price }}</td>
+        <td>
+          <button class="btn btn-sm btn-info" (click)="editMovie(promotion)">
+            Editar
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteMovie(promotion)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './Components/home/home.component';
 import { DateComponent } from './Components/date/date.component';
-import { FlightComponent } from './Components/flight/flight.component';
 import { BookingComponent } from './Components/booking/booking.component';
 import { LoginComponent } from './Components/login/login.component';
 import { PromotionsComponent } from './Components/promotions/promotions.component';
@@ -10,7 +9,6 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { NewAccountComponent } from './Components/new-account/new-account.component';
 import { AirLoginComponent } from './Airport-view/air-login/air-login.component';
 import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-account.component';
-import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
 import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
 import { AirHomeComponent } from './Airport-view/air-home/air-home.component';
 import { CheckInComponent } from './Airport-view/check-in/check-in.component';
@@ -31,11 +29,6 @@ export const routes: Routes = [
     path: 'date/:selectedOrigin/:selectedDestination',
     component: DateComponent,
     title: 'Fechas',
-  },
-  {
-    path: 'flights',
-    component: FlightComponent,
-    title: 'Vuelos',
   },
   {
     path: 'app-contact',
@@ -78,11 +71,7 @@ export const routes: Routes = [
     component: AirNewAccountComponent,
     title: 'AirCuenta',
   },
-  {
-    path: 'app-air-flight',
-    component: AirFlightComponent,
-    title: 'AirVuelos',
-  },
+
   {
     path: 'app-air-booking',
     component: AirBookingComponent,
@@ -120,6 +109,7 @@ export const routes: Routes = [
     path: 'app-air-promotions',
     component: AirPromotionsComponent,
     title: 'AirPromociones',
+    canActivate: [AdminGuard],
   },
   {
     path: 'app-close-flights',
@@ -141,4 +131,6 @@ export const routingComponents = [
   ExecutionComponent,
   BookingComponent,
   LoginComponent,
+  PromotionsComponent,
+  AirPromotionsComponent,
 ];

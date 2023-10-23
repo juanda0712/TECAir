@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const iduser = sessionStorage.getItem('iduser');
+    const auth = sessionStorage.getItem('auth');
     this.api.getAll('Airport').subscribe(
       (locationsList: Airport[]) => {
         this.locationsList = locationsList;
@@ -42,9 +43,9 @@ export class HomeComponent implements OnInit {
       }
     );
     if (iduser == undefined) {
-      this.authenticated = false;
-      console.log('no existe usuario');
-    } else {
+      iduser == undefined;
+    }
+    if (iduser !== undefined && iduser !== null && auth === 'true') {
       this.authenticated = true;
       this.userApi.getSingleById('User', iduser).subscribe(
         (user: User) => {
@@ -54,6 +55,9 @@ export class HomeComponent implements OnInit {
           console.error('Error fetching locations:', error);
         }
       );
+    } else {
+      this.authenticated = false;
+      console.log('no existe usuario');
     }
   }
 

@@ -13,7 +13,6 @@ import { PromotionsComponent } from './Components/promotions/promotions.componen
 import { NewAccountComponent } from './Components/new-account/new-account.component';
 import { AirNewAccountComponent } from './Airport-view/air-new-account/air-new-account.component';
 import { AirLoginComponent } from './Airport-view/air-login/air-login.component';
-import { AirFlightComponent } from './Airport-view/air-flight/air-flight.component';
 import { AirBookingComponent } from './Airport-view/air-booking/air-booking.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +23,7 @@ import { LuggageComponent } from './Airport-view/luggage/luggage.component';
 import { OpeningFlightsComponent } from './Airport-view/opening-flights/opening-flights.component';
 import { CloseFlightsComponent } from './Airport-view/close-flights/close-flights.component';
 import { AirPromotionsComponent } from './Airport-view/air-promotions/air-promotions.component';
+import { PromotionCardComponent } from './Components/Reusables/promotion-card/promotion-card.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { AirPromotionsComponent } from './Airport-view/air-promotions/air-promot
     CloseFlightsComponent,
     OpeningFlightsComponent,
     AirPromotionsComponent,
+    PromotionCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,4 +60,4 @@ import { AirPromotionsComponent } from './Airport-view/air-promotions/air-promot
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

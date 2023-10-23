@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { Passenger, User } from 'src/app/Interfaces/passenger';
 import { ApiService } from 'src/app/Services/api-service';
 import { Reservation } from 'src/app/Interfaces/execution';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'booking',
@@ -69,6 +71,36 @@ export class BookingComponent {
       };
       this.reservationApi.create('Reservation', reservation).subscribe(
         (data) => {
+          const docDefinition = {
+            content: [
+              {
+                text: 'Información de reservació',
+                style: 'titulo',
+                bold: true,
+                fontSize: 30,
+                color: '#1746a2',
+              },
+              {
+                text: 'TECAir',
+                style: 'subtitulo',
+                bold: true,
+                fontSize: 20,
+                margins: 50,
+              },
+              {
+                text: 'Debe presentar este ticket en la aerolinea',
+                style: 'subtitulo',
+                bold: true,
+                fontSize: 20,
+                margins: 50,
+              },
+              `Número de reservacion: ${data.idreservation}`,
+              `ID Pasajero: ${data.idpassenger}`,
+              `ID Ejecucion: ${data.idexecution}`,
+            ],
+          };
+
+          pdfMake.createPdf(docDefinition).open();
           this.router.navigate(['/']);
         },
         (error: any) => {
@@ -87,6 +119,36 @@ export class BookingComponent {
           reservation.idpassenger = data.idpassenger;
           this.reservationApi.create('Reservation', reservation).subscribe(
             (data) => {
+              const docDefinition = {
+                content: [
+                  {
+                    text: 'Información de reservación',
+                    style: 'titulo',
+                    bold: true,
+                    fontSize: 30,
+                    color: '#1746a2',
+                  },
+                  {
+                    text: 'TECAir',
+                    style: 'subtitulo',
+                    bold: true,
+                    fontSize: 20,
+                    margins: 50,
+                  },
+                  {
+                    text: 'Debe presentar este ticket en la aerolinea',
+                    style: 'subtitulo',
+                    bold: true,
+                    fontSize: 20,
+                    margins: 50,
+                  },
+                  `Número de reservacion: ${data.idreservation}`,
+                  `ID Pasajero: ${data.idpassenger}`,
+                  `ID Ejecucion: ${data.idexecution}`,
+                ],
+              };
+
+              pdfMake.createPdf(docDefinition).open();
               this.router.navigate(['/']);
             },
             (error: any) => {
