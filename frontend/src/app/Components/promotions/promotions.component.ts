@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'
-import { RouterOutlet, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { FlightCardComponent } from '../Reusables/flight-card/flight-card.component';
-
+import { Promotion } from 'src/app/Interfaces/execution';
+import { ApiService } from 'src/app/Services/api-service';
 
 @Component({
   selector: 'app-promotions',
   templateUrl: './promotions.component.html',
   styleUrls: ['./promotions.component.css'],
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, FlightCardComponent],
 })
 export class PromotionsComponent {
+  promotions: Promotion[] = [];
 
+  constructor(private api: ApiService<Promotion>, private router: Router) {}
+
+  ngOnInit() {
+    this.api.getAll('Promotion').subscribe((promotions: Promotion[]) => {
+      this.promotions = promotions;
+    });
+  }
 }

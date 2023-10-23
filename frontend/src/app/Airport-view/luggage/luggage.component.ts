@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/Services/api-service';
 import { Flight } from 'src/app/Interfaces/airport';
 import { Component } from '@angular/core';
-import { Suitcase } from 'src/app/Interfaces/passenger';
+import { Suitcase, User } from 'src/app/Interfaces/passenger';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Execution, Reservation, Ticket } from 'src/app/Interfaces/execution';
@@ -37,6 +37,7 @@ export class LuggageComponent {
     private ReservationApi: ApiService<Reservation>,
     private ExecutionApi: ApiService<Execution>,
     private TicketApi: ApiService<Ticket>,
+    private UserApi: ApiService<User>,
     private route: ActivatedRoute,
 
     private fb: FormBuilder
@@ -48,7 +49,6 @@ export class LuggageComponent {
   }
 
   ngOnInit() {
-
     this.route.params.subscribe((params) => {
       this.reservationID = params['idReservation'];
       this.selectedSeats = params['seats'];
@@ -61,8 +61,8 @@ export class LuggageComponent {
     ).subscribe((data: any) => {
       this.reservationInfo = {
         idreservation: data.idreservation,
-        idpassenger: data.idpassenger
-      }
+        idpassenger: data.idpassenger,
+      };
       this.ExecutionApi.getSingleById(
         'Execution/GetExecutionByID',
         data.idexecution
@@ -73,18 +73,18 @@ export class LuggageComponent {
           departureTime: data2.departureTime,
           price: data2.price,
           boardingDoor: data2.boardingDoor,
-        }
+        };
         console.log(data2);
-        this.FlightApi
-          .getById('Flight', data2.numberFlight)
-          .subscribe((data3: any) => {
+        this.FlightApi.getById('Flight', data2.numberFlight).subscribe(
+          (data3: any) => {
             this.flightInfo = {
               origin: data3.origin,
               destination: data3.destination,
-              flightNumber: data3.numberFlight
-            }
+              flightNumber: data3.numberFlight,
+            };
             console.log(data3);
-          });
+          }
+        );
       });
     });
   }
@@ -112,42 +112,112 @@ export class LuggageComponent {
   }
 
   generateTicket() {
-    const ticket: Ticket = {
-      idticket: 0,
-      taxes: 0,
-      totalAmount: 0,
-      seatNumber: this.seatNumber,
-      idexecution: this.executionInfo.idexecution,
-      idpassenger: this.reservationInfo.idpassenger,
-      iduser: undefined,
-    };
+    var iduser = undefined;
 
-    console.log(ticket);
-
-    this.TicketApi.create('Ticket', ticket).subscribe(
+    this.UserApi.getSingleById(
+      'User/Passenger',
+      this.reservationInfo.idpassenger
+    ).subscribe(
       (data) => {
-        console.log('Nuevo ticket creado:', data);
+        const iduser = data ? data.iduser : undefined; // Si se encontró un usuario, establece iduser; de lo contrario, usa null
+        const ticket: Ticket = {
+          idticket: 0,
+          taxes: 0,
+          totalAmount: 0,
+          seatNumber: this.seatNumber,
+          idexecution: this.executionInfo.idexecution,
+          idpassenger: this.reservationInfo.idpassenger,
+          iduser: iduser,
+        };
+        this.TicketApi.create('Ticket', ticket).subscribe(
+          (data) => {
+            console.log('Nuevo ticket creado:', data);
+          },
+          (error: any) => {
+            console.error('Error al crear el nuevo ticket:', error);
+          }
+        );
+
+        const docDefinition = {
+          content: [
+            {
+              text: 'Ticket de abordaje',
+              style: 'titulo',
+              bold: true,
+              fontSize: 30,
+              color: '#1746a2',
+            },
+            {
+              text: 'TECAir',
+              style: 'subtitulo',
+              bold: true,
+              fontSize: 20,
+              margins: 50,
+            },
+            `Número de reservacion: ${this.reservationID}`,
+            `Número de vuelo: ${this.executionInfo.numberFlight}`,
+            `Origen: ${this.flightInfo.origin}`,
+            `Destino: ${this.flightInfo.destination}`,
+            `Asiento seleccionado: ${this.selectedSeats}`,
+            `Hora de salida: ${this.executionInfo.departureTime}`,
+            `Puerta de abordaje: ${this.executionInfo.boardingDoor}`,
+            `Precio: ${this.executionInfo.price}`,
+          ],
+        };
+
+        pdfMake.createPdf(docDefinition).open();
+
+        // Aquí puedes continuar con la lógica para crear el ticket incluso si iduser es null.
       },
       (error: any) => {
-        console.error('Error al crear el nuevo ticket:', error);
+        console.error('Error al iniciar sesión:', error);
+        const ticket: Ticket = {
+          idticket: 0,
+          taxes: 0,
+          totalAmount: 0,
+          seatNumber: this.seatNumber,
+          idexecution: this.executionInfo.idexecution,
+          idpassenger: this.reservationInfo.idpassenger,
+          iduser: undefined,
+        };
+        this.TicketApi.create('Ticket', ticket).subscribe(
+          (data) => {
+            console.log('Nuevo ticket creado:', data);
+          },
+          (error: any) => {
+            console.error('Error al crear el nuevo ticket:', error);
+          }
+        );
+
+        const docDefinition = {
+          content: [
+            {
+              text: 'Ticket de abordaje',
+              style: 'titulo',
+              bold: true,
+              fontSize: 30,
+              color: '#1746a2',
+            },
+            {
+              text: 'TECAir',
+              style: 'subtitulo',
+              bold: true,
+              fontSize: 20,
+              margins: 50,
+            },
+            `Número de reservacion: ${this.reservationID}`,
+            `Número de vuelo: ${this.executionInfo.numberFlight}`,
+            `Origen: ${this.flightInfo.origin}`,
+            `Destino: ${this.flightInfo.destination}`,
+            `Asiento seleccionado: ${this.selectedSeats}`,
+            `Hora de salida: ${this.executionInfo.departureTime}`,
+            `Puerta de abordaje: ${this.executionInfo.boardingDoor}`,
+            `Precio: ${this.executionInfo.price}`,
+          ],
+        };
+
+        pdfMake.createPdf(docDefinition).open();
       }
     );
-
-    const docDefinition = {
-      content: [
-        { text: 'Ticket de abordaje', style: 'titulo', bold: true, fontSize: 30, color: '#1746a2' },
-        { text: 'TECAir', style: 'subtitulo', bold: true, fontSize: 20, margins: 50 },
-        `Número de reservacion: ${this.reservationID}`,
-        `Número de vuelo: ${this.executionInfo.numberFlight}`,
-        `Origen: ${this.flightInfo.origin}`,
-        `Destino: ${this.flightInfo.destination}`,
-        `Asiento seleccionado: ${this.selectedSeats}`,
-        `Hora de salida: ${this.executionInfo.departureTime}`,
-        `Puerta de abordaje: ${this.executionInfo.boardingDoor}`,
-        `Precio: ${this.executionInfo.price}`,
-      ],
-    };
-
-    pdfMake.createPdf(docDefinition).open();
   }
 }

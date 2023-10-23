@@ -9,12 +9,17 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   selector: 'air-home',
   templateUrl: './air-home.component.html',
   standalone: true,
-  imports: [NgSelectModule, FormsModule, RouterOutlet, RouterLink, CarouselModule],
-  styleUrls: ['./air-home.css']
+  imports: [
+    NgSelectModule,
+    FormsModule,
+    RouterOutlet,
+    RouterLink,
+    CarouselModule,
+  ],
+  styleUrls: ['./air-home.css'],
 })
 export class AirHomeComponent {
-
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   search() {
     this.router.navigate(['/']);
@@ -35,5 +40,7 @@ export class AirHomeComponent {
   closeFlights() {
     this.router.navigate(['/app-close-flights']);
   }
-
+  promotion() {
+    this.router.navigate(['/app-air-promotions']);
+  }
 }

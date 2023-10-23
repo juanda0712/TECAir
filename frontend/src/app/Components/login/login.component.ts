@@ -31,6 +31,7 @@ export class LoginComponent {
     this.api.create('Login/UserLogin', credentials).subscribe(
       (data: any) => {
         sessionStorage.setItem('iduser', data.iduser);
+        sessionStorage.setItem('auth', 'true');
         this.home();
       },
       (error: any) => {
