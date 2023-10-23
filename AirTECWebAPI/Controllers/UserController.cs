@@ -59,7 +59,36 @@ namespace AirTECWebAPI.Controllers
         return user;
     }
 
-    [HttpPost]
+        /// <summary>
+        /// Obtiene todas las maletas de un pasajero específico.
+        /// </summary>
+        /// <param name="idPassenger">ID del pasajero.</param>
+        /// <returns>Una lista de maletas del pasajero.</returns>
+        [HttpGet("Passenger/{idPassenger}")]
+        public async Task<ActionResult<UserDTO>> GetUserByIdPassenger(int idPassenger)
+        {
+            var user = await _bdAirTecContext.Users
+                .Where(u => u.Idpassenger == idPassenger)
+                .Select(u => new UserDTO
+                {
+                    Iduser = u.Iduser,
+                    Fullname = u.Fullname,
+                    Phonenumber = u.Phonenumber,
+                    Password = u.Password,
+                    Email = u.Email,
+                    Idpassenger = u.Idpassenger
+                })
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
+        [HttpPost]
     public async Task<ActionResult<UserDTO>> CreateUser(UserDTO userDTO)
     {
         if (userDTO == null)
